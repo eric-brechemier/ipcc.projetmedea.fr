@@ -18,7 +18,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return fieldPositions[name];
   }
 
-  function collectFilters(){
+  function applyFilters(){
     var
       FILTER_PREFIX = 'filter-',
       filters = [];
@@ -53,7 +53,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
   }
 
   form.onsubmit = function(){
-    collectFilters();
+    applyFilters();
     return false; // prevent submission to server (reloads the page)
   };
 
