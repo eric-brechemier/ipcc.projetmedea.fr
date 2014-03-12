@@ -61,7 +61,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
   subscribe("data", function(data){
     fieldNames = data[0];
     initFieldPositions();
-    publish("filtered-data", data);
+    applyFilters();
   });
 
   subscribe("filters", function(filters){
