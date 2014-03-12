@@ -19,11 +19,13 @@ within("projetmedea.fr", function(publish, subscribe, get){
   }
 
   function collectFilters(){
-    var filters = [];
+    var
+      FILTER_PREFIX = 'filter-',
+      filters = [];
     forEach(fieldNames, function(fieldName){
-      var input = form[fieldName];
+      var input = form[FILTER_PREFIX+fieldName];
       if ( !no(input) && !no(input.nodeType) && input.value !== '' ){
-        filters.push(input);
+        filters.push({name: fieldName, value: input.value});
       }
     });
     publish("filters", filters);
