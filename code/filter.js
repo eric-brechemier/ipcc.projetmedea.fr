@@ -30,6 +30,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
   }
 
   function filter(data, filters){
+    if ( filters.length === 0 ){
+      return data; // no filter applied
+    }
+
     var selected = [];
     forEach(data, function(record, position){
       if ( position === 0 ) {
