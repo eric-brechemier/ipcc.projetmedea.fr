@@ -1,0 +1,2 @@
+# ignore OpenOffice/LibreOffice lock file
+.~lock*
