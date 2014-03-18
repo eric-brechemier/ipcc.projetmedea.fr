@@ -1,9 +1,9 @@
 # IPCC Tool
 
-Funded by the ANR, the MEDEA Project proposes a research programme
-based on the innovative methodology of controversy-mapping in order
-to understand and ultimately improve the way we publicly discuss
-climate change adaptation.
+Funded by the ANR, the Mapping Environmental DEbates on Adaptation (MEDEA)
+Project proposes a research programme based on the innovative methodology
+of controversy-mapping in order to understand and ultimately improve the way
+we publicly discuss climate change adaptation.
 
 MEDEA is based on an original disciplinary articulation resulting from
 the collaboration of three partners:
