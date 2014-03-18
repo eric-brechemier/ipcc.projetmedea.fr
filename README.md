@@ -1,5 +1,19 @@
 # IPCC Tool
 
+Funded by the ANR, the MEDEA Project proposes a research programme
+based on the innovative methodology of controversy-mapping in order
+to understand and ultimately improve the way we publicly discuss
+climate change adaptation.
+
+MEDEA is based on an original disciplinary articulation resulting from
+the collaboration of three partners:
+
+* Sciences Po (médialab and IDDRI),
+* the Laboratoire des Sciences du Climat et l'Environnement
+* and the ENSADlab of the Ecole Nationale Supérieure des Arts Décoratifs.
+
+http://projetmedea.hypotheses.org/a-propos-medea/presentation-en
+
 ## Description of Database
 Our database is populated with the names of each contributor to the 5
 Assessment Reports (ARs) of the IPCC (the 5th AR is in the process of
