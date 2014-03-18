@@ -2,10 +2,24 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
   var
     forEach = this.forEach,
+    map = this.map,
     no = this.no,
+    or = this.or,
     form = document.getElementById('data-filters'),
     fieldNames = [],
-    fieldPositions = {};
+    fieldPositions = {},
+    OPERATORS = {};
+
+  OPERATORS.EQ = function(value1, value2){
+    return value1 === value2;
+  };
+
+  OPERATORS.IN = function(array1, value2){
+    var isFound = forEach(array1, function(value1){
+      return value1 === value2;
+    });
+    return isFound;
+  };
 
   function initFieldPositions(){
     forEach(fieldNames, function(fieldName, fieldPosition){
@@ -25,10 +39,20 @@ within("projetmedea.fr", function(publish, subscribe, get){
     forEach(fieldNames, function(fieldName){
       var input = form[FILTER_PREFIX+fieldName];
       if ( !no(input) && !no(input.nodeType) && input.value !== '' ){
-        filters.push({name: fieldName, value: input.value});
+        filters.push({
+          name: fieldName,
+          value: input.value,
+          operator: or( input.getAttribute('data-operator'), 'EQ')
+        });
       }
     });
     publish("filters", filters);
+  }
+
+  function getOperators(filters){
+    return map(filters, function(filter){
+      return OPERATORS[ filter.operator ];
+    });
   }
 
   function filter(data, filters){
@@ -36,14 +60,20 @@ within("projetmedea.fr", function(publish, subscribe, get){
       return data; // no filter applied
     }
 
-    var selected = [];
+    var
+      selected = [],
+      operators = getOperators(filters);
+
     forEach(data, function(record, position){
       if ( position === 0 ) {
         selected.push(record); // always keep header
         return;
       }
-      var isRejected = forEach(filters, function(filter){
-        return record[getFieldPosition(filter.name)] !== filter.value;
+      var isRejected = forEach(filters, function(filter, f){
+        return !operators[f](
+          record[getFieldPosition(filter.name)],
+          filter.value
+        );
       });
       if ( !isRejected ) {
         selected.push(record);
