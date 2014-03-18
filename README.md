@@ -1,4 +1,4 @@
-# GIEC Tool
+# IPCC Tool
 
 ## Description of Database
 Our database is populated with the names of each contributor to the 5
