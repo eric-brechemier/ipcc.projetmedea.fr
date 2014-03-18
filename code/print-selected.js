@@ -10,9 +10,23 @@ within("projetmedea.fr", function(publish, subscribe){
       lastRecord = records.length - 1;
 
     forEach(records, function(record, recordPosition){
-      var lastField = record.length - 1;
+      var
+        lastField = record.length - 1,
+        lastItem;
       forEach(record, function(field, fieldPosition){
-        csv += '"' + field.replace('"','""') + '"';
+        if ( typeof field === 'string' ) {
+          csv += '"' + field.replace('"','""') + '"';
+        } else { // array
+          lastItem = field.length - 1;
+          csv += '[';
+          forEach(field, function(item, itemPosition){
+            csv += item;
+            if ( itemPosition < lastItem ) {
+              csv += '|';
+            }
+          });
+          csv += ']';
+        }
         if (fieldPosition < lastField) {
           csv += ',';
         }
