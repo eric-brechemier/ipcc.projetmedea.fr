@@ -2,7 +2,7 @@ within("projetmedea.fr", function(publish, subscribe){
 
   var
     forEach = this.forEach,
-    output = document.getElementById("data-output");
+    output = document.getElementById("selected-authors-csv-output");
 
   function printData(records) {
     var
