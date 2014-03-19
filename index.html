@@ -43,6 +43,59 @@
     </form>
     <script src="code/filter.js"></script>
 
+    <h2>Group Authors in Categories</h2>
+    <form id="data-grouping">
+      <fieldset>
+        <legend>I wish to group authors</legend>
+        <ul style="list-style-type: none">
+          <li>
+            <label>
+              <input type="radio" name="group-by" value="working_groups"
+                checked="checked"
+              />
+              by Working Group (WG)
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="group-by" value="assessment_reports,ar_working_groups" />
+              by Working Group (WG) in each Assessment Report (AR)
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="group-by" value="assessment_reports,ar_working_groups,ar_wg_chapters" />
+              by Chapter in each Working Group (WG) in each Assessment Report (AR)
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="group-by" value="countries,working_groups" />
+              by Country and by Working Group (WG)
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="group-by" value="working_groups,wg_roles" />
+              by Role in each Working Group (WG)
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="group-by" value="working_groups,wg_roles" />
+              by Discipline in each Working Group (WG)
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="group-by" value="working_groups,wg_roles" />
+              by Type of Institution in each Working Group (WG)
+            </label>
+          </li>
+        </ul>
+      </fieldset>
+    </form>
+
     <h2>Authors</h2>
     <div>Total: <span id="total-records-count"></span></div>
     <script src="code/count-records.js"></script>
