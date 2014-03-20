@@ -95,8 +95,20 @@ within("projetmedea.fr", function() {
     return no( a )? b: a;
   }
 
+  // Compute the percentage that the part represents in the whole
+  function percentage(part, whole){
+    var percents = part / whole * 100;
+    if ( percents < 1 ){
+      // round to .01%
+      return Math.round(percents * 100) / 100;
+    } else {
+      return Math.round(percents);
+    }
+  }
+
   this.forEach = forEach;
   this.map = map;
   this.no = no;
   this.or = or;
+  this.percentage = percentage;
 });
