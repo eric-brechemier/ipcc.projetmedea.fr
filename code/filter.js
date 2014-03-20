@@ -22,9 +22,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return actualValue >= expectedValue;
   };
 
-  OPERATORS.IN = function(actualValues, expectedValue){
+  OPERATORS.CONTAINS = function(actualValues, expectedValue){
     var isFound = forEach(actualValues, function(actualValue){
-      return expectedValue === actualValue;
+      return actualValue === expectedValue;
     });
     return isFound;
   };
