@@ -23,6 +23,9 @@ within("projetmedea.fr", function(){
           case 'string':
             csv += '"' + field.replace('"','""') + '"';
             break;
+          case 'number':
+            csv += field;
+            break;
           default: // array
             lastItem = field.length - 1;
             csv += '[';
