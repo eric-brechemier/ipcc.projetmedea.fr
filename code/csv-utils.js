@@ -19,18 +19,20 @@ within("projetmedea.fr", function(){
         lastField = record.length - 1,
         lastItem;
       forEach(record, function(field, fieldPosition){
-        if ( typeof field === 'string' ) {
-          csv += '"' + field.replace('"','""') + '"';
-        } else { // array
-          lastItem = field.length - 1;
-          csv += '[';
-          forEach(field, function(item, itemPosition){
-            csv += item;
-            if ( itemPosition < lastItem ) {
-              csv += '|';
-            }
-          });
-          csv += ']';
+        switch(typeof field){
+          case 'string':
+            csv += '"' + field.replace('"','""') + '"';
+            break;
+          default: // array
+            lastItem = field.length - 1;
+            csv += '[';
+            forEach(field, function(item, itemPosition){
+              csv += item;
+              if ( itemPosition < lastItem ) {
+                csv += '|';
+              }
+            });
+            csv += ']';
         }
         if (fieldPosition < lastField) {
           csv += ',';
