@@ -15,17 +15,7 @@
         <legend>I wish to select authors...</legend>
         <p>
           <label>
-            with the role of
-            <input type="text"
-              value="" size="10"
-              data-operator="IN"
-              name="filter-roles"
-              placeholder="any role"
-            />
-          </label>
-          <br/>
-          <label>
-            who contributed to
+            with
             <input type="number"
               value=""
               data-operator="IN"
@@ -33,10 +23,21 @@
               min="1" step="1" size="1"
               placeholder="1"
             />
-            or more chapters
+            or more contributions
           </label>
+          <br/>
           <label>
-            including
+            including at least one as
+            <input type="text"
+              value="" size="10"
+              data-operator="IN"
+              name="filter-roles"
+              placeholder="any role"
+            />
+          </label>
+          <br/>and
+          <label>
+            who contributed to
             <input type="text"
               value="" size="10"
               data-operator="IN"
