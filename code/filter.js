@@ -10,13 +10,13 @@ within("projetmedea.fr", function(publish, subscribe, get){
     fieldPositions = {},
     OPERATORS = {};
 
-  OPERATORS.EQUALS = function(value1, value2){
-    return value1 === value2;
+  OPERATORS.EQUALS = function(expectedValue, actualValue){
+    return expectedValue === actualValue;
   };
 
-  OPERATORS.IN = function(array1, value2){
-    var isFound = forEach(array1, function(value1){
-      return value1 === value2;
+  OPERATORS.IN = function(expectedValue, actualValues){
+    var isFound = forEach(actualValues, function(actualValue){
+      return expectedValue === actualValue;
     });
     return isFound;
   };
@@ -71,8 +71,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
       }
       var isRejected = forEach(filters, function(filter, f){
         return !operators[f](
-          record[getFieldPosition(filter.name)],
-          filter.value
+          filter.value,
+          record[getFieldPosition(filter.name)]
         );
       });
       if ( !isRejected ) {
