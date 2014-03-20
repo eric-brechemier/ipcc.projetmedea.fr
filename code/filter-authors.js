@@ -95,10 +95,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return false; // prevent submission to server (reloads the page)
   };
 
-  // publish initial data (no filter applied)
   subscribe("authors", function(data){
     fieldNames = data[0];
     initFieldPositions();
+    // apply initial filters
     applyFilters();
   });
 
