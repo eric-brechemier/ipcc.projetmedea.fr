@@ -15,11 +15,11 @@ within("projetmedea.fr", function(publish, subscribe, get){
   };
 
   OPERATORS['LOWER-THAN-OR-EQUAL-TO'] = function(actualValue, expectedValue){
-    return actualValue <= expectedValue;
+    return Number(actualValue) <= Number(expectedValue);
   };
 
   OPERATORS['GREATER-THAN-OR-EQUAL-TO'] = function(actualValue, expectedValue){
-    return actualValue >= expectedValue;
+    return Number(actualValue) >= Number(expectedValue);
   };
 
   OPERATORS.CONTAINS = function(actualValues, expectedValue){
