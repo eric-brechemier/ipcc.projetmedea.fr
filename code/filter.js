@@ -96,14 +96,14 @@ within("projetmedea.fr", function(publish, subscribe, get){
   };
 
   // publish initial data (no filter applied)
-  subscribe("data", function(data){
+  subscribe("authors", function(data){
     fieldNames = data[0];
     initFieldPositions();
     applyFilters();
   });
 
   subscribe("filters", function(filters){
-    var data = get('data');
+    var data = get('authors');
     publish("filtered-data", filter(data,filters) );
   });
 });

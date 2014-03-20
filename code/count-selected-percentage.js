@@ -22,7 +22,7 @@ within("projetmedea.fr", function(publish, subscribe){
     display.innerHTML = percentage(selected, total);
   }
 
-  subscribe("data", function(data){
+  subscribe("authors", function(data){
     total = count(data);
     update();
   });
