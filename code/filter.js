@@ -10,19 +10,19 @@ within("projetmedea.fr", function(publish, subscribe, get){
     fieldPositions = {},
     OPERATORS = {};
 
-  OPERATORS.EQUALS = function(expectedValue, actualValue){
+  OPERATORS.EQUALS = function(actualValue, expectedValue){
     return expectedValue === actualValue;
   };
 
-  OPERATORS['LOWER-THAN-OR-EQUAL-TO'] = function(expectedValue, actualValue){
-    return expectedValue <= actualValue;
+  OPERATORS['LOWER-THAN-OR-EQUAL-TO'] = function(actualValue, expectedValue){
+    return actualValue <= expectedValue;
   };
 
-  OPERATORS['GREATER-THAN-OR-EQUAL-TO'] = function(expectedValue, actualValue){
-    return expectedValue >= actualValue;
+  OPERATORS['GREATER-THAN-OR-EQUAL-TO'] = function(actualValue, expectedValue){
+    return actualValue >= expectedValue;
   };
 
-  OPERATORS.IN = function(expectedValue, actualValues){
+  OPERATORS.IN = function(actualValues, expectedValue){
     var isFound = forEach(actualValues, function(actualValue){
       return expectedValue === actualValue;
     });
@@ -79,8 +79,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
       }
       var isRejected = forEach(filters, function(filter, f){
         return !operators[f](
-          filter.value,
-          record[getFieldPosition(filter.name)]
+          record[getFieldPosition(filter.name)],
+          filter.value
         );
       });
       if ( !isRejected ) {
