@@ -1,9 +1,9 @@
 within("projetmedea.fr", function(){
 
   // Count actual records (without header) in given list
-  function count(data){
-    return data.length - 1; // do not count header record
+  function countData(records){
+    return records.length - 1; // do not count header record
   }
 
-  this.count = count;
+  this.countData = countData;
 });

@@ -1,6 +1,6 @@
 within("projetmedea.fr", function(publish, subscribe){
   var
-    count = this.count;
+    count = this.countData;
 
   subscribe("authors", function(authors){
     document

@@ -3,7 +3,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
   var
     no = this.no,
     percentage = this.percentage,
-    count = this.count;
+    count = this.countData;
 
   function displayPercentage(){
     var
