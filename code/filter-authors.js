@@ -1,4 +1,4 @@
-within("projetmedea.fr", function(publish, subscribe, get){
+within("projetmedea.fr", function(publish, subscribe, get, set){
 
   var
     forEach = this.forEach,
@@ -6,7 +6,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
     no = this.no,
     or = this.or,
     form = document.getElementById('data-filters'),
-    fieldNames = [],
     fieldPositions = {},
     OPERATORS = {};
 
@@ -30,6 +29,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
   };
 
   function initFieldPositions(){
+    var fieldNames = get('field-names');
     forEach(fieldNames, function(fieldName, fieldPosition){
       fieldPositions[fieldName] = fieldPosition;
     });
@@ -43,7 +43,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
   function applyFilters(){
     var
       FILTER_PREFIX = 'filter-',
-      filters = [];
+      filters = [],
+      fieldNames = get('field-names');
     forEach(fieldNames, function(fieldName){
       var input = form[FILTER_PREFIX+fieldName];
       if ( !no(input) && !no(input.nodeType) && input.value !== '' ){
@@ -96,7 +97,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
   };
 
   subscribe("authors", function(data){
-    fieldNames = data[0];
+    publish('field-names', data[0]);
     initFieldPositions();
     // apply initial filters
     applyFilters();
