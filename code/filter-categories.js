@@ -22,13 +22,13 @@ within("projetmedea.fr", function(publish, subscribe, get){
   }
 
   function createFilteredCategory(category, selectedAuthors){
-    var totalAuthors = category[CATEGORY_TOTAL_AUTHORS];
+    var totalAuthors = Number(category[CATEGORY_TOTAL_AUTHORS]);
     return [
       category[CATEGORY_NAME],
       selectedAuthors,
       selectedAuthors.length,
       totalAuthors,
-      percentage(selectedAuthors, totalAuthors)
+      percentage(selectedAuthors.length, totalAuthors)
     ];
   }
 
