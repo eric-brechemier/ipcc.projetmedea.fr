@@ -12,7 +12,13 @@ within("projetmedea.fr", function(publish, subscribe){
 
   // Compute the percentage that the part represents in the whole
   function percentage(part, whole){
-    return Math.round(part / whole * 100);
+    var percents = part / whole * 100;
+    if ( percents < 1 ){
+      // round to .01%
+      return Math.round(percents * 100) / 100;
+    } else {
+      return Math.round(percents);
+    }
   }
 
   function update(){
