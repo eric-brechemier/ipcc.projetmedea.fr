@@ -1,4 +1,4 @@
-within("projetmedea.fr", function(publish, subscribe){
+within("projetmedea.fr", function(publish, subscribe, get){
 
   var
     forEach = this.forEach,
@@ -24,4 +24,9 @@ within("projetmedea.fr", function(publish, subscribe){
     input.onchange = updateGroupingCategory;
   });
   updateGroupingCategory();
+
+  subscribe("group-by", function(groupName){
+    publish("categories", get(groupName));
+  });
+
 });
