@@ -28,8 +28,7 @@ within("projetmedea.fr", function(publish, subscribe, get, set){
     return isFound;
   };
 
-  function initFieldPositions(){
-    var fieldNames = get('field-names');
+  function initFieldPositions(fieldNames){
     forEach(fieldNames, function(fieldName, fieldPosition){
       fieldPositions[fieldName] = fieldPosition;
     });
@@ -98,9 +97,12 @@ within("projetmedea.fr", function(publish, subscribe, get, set){
 
   subscribe("authors", function(data){
     publish('field-names', data[0]);
-    initFieldPositions();
     // apply initial filters
     applyFilters();
+  });
+
+  subscribe("field-names", function(fieldNames){
+    initFieldPositions(fieldNames);
   });
 
   subscribe("filters", function(filters){
