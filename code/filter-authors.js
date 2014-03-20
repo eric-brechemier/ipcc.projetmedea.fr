@@ -43,7 +43,7 @@ within("projetmedea.fr", function(publish, subscribe, get, set){
     var
       FILTER_PREFIX = 'filter-',
       filters = [],
-      fieldNames = get('field-names');
+      fieldNames = get('author-field-names');
     forEach(fieldNames, function(fieldName){
       var input = form[FILTER_PREFIX+fieldName];
       if ( !no(input) && !no(input.nodeType) && input.value !== '' ){
@@ -96,12 +96,12 @@ within("projetmedea.fr", function(publish, subscribe, get, set){
   };
 
   subscribe("authors", function(data){
-    publish('field-names', data[0]);
+    publish('author-field-names', data[0]);
     // apply initial filters
     applyFilters();
   });
 
-  subscribe("field-names", function(fieldNames){
+  subscribe("author-field-names", function(fieldNames){
     initFieldPositions(fieldNames);
   });
 
