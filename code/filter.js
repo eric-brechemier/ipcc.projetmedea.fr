@@ -10,7 +10,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     fieldPositions = {},
     OPERATORS = {};
 
-  OPERATORS.EQ = function(value1, value2){
+  OPERATORS.EQUALS = function(value1, value2){
     return value1 === value2;
   };
 
@@ -42,7 +42,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
         filters.push({
           name: fieldName,
           value: input.value,
-          operator: or( input.getAttribute('data-operator'), 'EQ')
+          operator: or( input.getAttribute('data-operator'), 'EQUALS')
         });
       }
     });
