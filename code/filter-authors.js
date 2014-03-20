@@ -64,10 +64,6 @@ within("projetmedea.fr", function(publish, subscribe, get, set){
   }
 
   function filter(data, filters){
-    if ( filters.length === 0 ){
-      return; // no filter applied
-    }
-
     var
       selected = [],
       selectedFlags = Array(data.length),
