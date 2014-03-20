@@ -107,6 +107,7 @@ within("projetmedea.fr", function(publish, subscribe, get, set){
 
   subscribe("filters", function(filters){
     var data = get('authors');
-    publish("filtered-data", filter(data,filters) );
+    publish("selected-authors", filter(data,filters) );
   });
+
 });

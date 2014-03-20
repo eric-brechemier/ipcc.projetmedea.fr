@@ -42,6 +42,6 @@ within("projetmedea.fr", function(publish, subscribe){
     table.appendChild(rows);
   }
 
-  subscribe("filtered-data", fillTable);
+  subscribe("selected-authors", fillTable);
 
 });

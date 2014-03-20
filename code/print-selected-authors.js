@@ -39,5 +39,5 @@ within("projetmedea.fr", function(publish, subscribe){
     output.innerHTML = csv;
   }
 
-  subscribe("filtered-data", printData);
+  subscribe("selected-authors", printData);
 });
