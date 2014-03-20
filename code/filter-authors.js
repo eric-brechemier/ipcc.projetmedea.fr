@@ -74,9 +74,10 @@ within("projetmedea.fr", function(publish, subscribe, get, set){
       operators = getOperators(filters);
 
     forEach(data, function(record, position){
+      var authorId = record[getFieldPosition('id')];
       if ( position === 0 ) {
         selected.push(record); // always keep header
-        selectedFlags[position] = false;
+        selectedFlags[0] = false;
         return;
       }
       var
@@ -91,7 +92,7 @@ within("projetmedea.fr", function(publish, subscribe, get, set){
       if ( isSelected ) {
         selected.push(record);
       }
-      selectedFlags[position] = isSelected;
+      selectedFlags[authorId] = isSelected;
     });
     publish("selected-authors", selected);
     publish("selected-author-flags", selectedFlags);
