@@ -65,29 +65,36 @@ within("projetmedea.fr", function(publish, subscribe, get, set){
 
   function filter(data, filters){
     if ( filters.length === 0 ){
-      return data; // no filter applied
+      return; // no filter applied
     }
 
     var
       selected = [],
+      selectedFlags = Array(data.length),
       operators = getOperators(filters);
 
     forEach(data, function(record, position){
       if ( position === 0 ) {
         selected.push(record); // always keep header
+        selectedFlags[position] = false;
         return;
       }
-      var isRejected = forEach(filters, function(filter, f){
+      var
+        isSelected,
+        isRejected = forEach(filters, function(filter, f){
         return !operators[f](
           record[getFieldPosition(filter.name)],
           filter.value
         );
       });
-      if ( !isRejected ) {
+      isSelected = !isRejected;
+      if ( isSelected ) {
         selected.push(record);
       }
+      selectedFlags[position] = isSelected;
     });
-    return selected;
+    publish("selected-authors", selected);
+    publish("selected-author-flags", selectedFlags);
   }
 
   form.onsubmit = function(){
@@ -107,7 +114,7 @@ within("projetmedea.fr", function(publish, subscribe, get, set){
 
   subscribe("filters", function(filters){
     var data = get('authors');
-    publish("selected-authors", filter(data,filters) );
+    filter(data,filters);
   });
 
 });
