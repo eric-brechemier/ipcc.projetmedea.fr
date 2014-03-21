@@ -165,11 +165,6 @@ within("projetmedea.fr", function(publish, subscribe){
       addTileAndSymmetricTiles(evenTileSequence, evenWidth, xEven, yEven);
     });
 
-    publish("circle-maximum-y", y-1);
-    publish("circle-maximum-width", maximumWidth);
-    publish("circle-maximum-value", maximumDistance);
-    publish("circle-sector-tiles", circleSectorTiles);
-
     // Publish the sequences of tiles for even and odd circles.
     // The number of tiles in each sequence is the maximum number
     // of tiles that can be drawn with these precomputed sequences.
