@@ -106,9 +106,18 @@ within("projetmedea.fr", function() {
     }
   }
 
+  // Return the maximum value of a and b
+  function max(a, b){
+    if (a > b){
+      return a;
+    }
+    return b;
+  }
+
   this.forEach = forEach;
   this.map = map;
   this.no = no;
   this.or = or;
   this.percentage = percentage;
+  this.max = max;
 });
