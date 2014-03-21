@@ -68,8 +68,8 @@ within("projetmedea.fr", function(publish, subscribe){
       // which lie at the boundary between tiles.
       evenTileSequence = [],
 
-      y,
-      x;
+      x,
+      y;
 
     // Compute distances in the circle sector between the vertical
     // axis y=0 and the diagonal axis x=y, until the maximum distance
