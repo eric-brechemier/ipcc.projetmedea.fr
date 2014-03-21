@@ -5,7 +5,7 @@ within("projetmedea.fr", function(publish, subscribe){
     forEach = this.forEach,
     max = this.max,
 
-    distance,
+    getDistance,
 
     // map of i -> i*i
     squares = [];
@@ -35,12 +35,12 @@ within("projetmedea.fr", function(publish, subscribe){
   // Compute the distance from the tile
   // at position (x,y) to the center (0,0)
   // multiplied by 4
-  function distance4(x, y){
+  function getDistance4(x, y){
     return 4 * power2(x) + 4 * power2(y);
   }
 
   // alias
-  distance = distance4;
+  getDistance = getDistance4;
 
   // Get the width of an odd circle with given maximum y value
   function getOddWidth(yMax){
@@ -97,7 +97,7 @@ within("projetmedea.fr", function(publish, subscribe){
 
       // Compute the maximum distance value for the tile
       // at the maximum width on the diagonal on the axis x=y
-      maximumDistance = distance(maximumWidth, maximumWidth),
+      maximumDistance = getDistance(maximumWidth, maximumWidth),
 
       // base sequence of tiles with position and distances computed in a
       // 1/8th circle sector between vertical axis x=0 and diagonal axis x=y
@@ -132,10 +132,10 @@ within("projetmedea.fr", function(publish, subscribe){
     y = 0;
     do {
       for (x=0; x<=y; x++){
-        circleSectorTiles.push( [distance(x,y), x, y] );
+        circleSectorTiles.push( [getDistance(x,y), x, y] );
       }
       y++;
-    } while (distance(0,y) < maximumDistance);
+    } while (getDistance(0,y) < maximumDistance);
 
     // Sort tiles [x,y,distance] by distance, then y, then x
     circleSectorTiles.sort(function(tile1,tile2){
