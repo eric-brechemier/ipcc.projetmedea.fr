@@ -117,6 +117,7 @@ within("projetmedea.fr", function(publish, subscribe){
 
       x,
       y,
+      distance,
 
       // maximum width, 1+2*yMax, of the circular shape drawn
       // at each step in the odd sequence
@@ -132,7 +133,10 @@ within("projetmedea.fr", function(publish, subscribe){
     y = 0;
     do {
       for (x=0; x<=y; x++){
-        circleSectorTiles.push( [getDistance(x,y), x, y] );
+        distance = getDistance(x,y);
+        if ( distance <= maximumDistance ) {
+          circleSectorTiles.push( [distance, x, y] );
+        }
       }
       y++;
     } while (getDistance(0,y) < maximumDistance);
