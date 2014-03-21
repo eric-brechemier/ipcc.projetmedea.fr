@@ -150,8 +150,11 @@ within("projetmedea.fr", function(publish, subscribe){
     publish("circle-maximum-value", maximumDistance);
     publish("circle-sector-tiles", circleSectorTiles);
 
-    publish("odd-circle-sequence", oddTileSequence);
+    // Publish the sequences of tiles for even and odd circles.
+    // The number of tiles in each sequence is the maximum number
+    // of tiles that can be drawn with these precomputed sequences.
     publish("even-circle-sequence", evenTileSequence);
+    publish("odd-circle-sequence", oddTileSequence);
   }
 
   subscribe("authors", function(authors){
