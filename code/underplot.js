@@ -54,29 +54,34 @@ within("projetmedea.fr", function(publish, subscribe){
 
       // Compute distances in the circle sector between the vertical
       // axis y=0 and the diagonal axis x=y, until the maximum distance
-      // is reached on the vertical axis.
-      sectorDistances = [],
-      verticalDistance = 0,
+      // is reached on the vertical axis; store computed distances in a
+      // list of tiles of the form [distance, x, y].
+      circleSectorTiles = [],
       y = 0,
-      rowDistances,
       x;
 
     do {
-      // create an array to store values computed from x=0 to x=y (diagonal)
-      rowDistances = Array(y+1);
       for (x=0; x<=y; x++){
-        rowDistances[x] = distance(x,y);
+        circleSectorTiles.push( [distance(x,y), x, y] );
       }
-
-      sectorDistances.push(rowDistances);
-      verticalDistance = rowDistances[0];
       y++;
-    } while (verticalDistance < maximumDistance);
+    } while (distance(0,y) < maximumDistance);
+
+    // sort tiles [x,y,distance] by distance, then y, then x
+    circleSectorTiles.sort(function(tile1,tile2){
+      // sort by distance
+      var difference = tile1[0] - tile2[0];
+      if ( difference === 0 ){
+        // sort by x
+        difference = tile1[1] - tile2[1];
+      }
+      return difference;
+    });
 
     publish("circle-maximum-y", y-1);
     publish("circle-maximum-width", maximumWidth);
     publish("circle-maximum-value", maximumDistance);
-    publish("circle-sector", sectorDistances);
+    publish("circle-sector-tiles", circleSectorTiles);
   }
 
   subscribe("authors", function(authors){
