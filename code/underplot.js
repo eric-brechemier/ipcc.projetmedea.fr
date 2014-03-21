@@ -5,8 +5,6 @@ within("projetmedea.fr", function(publish, subscribe){
     forEach = this.forEach,
     max = this.max,
 
-    getDistance,
-
     // map of i -> i*i
     squares = [];
 
@@ -34,13 +32,9 @@ within("projetmedea.fr", function(publish, subscribe){
 
   // Compute the distance from the tile
   // at position (x,y) to the center (0,0)
-  // multiplied by 4
-  function getDistance4(x, y){
-    return 4 * power2(x) + 4 * power2(y);
+  function getDistance(x, y){
+    return power2(x) + power2(y);
   }
-
-  // alias
-  getDistance = getDistance4;
 
   // Get the width of an odd circle with given maximum y value
   function getOddWidth(yMax){
