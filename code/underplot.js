@@ -152,7 +152,6 @@ within("projetmedea.fr", function(publish, subscribe){
     // of tiles for even and odd circles
     forEach(circleSectorTiles, function(tile){
       var
-        distance = tile[0],
         xOdd = tile[1],
         yOdd = tile[2],
         // the circle sector is shifted by x=1, y=1 in odd circles,
