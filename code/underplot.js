@@ -56,6 +56,18 @@ within("projetmedea.fr", function(publish, subscribe){
       // 1/8th circle sector between vertical axis x=0 and diagonal axis x=y
       circleSectorTiles = [],
 
+      // sequence of tiles used to draw circles with an odd number of rows
+      // or columns; this sequence starts at tile (0,0), and the center of
+      // the coordinates system is in the middle of the tile (0,0).
+      oddTileSequence = [],
+
+      // sequence of tiles used to draw circles with an even number of rows
+      // or columns; this sequence starts at tile (1,1), and the center of
+      // the coordinates system is at the corner of the four tiles (1,1),
+      // (1,-1), (-1,1), (-1,-1). There are no tiles on the axes x=0 and y=0,
+      // which lie at the boundary between tiles.
+      evenTileSequence = [],
+
       y,
       x;
 
