@@ -1,8 +1,9 @@
 within("projetmedea.fr", function(publish, subscribe, get){
 
-  function selectLayout(category){
+  function resetLayout(){
+    var category = get("group-by");
     publish("group-layout", get("layout/"+category)() );
   }
 
-  subscribe("group-by", selectLayout);
+  subscribe("selected-categories", resetLayout);
 });
