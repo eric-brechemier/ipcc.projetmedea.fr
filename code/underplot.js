@@ -3,6 +3,7 @@ within("projetmedea.fr", function(publish, subscribe){
     count = this.countData,
     no = this.no,
     forEach = this.forEach,
+    max = this.max,
 
     distance,
 
@@ -41,22 +42,32 @@ within("projetmedea.fr", function(publish, subscribe){
   // alias
   distance = distance4;
 
-  function addTileAndSymmetricTiles(tileSequence, distance, x, y){
+  // Get the width of an odd circle with given maximum y value
+  function getOddWidth(yMax){
+    return 1 + 2 * yMax; // central cell + 2 * (number of rows above 0)
+  }
+
+  // Get the width of an even circle with given maximum y value
+  function getEvenWidth(yMax){
+    return 2 * yMax; // 2 * (number of rows above 0)
+  }
+
+  function addTileAndSymmetricTiles(tileSequence, width, x, y){
     // 1: tile (x,y)
-    tileSequence.push([distance, x, y]);
+    tileSequence.push([width, x, y]);
 
     if ( y === 0 ){ // center tile (0,0)
       return;
     }
 
     // 2: tile (-x,-y) - symmetry of tile (x,y) across center (0,0)
-    tileSequence.push([distance, -x, -y]);
+    tileSequence.push([width, -x, -y]);
 
     if ( x !== 0 ){ // vertical axis x=0
       // 3: tile (-x,y) - symmetry of tile (x,y) across vertical axis x=0
-      tileSequence.push([distance, -x, y]);
+      tileSequence.push([width, -x, y]);
       // 4: tile (x,-y) - symmetry of tile (x,y) across horizontal axis y=0
-      tileSequence.push([distance, x, -y]);
+      tileSequence.push([width, x, -y]);
     }
 
     if ( x === y ){ // diagonal axis x=y
@@ -64,15 +75,15 @@ within("projetmedea.fr", function(publish, subscribe){
     }
 
     // 5: (-y,x) - symmetry of tile (-x,y) across diagonal axis y=-x
-    tileSequence.push([distance, -y, x]);
+    tileSequence.push([width, -y, x]);
     // 6: (y,-x) - symmetry of tile (-y,x) across center (0,0)
-    tileSequence.push([distance, y, -x]);
+    tileSequence.push([width, y, -x]);
 
     if ( x !== 0 ){ // vertical axis x= 0
       // 7: (-y,-x) - symmetry of tile (-y,x) across horizontal axis y=0
-      tileSequence.push([distance, -y, -x]);
+      tileSequence.push([width, -y, -x]);
       // 8: (y,x) - symmetry of tile (x,y) across diagonal axis x=y
-      tileSequence.push([distance, y, x]);
+      tileSequence.push([width, y, x]);
     }
   }
 
@@ -105,7 +116,14 @@ within("projetmedea.fr", function(publish, subscribe){
       evenTileSequence = [],
 
       x,
-      y;
+      y,
+
+      // maximum width, 1+2*yMax, of the circular shape drawn
+      // at each step in the odd sequence
+      oddWidth = 0,
+      // maximum width, 2*yMax, of the circular shape drawn
+      // at each step in the even sequence
+      evenWidth = 0;
 
     // Compute distances in the circle sector between the vertical
     // axis y=0 and the diagonal axis x=y, until the maximum distance
@@ -141,8 +159,13 @@ within("projetmedea.fr", function(publish, subscribe){
         xEven = xOdd + 1,
         yEven = yOdd + 1;
 
-      addTileAndSymmetricTiles(oddTileSequence, distance, xOdd, yOdd);
-      addTileAndSymmetricTiles(evenTileSequence, distance, xEven, yEven);
+      // Compute the maximum width of the circular shape
+      // drawn at each step in each sequence
+      oddWidth = max(oddWidth, getOddWidth(yOdd) );
+      evenWidth = max(evenWidth, getEvenWidth(yEven) );
+
+      addTileAndSymmetricTiles(oddTileSequence, oddWidth, xOdd, yOdd);
+      addTileAndSymmetricTiles(evenTileSequence, evenWidth, xEven, yEven);
     });
 
     publish("circle-maximum-y", y-1);
