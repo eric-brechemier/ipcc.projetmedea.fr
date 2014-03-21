@@ -8,7 +8,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     // fields position in category records
     // (fixed in all categories)
     CATEGORY_NAME = 0,
-    CATEGORY_AUTHORS = 1;
+    CATEGORY_AUTHORS = 1,
     CATEGORY_TOTAL_AUTHORS = 2;
 
   function createFilteredCategoryHeaders(){
