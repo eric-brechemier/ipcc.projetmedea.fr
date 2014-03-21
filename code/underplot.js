@@ -4,6 +4,7 @@ within("projetmedea.fr", function(publish, subscribe){
     no = this.no,
     forEach = this.forEach,
     max = this.max,
+    getExpectedCircleWidth = this.getExpectedCircleWidth,
 
     // map of i -> i*i
     squares = [];
@@ -19,15 +20,6 @@ within("projetmedea.fr", function(publish, subscribe){
       squares[a] = square;
     }
     return square;
-  }
-
-  // Get the expected width in tiles
-  // of a circle drawn with given number of tiles
-  function getExpectedWidth(tilesCount){
-    // derives from
-    // (Area or Circle) = PI * (diameter)² / 4
-    // with the area of the circle counted in tile units
-    return Math.round( Math.sqrt( 4 * tilesCount / Math.PI ) );
   }
 
   // Compute the distance from the tile
@@ -89,7 +81,7 @@ within("projetmedea.fr", function(publish, subscribe){
 
       // Compute maximum width expected, with an error margin to account
       // for circles one tile larger than the predicted width
-      maximumWidth = getExpectedWidth(tilesCount) + ERROR_MARGIN,
+      maximumWidth = getExpectedCircleWidth(tilesCount) + ERROR_MARGIN,
 
       // Compute the maximum distance value for the tile
       // at the maximum width on the diagonal on the axis x=y
