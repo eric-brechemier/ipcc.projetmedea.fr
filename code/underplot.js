@@ -52,14 +52,18 @@ within("projetmedea.fr", function(publish, subscribe){
       // at the maximum width on the diagonal on the axis x=y
       maximumDistance = distance(maximumWidth, maximumWidth),
 
-      // Compute distances in the circle sector between the vertical
-      // axis y=0 and the diagonal axis x=y, until the maximum distance
-      // is reached on the vertical axis; store computed distances in a
-      // list of tiles of the form [distance, x, y].
+      // base sequence of tiles with position and distances computed in a
+      // 1/8th circle sector between vertical axis x=0 and diagonal axis x=y
       circleSectorTiles = [],
-      y = 0,
+
+      y,
       x;
 
+    // Compute distances in the circle sector between the vertical
+    // axis y=0 and the diagonal axis x=y, until the maximum distance
+    // is reached on the vertical axis; store computed distances in a
+    // list of tiles of the form [distance, x, y].
+    y = 0;
     do {
       for (x=0; x<=y; x++){
         circleSectorTiles.push( [distance(x,y), x, y] );
