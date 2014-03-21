@@ -83,7 +83,9 @@ within("projetmedea.fr", function(publish, subscribe){
 
   function prepareTileSequences(tilesCount){
     var
-      ERROR_MARGIN = 2, // one tile on each side of the diameter
+      ERROR_MARGIN = 1, // one tile to account with possible discrepancy
+                        // between expected and actual width needed to
+                        // draw a circle which contains all the tiles
 
       // Compute maximum width expected, with an error margin to account
       // for circles one tile larger than the predicted width
