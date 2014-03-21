@@ -44,11 +44,11 @@ within("projetmedea.fr", function(publish, subscribe){
     var
       ERROR_MARGIN = 2, // one tile on each side of the diameter
 
-      // compute maximum width expected, with an error margin to account
+      // Compute maximum width expected, with an error margin to account
       // for circles one tile larger than the predicted width
       maximumWidth = getExpectedWidth(tilesCount) + ERROR_MARGIN,
 
-      // compute the maximum distance value for the tile
+      // Compute the maximum distance value for the tile
       // at the maximum width on the diagonal on the axis x=y
       maximumDistance = distance(maximumWidth, maximumWidth),
 
@@ -67,7 +67,7 @@ within("projetmedea.fr", function(publish, subscribe){
       y++;
     } while (distance(0,y) < maximumDistance);
 
-    // sort tiles [x,y,distance] by distance, then y, then x
+    // Sort tiles [x,y,distance] by distance, then y, then x
     circleSectorTiles.sort(function(tile1,tile2){
       // sort by distance
       var difference = tile1[0] - tile2[0];
