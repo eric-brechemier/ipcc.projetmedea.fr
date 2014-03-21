@@ -2,7 +2,7 @@ within("projetmedea.fr", function(publish, subscribe){
   var
     count = this.countData,
     no = this.no,
-    this.forEach = this.forEach,
+    forEach = this.forEach,
 
     distance,
 
@@ -40,6 +40,41 @@ within("projetmedea.fr", function(publish, subscribe){
 
   // alias
   distance = distance4;
+
+  function addTileAndSymmetricTiles(tileSequence, distance, x, y){
+    // 1: tile (x,y)
+    tileSequence.push([distance, x, y]);
+
+    if ( y === 0 ){ // center tile (0,0)
+      return;
+    }
+
+    // 2: tile (-x,-y) - symmetry of tile (x,y) across center (0,0)
+    tileSequence.push([distance, -x, -y]);
+
+    if ( x !== 0 ){ // vertical axis x=0
+      // 3: tile (-x,y) - symmetry of tile (x,y) across vertical axis x=0
+      tileSequence.push([distance, -x, y]);
+      // 4: tile (x,-y) - symmetry of tile (x,y) across horizontal axis y=0
+      tileSequence.push([distance, x, -y]);
+    }
+
+    if ( x === y ){ // diagonal axis x=y
+      return;
+    }
+
+    // 5: (-y,x) - symmetry of tile (-x,y) across diagonal axis y=-x
+    tileSequence.push([distance, -y, x]);
+    // 6: (y,-x) - symmetry of tile (-y,x) across center (0,0)
+    tileSequence.push([distance, y, -x]);
+
+    if ( x !== 0 ){ // vertical axis x= 0
+      // 7: (-y,-x) - symmetry of tile (-y,x) across horizontal axis y=0
+      tileSequence.push([distance, -y, -x]);
+      // 8: (y,x) - symmetry of tile (x,y) across diagonal axis x=y
+      tileSequence.push([distance, y, x]);
+    }
+  }
 
   function prepareTileSequences(tilesCount){
     var
@@ -103,73 +138,20 @@ within("projetmedea.fr", function(publish, subscribe){
         xOdd = tile[1],
         yOdd = tile[2],
         // the circle sector is shifted by x=1, y=1 in odd circles,
-        xEven = x0dd + 1,
-        yEven = yEven + 1;
+        xEven = xOdd + 1,
+        yEven = yOdd + 1;
 
-      // 1: tile (x,y)
-      oddTileSequence.push([distance, xOdd, yOdd]);
-      evenTileSequence.push([distance, xEven, yEven]);
-
-      // 2: tile (-x,-y) - symmetry of tile (x,y) across center (0,0)
-      if (
-        xOdd !== 0 // 2: !== 1: when xOdd!==0 or yOdd!==0
-                   // xOdd !== 0 implies yOdd !==0 in circle sector
-      ){
-        oddTileSequence.push([distance, -xOdd, -yOdd]);
-      }
-      // no test needed in even circles, since xEven!==0 and yEven!==0
-      evenTileSequence.push([distance, -xEven, -yEven]);
-
-      // 3: (-x,y) - symmetry of tile (x,y) across vertical axis x=0
-      if (
-        xOdd !== 0 // 3: !== 1:
-                   // 3: !== 2: yOdd!==0 when xOdd!==0 in circle sector
-      ){
-        oddTileSequence.push([distance, -xOdd, yOdd]);
-      }
-      // no test needed in even circles, since xEven!==0 and yEven!==0
-      evenTileSequence.push([distance, -xEven, yEven]);
-
-      // 4: (x,-y) - symmetry of tile (x,y) across horizontal axis y=0
-      if (
-                   // 4: !== 1: yOdd!==0 when xOdd!==0 in circle sector
-        xOdd !== 0 // 4: !== 2:
-                   // 4: !== 3: when xOdd!==0 or yOdd!==0
-      ){
-        oddTileSequence.push([distance, xOdd, -yOdd]);
-      }
-      // no test needed in even circles since x!==0 and y!==0
-      evenTileSequence.push([distance, xEven, -yEven]);
-
-      // 5: (-y,x) - symmetry of tile (-x,y) across diagonal axis y=-x
-      if (
-        xOdd !== 0 && // 5: !== 1: when xOdd!==0 or yOdd!==0
-                      // 5: !== 2: when xOdd!==0 or yOdd!==0
-                      // i.e., when xOdd!==0 in circle sector
-        xOdd !== yOdd // 5: !== 3:
-                      // 5: !== 4: xOdd!==-yOdd
-                      // i.e., when xOdd!==0 in circle sector
-      ){
-        oddTileSequence.push([distance, -yOdd, xOdd]);
-      }
-      if (
-        xEven !== 0 &&  // 5: !== 1:, 2:, 4:
-        xEven !== yEven // 5: !== 3:
-      ){
-        evenTileSquence.push([distance, -yEven, xEven]);
-      }
-
-      // 6: (y,-x)
-
-      // 7: (-y,-x)
-
-      // 8: (y,x)
+      addTileAndSymmetricTiles(oddTileSequence, distance, xOdd, yOdd);
+      addTileAndSymmetricTiles(evenTileSequence, distance, xEven, yEven);
     });
 
     publish("circle-maximum-y", y-1);
     publish("circle-maximum-width", maximumWidth);
     publish("circle-maximum-value", maximumDistance);
     publish("circle-sector-tiles", circleSectorTiles);
+
+    publish("odd-circle-sequence", oddTileSequence);
+    publish("even-circle-sequence", evenTileSequence);
   }
 
   subscribe("authors", function(authors){
