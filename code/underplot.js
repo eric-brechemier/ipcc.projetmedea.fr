@@ -2,6 +2,7 @@ within("projetmedea.fr", function(publish, subscribe){
   var
     count = this.countData,
     no = this.no,
+    this.forEach = this.forEach,
 
     distance,
 
@@ -92,6 +93,77 @@ within("projetmedea.fr", function(publish, subscribe){
         difference = tile1[1] - tile2[1];
       }
       return difference;
+    });
+
+    // Insert extra tiles by symmetry to create the two sequences
+    // of tiles for even and odd circles
+    forEach(circleSectorTiles, function(tile){
+      var
+        distance = tile[0],
+        xOdd = tile[1],
+        yOdd = tile[2],
+        // the circle sector is shifted by x=1, y=1 in odd circles,
+        xEven = x0dd + 1,
+        yEven = yEven + 1;
+
+      // 1: tile (x,y)
+      oddTileSequence.push([distance, xOdd, yOdd]);
+      evenTileSequence.push([distance, xEven, yEven]);
+
+      // 2: tile (-x,-y) - symmetry of tile (x,y) across center (0,0)
+      if (
+        xOdd !== 0 // 2: !== 1: when xOdd!==0 or yOdd!==0
+                   // xOdd !== 0 implies yOdd !==0 in circle sector
+      ){
+        oddTileSequence.push([distance, -xOdd, -yOdd]);
+      }
+      // no test needed in even circles, since xEven!==0 and yEven!==0
+      evenTileSequence.push([distance, -xEven, -yEven]);
+
+      // 3: (-x,y) - symmetry of tile (x,y) across vertical axis x=0
+      if (
+        xOdd !== 0 // 3: !== 1:
+                   // 3: !== 2: yOdd!==0 when xOdd!==0 in circle sector
+      ){
+        oddTileSequence.push([distance, -xOdd, yOdd]);
+      }
+      // no test needed in even circles, since xEven!==0 and yEven!==0
+      evenTileSequence.push([distance, -xEven, yEven]);
+
+      // 4: (x,-y) - symmetry of tile (x,y) across horizontal axis y=0
+      if (
+                   // 4: !== 1: yOdd!==0 when xOdd!==0 in circle sector
+        xOdd !== 0 // 4: !== 2:
+                   // 4: !== 3: when xOdd!==0 or yOdd!==0
+      ){
+        oddTileSequence.push([distance, xOdd, -yOdd]);
+      }
+      // no test needed in even circles since x!==0 and y!==0
+      evenTileSequence.push([distance, xEven, -yEven]);
+
+      // 5: (-y,x) - symmetry of tile (-x,y) across diagonal axis y=-x
+      if (
+        xOdd !== 0 && // 5: !== 1: when xOdd!==0 or yOdd!==0
+                      // 5: !== 2: when xOdd!==0 or yOdd!==0
+                      // i.e., when xOdd!==0 in circle sector
+        xOdd !== yOdd // 5: !== 3:
+                      // 5: !== 4: xOdd!==-yOdd
+                      // i.e., when xOdd!==0 in circle sector
+      ){
+        oddTileSequence.push([distance, -yOdd, xOdd]);
+      }
+      if (
+        xEven !== 0 &&  // 5: !== 1:, 2:, 4:
+        xEven !== yEven // 5: !== 3:
+      ){
+        evenTileSquence.push([distance, -yEven, xEven]);
+      }
+
+      // 6: (y,-x)
+
+      // 7: (-y,-x)
+
+      // 8: (y,x)
     });
 
     publish("circle-maximum-y", y-1);
