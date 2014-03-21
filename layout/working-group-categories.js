@@ -1,7 +1,6 @@
 within("projetmedea.fr", function(publish){
-  publish(
-    "layout/working-group-categories",
-    [
+  publish("layout/working-group-categories",function(){
+    return [
       ["table-layout","column1+2","column3"],
       ["row1+2+3",
         [
@@ -71,6 +70,6 @@ within("projetmedea.fr", function(publish){
           ]
         ]
       ]
-    ]
-  );
+    ];
+  });
 });
