@@ -27,26 +27,34 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return selectedAuthors;
   }
 
-  function getCircleWidth(tilesCount){
+  function getCircleSequence(tilesCount){
     var
-      expectedWidth = getExpectedCircleWidth(tilesCount),
-      sequence;
-
+      expectedWidth = getExpectedCircleWidth(tilesCount);
     if ( expectedWidth %2 === 0 ){
-      sequence = get("even-circle-sequence");
+      return get("even-circle-sequence");
     } else {
-      sequence = get("odd-circle-sequence");
+      return get("odd-circle-sequence");
     }
+  }
+
+  function getCircleTiles(sequence, tilesCount){
+    return sequence.slice(0, tilesCount);
+  }
+
+  function getActualCircleWidth(sequence, tilesCount){
     return sequence[tilesCount][TILE_CIRCLE_WIDTH];
   }
 
   function setCellDimensions(cell){
     var
-      tilesCount = getTotalAuthorsSelectedInGroup(cell.name);
+      tilesCount = getTotalAuthorsSelectedInGroup(cell.name),
+      sequence;
 
     switch (cell.shape) {
       case 'circle':
-        cell.width = getCircleWidth(tilesCount);
+        sequence = getCircleSequence(tilesCount);
+        cell.tiles = getCircleTiles(sequence, tilesCount);
+        cell.width = getActualCircleWidth(sequence, tilesCount);
         cell.height = cell.width;
         break;
       case 'line':
