@@ -52,6 +52,7 @@ within("projetmedea.fr", function(publish, subscribe){
       boxType = getBoxType(box),
       chart,
       table;
+
     switch ( boxType ){
       case 'charts':
         return reduce(parentBox, box, addBoxes);
