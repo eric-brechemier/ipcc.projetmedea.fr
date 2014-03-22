@@ -66,7 +66,7 @@ within("projetmedea.fr", function(publish, subscribe){
           height: box[1][0],
           shapes: []
         };
-        reduce(chart, box[1], addBoxes)
+        reduce(chart, box[1], addBoxes);
         parentBox.push(chart);
         delete chart.parentTop;
         delete chart.parentLeft;
