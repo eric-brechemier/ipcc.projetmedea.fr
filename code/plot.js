@@ -2,6 +2,7 @@ within("projetmedea.fr", function(publish, subscribe){
   var
     no = this.no,
     reduce = this.reduce,
+    forEach = this.forEach,
 
     GUTTER_WIDTH = 1,
     GUTTER_HEIGHT = 1;
@@ -30,13 +31,6 @@ within("projetmedea.fr", function(publish, subscribe){
       return box[0][0];
     }
     return boxType;
-  }
-
-  function getColumnWidth(parentBox, columnPosition){
-    if ( no(parentBox.header) ){
-      return null;
-    }
-    return parentBox.header[columnPosition];
   }
 
   function increaseChildLeft(parentBox, width){
@@ -86,10 +80,29 @@ within("projetmedea.fr", function(publish, subscribe){
           parentLeft: parentBox.childLeft,
           childTop: parentBox.childTop,
           childLeft: parentBox.childLeft,
-          shapes: []
+          shapes: parentBox.shapes
         };
-        reduce(table, box, addBoxes);
-        parentBox.shapes = parentBox.shapes.concat(table.shapes);
+
+        forEach(box, function(row, rowPosition){
+          if ( rowPosition === 0 ){
+            // column header row
+            table.columnWidths = row;
+            return;
+          }
+
+          table.childLeft = parentBox.childLeft;
+          forEach(row, function(cell, columnPosition){
+            if ( columnPosition === 0 ){
+              // row header cell
+              table.childHeight = cell;
+              return;
+            }
+            table.childWidth = table.columnWidths[columnPosition];
+            addBoxes(table, cell, columnPosition);
+            increaseChildLeft(table, table.childWidth);
+          });
+          increaseChildTop(table, table.childHeight);
+        });
         break;
       case 'shape':
         box.parentTop = parentBox.childTop;
@@ -101,20 +114,6 @@ within("projetmedea.fr", function(publish, subscribe){
       case 'header':
         parentBox.header = box;
         break;
-      case 'row':
-        parentBox.childLeft = parentBox.parentLeft;
-        reduce(parentBox, box, function(parentBox, box, position){
-          if ( position === 0 ){
-            // skip row header
-            parentBox.childHeight = box;
-            return parentBox;
-          }
-          parentBox.childWidth = getColumnWidth(parentBox, position);
-          addBoxes(parentBox, box, position);
-          increaseChildLeft(parentBox, parentBox.childWidth);
-          return parentBox;
-        });
-        increaseChildTop(parentBox, parentBox.childHeight);
       default:
         break;
     }
