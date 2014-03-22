@@ -1,8 +1,11 @@
-within("projetmedea.fr", function(publish, subscribe){
+within("projetmedea.fr", function(publish, subscribe, get){
   var
     no = this.no,
     reduce = this.reduce,
     forEach = this.forEach,
+
+    TILE_X = 1,
+    TILE_Y = 2,
 
     GUTTER_WIDTH = 1,
     GUTTER_HEIGHT = 1;
@@ -72,6 +75,80 @@ within("projetmedea.fr", function(publish, subscribe){
       case 'right':
         shape.left = shape.parentLeft + shape.parentWidth - shape.width;
         break;
+    }
+  }
+
+  function getCircleTiles(circle) {
+    var
+      sequence = get(circle.sequenceName),
+      tilesCount = circle.tilesCount,
+      tiles = Array(tilesCount),
+      circleTop = circle.top,
+      circleLeft = circle.left,
+      radius,
+      centerTop,
+      centerLeft;
+
+    if ( circle.width % 2 === 0 ){
+      // even circle: 4 tiles around center edge in the middle
+      radius = circle.width / 2;
+      centerTileLeft = circle.left + radius;
+      centerTileTop = circle.top + radius;
+    } else {
+      // odd circle: 1 center tile in the middle
+      radius = (circle.width - 1) / 2;
+      centerTileLeft = circle.left + radius;
+      centerTileTop = circle.top + radius;
+    }
+
+    forEach(sequence, function(tile, position){
+      if ( position === tilesCount ) {
+        return true; // last tile reached already
+      }
+      var
+        tileTop = centerTileTop - tile[TILE_Y],
+        tileLeft = centerTileLeft + tile[TILE_X];
+      tiles[position] = [tileTop, tileLeft];
+    });
+    return tiles;
+  }
+
+  function getHorizontalLineTiles(shape) {
+    var
+      i,
+      length = shape.width,
+      tileTop = shape.top,
+      tileLeft = shape.left,
+      tiles = Array(length);
+    for (i=0; i<length; i++) {
+      tiles[i] = [tileTop, tileLeft];
+      tileLeft += 1;
+    }
+    return tiles;
+  }
+
+  function getVerticalLineTiles(shape) {
+    var
+      i,
+      length = shape.height,
+      tileTop = shape.top,
+      tileLeft = shape.left,
+      tiles = Array(length);
+    for (i=0; i<length; i++) {
+      tiles[i] = [tileTop, tileLeft];
+      tileTop += 1;
+    }
+    return tiles;
+  }
+
+  function getTiles(shape) {
+    switch (shape.shape) {
+      case 'circle':
+        return getCircleTiles(shape);
+      case 'line':
+        return getHorizontalLineTiles(shape);
+      case 'vline':
+        return getVerticalLineTiles(shape);
     }
   }
 
@@ -156,6 +233,7 @@ within("projetmedea.fr", function(publish, subscribe){
         box.parentWidth = parentBox.childWidth;
         setVerticalPosition(box);
         setHorizontalPosition(box);
+        box.tiles = getTiles(box);
         parentBox.shapes.push(box);
         delete box.parentTop;
         delete box.parentLeft;
