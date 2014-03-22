@@ -95,6 +95,7 @@ within("projetmedea.fr", function(publish, subscribe){
         box.parentTop = parentBox.childTop;
         box.parentLeft = parentBox.childLeft;
         box.parentHeight = parentBox.childHeight;
+        box.parentWidth = parentBox.childWidth;
         parentBox.shapes.push(box);
         break;
       case 'header':
