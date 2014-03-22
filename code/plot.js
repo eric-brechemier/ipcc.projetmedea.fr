@@ -54,8 +54,7 @@ within("projetmedea.fr", function(publish, subscribe){
     var
       boxType = getBoxType(box),
       chart,
-      table,
-      rowHeight;
+      table;
     switch ( boxType ){
       case 'charts':
         return reduce(parentBox, box, addBoxes);
@@ -102,14 +101,14 @@ within("projetmedea.fr", function(publish, subscribe){
         reduce(parentBox, box, function(parentBox, box, position){
           if ( position === 0 ){
             // skip row header
-            rowHeight = box;
+            parentBox.childHeight = box;
             return parentBox;
           }
           addBoxes(parentBox, box, position);
           increaseChildLeft(parentBox, position);
           return parentBox;
         });
-        increaseChildTop(parentBox, rowHeight);
+        increaseChildTop(parentBox, parentBox.childHeight);
       default:
         break;
     }
