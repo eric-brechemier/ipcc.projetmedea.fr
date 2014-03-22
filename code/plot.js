@@ -47,6 +47,34 @@ within("projetmedea.fr", function(publish, subscribe){
     parentBox.childTop += GUTTER_HEIGHT + height;
   }
 
+  function setVerticalPosition(shape){
+    switch (shape.valign) {
+      case 'top':
+        shape.top = shape.parentTop;
+        break;
+      case 'middle':
+        shape.top = shape.parentTop + shape.parentHeight / 2 - shape.height / 2
+        break;
+      case 'bottom':
+        shape.top = shape.parentTop + shape.parentHeight - shape.height;
+        break;
+    }
+  }
+
+  function setHorizontalPosition(shape){
+    switch (shape.align) {
+      case 'left':
+        shape.left = shape.parentLeft;
+        break;
+      case 'center':
+        shape.left = shape.parentLeft + shape.parentWidth / 2 - shape.width / 2
+        break;
+      case 'right':
+        shape.left = shape.parentLeft + shape.parentWidth - shape.width;
+        break;
+    }
+  }
+
   function addBoxes(parentBox, box, position){
     var
       boxType = getBoxType(box),
@@ -126,6 +154,8 @@ within("projetmedea.fr", function(publish, subscribe){
         box.parentLeft = parentBox.childLeft;
         box.parentHeight = parentBox.childHeight;
         box.parentWidth = parentBox.childWidth;
+        setVerticalPosition(box);
+        setHorizontalPosition(box);
         parentBox.shapes.push(box);
         break;
       case 'header':
