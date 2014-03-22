@@ -36,11 +36,17 @@ within("projetmedea.fr", function(publish, subscribe){
     if ( no(parentBox.header) ){
       return;
     }
-
-    parentBox.right += GUTTER_WIDTH + parentBox.header[columnPosition];
+    var width = parentBox.header[columnPosition];
+    if ( width === 0 ){
+      return;
+    }
+    parentBox.right += GUTTER_WIDTH + width;
   }
 
   function increaseBottom(parentBox, height){
+    if ( height === 0 ) {
+      return;
+    }
     parentBox.bottom += GUTTER_HEIGHT + height;
   }
 
