@@ -32,12 +32,15 @@ within("projetmedea.fr", function(publish, subscribe){
     return boxType;
   }
 
-  function increaseChildLeft(parentBox, columnPosition){
+  function getColumnWidth(parentBox, columnPosition){
     if ( no(parentBox.header) ){
-      return;
+      return null;
     }
-    var width = parentBox.header[columnPosition];
-    if ( width === 0 ){
+    return parentBox.header[columnPosition];
+  }
+
+  function increaseChildLeft(parentBox, width){
+    if ( no(width) ){
       return;
     }
     parentBox.childLeft += GUTTER_WIDTH + width;
@@ -105,8 +108,9 @@ within("projetmedea.fr", function(publish, subscribe){
             parentBox.childHeight = box;
             return parentBox;
           }
+          parentBox.childWidth = getColumnWidth(parentBox, position);
           addBoxes(parentBox, box, position);
-          increaseChildLeft(parentBox, position);
+          increaseChildLeft(parentBox, parentBox.childWidth);
           return parentBox;
         });
         increaseChildTop(parentBox, parentBox.childHeight);
