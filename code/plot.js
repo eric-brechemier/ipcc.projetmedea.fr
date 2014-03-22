@@ -32,7 +32,7 @@ within("projetmedea.fr", function(publish, subscribe){
     return boxType;
   }
 
-  function increaseRight(parentBox, columnPosition){
+  function increaseChildLeft(parentBox, columnPosition){
     if ( no(parentBox.header) ){
       return;
     }
@@ -40,14 +40,14 @@ within("projetmedea.fr", function(publish, subscribe){
     if ( width === 0 ){
       return;
     }
-    parentBox.right += GUTTER_WIDTH + width;
+    parentBox.childLeft += GUTTER_WIDTH + width;
   }
 
-  function increaseBottom(parentBox, height){
+  function increaseChildTop(parentBox, height){
     if ( height === 0 ) {
       return;
     }
-    parentBox.bottom += GUTTER_HEIGHT + height;
+    parentBox.childTop += GUTTER_HEIGHT + height;
   }
 
   function addBoxes(parentBox, box, position){
@@ -62,43 +62,43 @@ within("projetmedea.fr", function(publish, subscribe){
       case 'chart':
         chart = {
           type: 'chart',
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
+          parentTop: 0,
+          parentLeft: 0,
+          childTop: 0,
+          childLeft: 0,
           width: box[0][1],
           height: box[1][0],
           shapes: []
         };
         reduce(chart, box[1], addBoxes)
         parentBox.push(chart);
-        delete chart.top;
-        delete chart.left;
-        delete chart.bottom;
-        delete chart.right;
+        delete chart.parentTop;
+        delete chart.parentLeft;
+        delete chart.childTop;
+        delete chart.childLeft;
         break;
       case 'table-layout':
         table = {
           type: 'table',
-          top: parentBox.bottom,
-          left: parentBox.right,
-          bottom: parentBox.bottom,
-          right: parentBox.right,
+          parentTop: parentBox.childTop,
+          parentLeft: parentBox.childLeft,
+          childTop: parentBox.childTop,
+          childLeft: parentBox.childLeft,
           shapes: []
         };
         reduce(table, box, addBoxes);
         parentBox.shapes = parentBox.shapes.concat(table.shapes);
         break;
       case 'shape':
-        box.top = parentBox.bottom;
-        box.left = parentBox.right;
+        box.parentTop = parentBox.childTop;
+        box.parentLeft = parentBox.childLeft;
         parentBox.shapes.push(box);
         break;
       case 'header':
         parentBox.header = box;
         break;
       case 'row':
-        parentBox.right = parentBox.left;
+        parentBox.childLeft = parentBox.parentLeft;
         reduce(parentBox, box, function(parentBox, box, position){
           if ( position === 0 ){
             // skip row header
@@ -106,10 +106,10 @@ within("projetmedea.fr", function(publish, subscribe){
             return parentBox;
           }
           addBoxes(parentBox, box, position);
-          increaseRight(parentBox, position);
+          increaseChildLeft(parentBox, position);
           return parentBox;
         });
-        increaseBottom(parentBox, rowHeight);
+        increaseChildTop(parentBox, rowHeight);
       default:
         break;
     }
