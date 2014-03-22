@@ -37,9 +37,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
     }
   }
 
-  function getActualCircleWidth(sequenceName, tilesCount){
-    var sequence = get(sequenceName);
-    return sequence[tilesCount][TILE_CIRCLE_WIDTH];
+  function getActualCircleWidth(circle){
+    var sequence = get(circle.sequenceName);
+    return sequence[circle.tilesCount][TILE_CIRCLE_WIDTH];
   }
 
   function setCellDimensions(cell){
@@ -48,8 +48,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
     switch (cell.shape) {
       case 'circle':
+        cell.tilesCount = tilesCount;
         cell.sequenceName = getCircleSequenceName(tilesCount);
-        cell.width = getActualCircleWidth(cell.sequenceName, tilesCount);
+        cell.width = getActualCircleWidth(cell);
         cell.height = cell.width;
         break;
       case 'line':
