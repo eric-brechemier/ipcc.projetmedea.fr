@@ -64,7 +64,9 @@ within("projetmedea.fr", function(publish, subscribe){
           childTop: 0,
           childLeft: 0,
           width: box[0][1],
+          childWidth: box[0][1],
           height: box[1][0],
+          childHeight: box[1][0],
           shapes: []
         };
         reduce(chart, box[1], addBoxes);
@@ -73,12 +75,16 @@ within("projetmedea.fr", function(publish, subscribe){
         delete chart.parentLeft;
         delete chart.childTop;
         delete chart.childLeft;
+        delete chart.childWidth;
+        delete chart.childHeight;
         break;
       case 'table-layout':
         table = {
           type: 'table',
           parentTop: parentBox.childTop,
           parentLeft: parentBox.childLeft,
+          parentWidth: parentBox.childWidth,
+          parentHeight: parentBox.childHeight,
           childTop: parentBox.childTop,
           childLeft: parentBox.childLeft,
           shapes: parentBox.shapes
@@ -94,11 +100,21 @@ within("projetmedea.fr", function(publish, subscribe){
           table.childLeft = parentBox.childLeft;
           forEach(row, function(cell, columnPosition){
             if ( columnPosition === 0 ){
-              // row header cell
-              table.childHeight = cell;
+              // row header cell: row height
+              if ( box.length === 2 ) {
+                // stretch single row to full height
+                table.childHeight = table.parentHeight;
+              } else {
+                table.childHeight = cell;
+              }
               return;
             }
-            table.childWidth = table.columnWidths[columnPosition];
+            if ( row.length === 2 ) {
+              // stretch single column to full width
+              table.childWidth = table.parentWidth;
+            } else {
+              table.childWidth = table.columnWidths[columnPosition];
+            }
             addBoxes(table, cell, columnPosition);
             increaseChildLeft(table, table.childWidth);
           });
