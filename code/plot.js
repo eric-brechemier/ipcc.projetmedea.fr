@@ -157,6 +157,12 @@ within("projetmedea.fr", function(publish, subscribe){
         setVerticalPosition(box);
         setHorizontalPosition(box);
         parentBox.shapes.push(box);
+        delete box.parentTop;
+        delete box.parentLeft;
+        delete box.parentHeight;
+        delete box.parentWidth;
+        delete box.align;
+        delete box.valign;
         break;
       case 'header':
         parentBox.header = box;
