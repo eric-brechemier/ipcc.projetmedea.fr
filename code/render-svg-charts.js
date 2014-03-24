@@ -18,9 +18,11 @@ within("projetmedea.fr", function(publish, subscribe){
     TILE_HEIGHT = 4;
 
   function drawShape(svg, shape){
+    var g = svg.append("g");
+    g.attr("fill", shape.color);
+    g.append("title").text(shape.name);
     forEach(shape.tiles, function(tile){
-      var circle = svg.append("circle");
-      circle.attr("fill", shape.color);
+      var circle = g.append("circle");
       circle.attr("r", TILE_WIDTH / 2);
       circle.attr("cy", ( TOP_MARGIN + tile[0] + 0.5 ) * TILE_HEIGHT);
       circle.attr("cx", ( LEFT_MARGIN + tile[1] + 0.5 ) * TILE_WIDTH);
