@@ -38,7 +38,42 @@ within("projetmedea.fr", function(publish, subscribe){
     return 2 * yMax; // 2 * (number of rows above 0)
   }
 
-  function addTileAndSymmetricTiles(tileSequence, width, x, y){
+  function addOddSequenceTiles(tileSequence, width, x, y){
+    // 1: tile (x,y)
+    tileSequence.push([width, x, y]);
+
+    if ( y === 0 ){ // center tile (0,0)
+      return;
+    }
+
+    // 2: tile (-x,-y) - symmetry of tile (x,y) across center (0,0)
+    tileSequence.push([width, -x, -y]);
+
+    if ( x !== 0 ){ // vertical axis x=0
+      // 3: tile (-x,y) - symmetry of tile (x,y) across vertical axis x=0
+      tileSequence.push([width, -x, y]);
+      // 4: tile (x,-y) - symmetry of tile (x,y) across horizontal axis y=0
+      tileSequence.push([width, x, -y]);
+    }
+
+    if ( x === y ){ // diagonal axis x=y
+      return;
+    }
+
+    // 5: (-y,x) - symmetry of tile (-x,y) across diagonal axis y=-x
+    tileSequence.push([width, -y, x]);
+    // 6: (y,-x) - symmetry of tile (-y,x) across center (0,0)
+    tileSequence.push([width, y, -x]);
+
+    if ( x !== 0 ){ // vertical axis x= 0
+      // 7: (-y,-x) - symmetry of tile (-y,x) across horizontal axis y=0
+      tileSequence.push([width, -y, -x]);
+      // 8: (y,x) - symmetry of tile (x,y) across diagonal axis x=y
+      tileSequence.push([width, y, x]);
+    }
+  }
+
+  function addEvenSequenceTiles(tileSequence, width, x, y){
     // 1: tile (x,y)
     tileSequence.push([width, x, y]);
 
@@ -155,8 +190,8 @@ within("projetmedea.fr", function(publish, subscribe){
       oddWidth = max(oddWidth, getOddWidth(yOdd) );
       evenWidth = max(evenWidth, getEvenWidth(yEven) );
 
-      addTileAndSymmetricTiles(oddTileSequence, oddWidth, xOdd, yOdd);
-      addTileAndSymmetricTiles(evenTileSequence, evenWidth, xEven, yEven);
+      addOddSequenceTiles(oddTileSequence, oddWidth, xOdd, yOdd);
+      addEvenSequenceTiles(evenTileSequence, evenWidth, xEven, yEven);
     });
 
     // Publish the sequences of tiles for even and odd circles.
