@@ -90,10 +90,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
       centerLeft;
 
     if ( circle.width % 2 === 0 ){
-      // even circle: 4 tiles around center edge in the middle
+      // even circle: tile (0,0) is on the top-right of the center point
       radius = circle.width / 2;
       centerTileLeft = circle.left + radius;
-      centerTileTop = circle.top + radius;
+      centerTileTop = circle.top + radius - 1;
     } else {
       // odd circle: 1 center tile in the middle
       radius = (circle.width - 1) / 2;
