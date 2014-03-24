@@ -73,43 +73,36 @@ within("projetmedea.fr", function(publish, subscribe){
     }
   }
 
-  function addEvenSequenceTiles(tileSequence, width, xOdd, yOdd){
+  function addEvenSequenceTiles(tileSequence, width, x, y){
     var
-      x = xOdd + 1,
-      y = yOdd + 1;
+      // shift the values used compute symmetries by 1 in odd circle
+      xSym = x + 1,
+      ySym = y + 1;
 
     // 1: tile (x,y)
     tileSequence.push([width, x, y]);
 
-    if ( y === 0 ){ // center tile (0,0)
-      return;
-    }
+    // 2: tile (-x,-y) - symmetry of tile (x,y) across central point
+    tileSequence.push([width, -xSym, -ySym]);
 
-    // 2: tile (-x,-y) - symmetry of tile (x,y) across center (0,0)
-    tileSequence.push([width, -x, -y]);
-
-    if ( x !== 0 ){ // vertical axis x=0
-      // 3: tile (-x,y) - symmetry of tile (x,y) across vertical axis x=0
-      tileSequence.push([width, -x, y]);
-      // 4: tile (x,-y) - symmetry of tile (x,y) across horizontal axis y=0
-      tileSequence.push([width, x, -y]);
-    }
+    // 3: tile (-x,y) - symmetry of tile (x,y) across vertical axis
+    tileSequence.push([width, -xSym, y]);
+    // 4: tile (x,-y) - symmetry of tile (x,y) across horizontal axis
+    tileSequence.push([width, x, -ySym]);
 
     if ( x === y ){ // diagonal axis x=y
       return;
     }
 
-    // 5: (-y,x) - symmetry of tile (-x,y) across diagonal axis y=-x
-    tileSequence.push([width, -y, x]);
-    // 6: (y,-x) - symmetry of tile (-y,x) across center (0,0)
-    tileSequence.push([width, y, -x]);
+    // 5: (-y,x) - symmetry of tile (-x,y) across diagonal axis y=-x-1
+    tileSequence.push([width, -ySym, x]);
+    // 6: (y,-x) - symmetry of tile (-y,x) across center point
+    tileSequence.push([width, y, -xSym]);
 
-    if ( x !== 0 ){ // vertical axis x= 0
-      // 7: (-y,-x) - symmetry of tile (-y,x) across horizontal axis y=0
-      tileSequence.push([width, -y, -x]);
-      // 8: (y,x) - symmetry of tile (x,y) across diagonal axis x=y
-      tileSequence.push([width, y, x]);
-    }
+    // 7: (-y,-x) - symmetry of tile (-y,x) across horizontal axis
+    tileSequence.push([width, -ySym, -xSym]);
+    // 8: (y,x) - symmetry of tile (x,y) across diagonal axis x=y
+    tileSequence.push([width, y, x]);
   }
 
   function prepareTileSequences(tilesCount){
