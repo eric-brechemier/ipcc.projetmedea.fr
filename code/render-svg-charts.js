@@ -7,6 +7,13 @@ within("projetmedea.fr", function(publish, subscribe){
 
     CHART_BACKGROUND_COLOR = "black",
 
+    // margins around the chart, in tiles
+    TOP_MARGIN = 1,
+    BOTTOM_MARGIN = 1,
+    LEFT_MARGIN = 1,
+    RIGHT_MARGIN = 1,
+
+    // size of a tile in pixels
     TILE_WIDTH = 4,
     TILE_HEIGHT = 4;
 
@@ -15,16 +22,16 @@ within("projetmedea.fr", function(publish, subscribe){
       var circle = svg.append("circle");
       circle.attr("fill", shape.color);
       circle.attr("r", TILE_WIDTH / 2);
-      circle.attr("cy", ( tile[0] + 0.5 ) * TILE_HEIGHT);
-      circle.attr("cx", ( tile[1] + 0.5 ) * TILE_WIDTH);
+      circle.attr("cy", ( TOP_MARGIN + tile[0] + 0.5 ) * TILE_HEIGHT);
+      circle.attr("cx", ( LEFT_MARGIN + tile[1] + 0.5 ) * TILE_WIDTH);
     });
   }
 
   function renderChart(chart){
     var
       svg = d3.select(chartsBox).append("svg"),
-      width = chart.width * TILE_WIDTH,
-      height = chart.height * TILE_HEIGHT,
+      width = ( chart.width + TOP_MARGIN + BOTTOM_MARGIN ) * TILE_WIDTH,
+      height = ( chart.height + LEFT_MARGIN + RIGHT_MARGIN )  * TILE_HEIGHT,
       background = svg.append("rect");
 
     svg.attr("width", width);
