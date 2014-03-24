@@ -51,6 +51,7 @@ within("projetmedea.fr", function(publish, subscribe){
   function renderCharts(charts){
     chartsBox.innerHTML = "";
     forEach(charts, renderChart);
+    publish("svg-rendered", chartsBox.innerHTML);
   }
 
   subscribe("plot", renderCharts);
