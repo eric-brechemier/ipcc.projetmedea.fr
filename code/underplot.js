@@ -73,7 +73,11 @@ within("projetmedea.fr", function(publish, subscribe){
     }
   }
 
-  function addEvenSequenceTiles(tileSequence, width, x, y){
+  function addEvenSequenceTiles(tileSequence, width, xOdd, yOdd){
+    var
+      x = xOdd + 1,
+      y = yOdd + 1;
+
     // 1: tile (x,y)
     tileSequence.push([width, x, y]);
 
@@ -180,20 +184,15 @@ within("projetmedea.fr", function(publish, subscribe){
     forEach(circleSectorTiles, function(tile){
       var
         x = tile[1],
-        y = tile[2],
-        xOdd = tile[1],
-        yOdd = tile[2],
-        // the circle sector is shifted by x=1, y=1 in odd circles,
-        xEven = xOdd + 1,
-        yEven = yOdd + 1;
+        y = tile[2];
 
       // Compute the maximum width of the circular shape
       // drawn at each step in each sequence
-      oddWidth = max(oddWidth, getOddWidth(yOdd) );
+      oddWidth = max(oddWidth, getOddWidth(y) );
       evenWidth = max(evenWidth, getEvenWidth(y) );
 
-      addOddSequenceTiles(oddTileSequence, oddWidth, xOdd, yOdd);
-      addEvenSequenceTiles(evenTileSequence, evenWidth, xEven, yEven);
+      addOddSequenceTiles(oddTileSequence, oddWidth, x, y);
+      addEvenSequenceTiles(evenTileSequence, evenWidth, x, y);
     });
 
     // Publish the sequences of tiles for even and odd circles.
