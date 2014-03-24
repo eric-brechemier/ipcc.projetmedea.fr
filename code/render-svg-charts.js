@@ -32,8 +32,8 @@ within("projetmedea.fr", function(publish, subscribe){
   function renderChart(chart){
     var
       svg = d3.select(chartsBox).append("svg"),
-      width = ( chart.width + TOP_MARGIN + BOTTOM_MARGIN ) * TILE_WIDTH,
-      height = ( chart.height + LEFT_MARGIN + RIGHT_MARGIN )  * TILE_HEIGHT,
+      width = ( chart.width + LEFT_MARGIN + RIGHT_MARGIN ) * TILE_WIDTH,
+      height = ( chart.height + TOP_MARGIN + BOTTOM_MARGIN )  * TILE_HEIGHT,
       background = svg.append("rect");
 
     svg.attr("width", width);
