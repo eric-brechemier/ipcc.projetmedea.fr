@@ -35,7 +35,7 @@ within("projetmedea.fr", function(publish, subscribe){
 
   // Get the width of an even circle with given maximum y value
   function getEvenWidth(yMax){
-    return 2 * yMax; // 2 * (number of rows above 0)
+    return 2 * (yMax + 1); // 2 * (number of rows including 0)
   }
 
   function addOddSequenceTiles(tileSequence, width, x, y){
@@ -179,6 +179,8 @@ within("projetmedea.fr", function(publish, subscribe){
     // of tiles for even and odd circles
     forEach(circleSectorTiles, function(tile){
       var
+        x = tile[1],
+        y = tile[2],
         xOdd = tile[1],
         yOdd = tile[2],
         // the circle sector is shifted by x=1, y=1 in odd circles,
@@ -188,7 +190,7 @@ within("projetmedea.fr", function(publish, subscribe){
       // Compute the maximum width of the circular shape
       // drawn at each step in each sequence
       oddWidth = max(oddWidth, getOddWidth(yOdd) );
-      evenWidth = max(evenWidth, getEvenWidth(yEven) );
+      evenWidth = max(evenWidth, getEvenWidth(y) );
 
       addOddSequenceTiles(oddTileSequence, oddWidth, xOdd, yOdd);
       addEvenSequenceTiles(evenTileSequence, evenWidth, xEven, yEven);
