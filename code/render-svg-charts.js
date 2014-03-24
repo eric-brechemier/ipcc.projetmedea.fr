@@ -5,6 +5,8 @@ within("projetmedea.fr", function(publish, subscribe){
 
     chartsBox = document.getElementById("svg-charts");
 
+    CHART_BACKGROUND_COLOR = "black",
+
     TILE_WIDTH = 4,
     TILE_HEIGHT = 4;
 
@@ -20,10 +22,17 @@ within("projetmedea.fr", function(publish, subscribe){
 
   function renderChart(chart){
     var
-      svg = d3.select(chartsBox).append("svg");
+      svg = d3.select(chartsBox).append("svg"),
+      width = chart.width * TILE_WIDTH,
+      height = chart.height * TILE_HEIGHT,
+      background = svg.append("rect");
 
-    svg.attr("width", chart.width * TILE_WIDTH);
-    svg.attr("height", chart.height * TILE_HEIGHT);
+    svg.attr("width", width);
+    svg.attr("height", height);
+
+    background.attr("width", width);
+    background.attr("height", height);
+    background.attr("fill", CHART_BACKGROUND_COLOR);
 
     forEach(chart.shapes, function(shape){
       drawShape(svg, shape);
