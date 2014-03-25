@@ -160,7 +160,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
     switch ( boxType ){
       case 'charts':
-        return reduce(parentBox, box, addBoxes);
+        return reduce(parentBox, box[1], addBoxes);
       case 'chart':
         chart = {
           type: 'chart',
