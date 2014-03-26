@@ -3,38 +3,13 @@ within("projetmedea.fr", function(publish, subscribe, get){
     no = this.no,
     reduce = this.reduce,
     forEach = this.forEach,
+    getBoxType = this.getBoxType,
 
     TILE_X = 1,
     TILE_Y = 2,
 
     GUTTER_WIDTH = 1,
     GUTTER_HEIGHT = 1;
-
-  function getBoxType(box){
-    var boxType = typeof box;
-    if (
-      boxType === 'object' &&
-      typeof box.shape === 'string'
-    ) {
-      return 'shape';
-    }
-    if ( no(box) ) {
-      return null;
-    }
-    if ( boxType === 'string' ) {
-      return boxType;
-    }
-    if ( typeof box[0] === 'string' ) {
-      return 'header';
-    }
-    if ( typeof box[0] === 'number' ) {
-      return 'row';
-    }
-    if ( !no(box[0]) && typeof box[0][0] === 'string' ) {
-      return box[0][0];
-    }
-    return boxType;
-  }
 
   function increaseChildLeft(parentBox, width){
     if ( no(width) ){
