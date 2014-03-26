@@ -5,7 +5,7 @@ within("projetmedea.fr", function(publish, subscribe){
 
     chartsBox = document.getElementById("svg-charts");
 
-    CHART_BACKGROUND_COLOR = "black",
+    CHART_BACKGROUND_COLOR = "white",
 
     // margins around the chart, in tiles
     TOP_MARGIN = 1,
