@@ -115,7 +115,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return tableHeight;
   }
 
-  function setLayoutDimensions(tableLayout){
+  function setTableLayoutDimensions(tableLayout){
     var
       columnHeaders;
 
@@ -139,7 +139,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
           cellWidth = cell.width;
           cellHeight = cell.height;
         } else { // the cell contains a nested table layout
-          setLayoutDimensions(cell);
+          setTableLayoutDimensions(cell);
           cellWidth = getTableWidth(cell);
           cellHeight = getTableHeight(cell);
         }
@@ -152,6 +152,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
           max(row[ROW_HEADER], cellHeight);
       });
     });
+  }
+
+  function setLayoutDimensions(layout){
+    setTableLayoutDimensions(layout);
   }
 
   function updateLayout(selectedCategories){
