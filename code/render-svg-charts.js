@@ -14,11 +14,11 @@ within("projetmedea.fr", function(publish, subscribe){
     RIGHT_MARGIN = 1,
 
     // size of a tile in pixels
-    TILE_WIDTH = 4,
-    TILE_HEIGHT = 4
+    TILE_WIDTH = 6,
+    TILE_HEIGHT = 6
 
     // radius of the circle drawn in a tile
-    CIRCLE_RADIUS = TILE_WIDTH / 2;
+    CIRCLE_RADIUS = 2;
 
   function drawShape(svg, shape){
     var g = svg.append("g");
