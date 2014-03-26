@@ -27,7 +27,7 @@ within("projetmedea.fr", function(publish){
                     },
                     {
                       name: ar + ' WG1+3',
-                      shape: 'vline',
+                      shape: 'circle',
                       valign: 'bottom',
                       align: 'center',
                       color: '#FF00FF'
@@ -36,7 +36,7 @@ within("projetmedea.fr", function(publish){
                   ["row2",
                     {
                       name: ar + ' WG1+2',
-                      shape: 'line',
+                      shape: 'circle',
                       valign: 'middle',
                       align: 'right',
                       color: '#FFFF00'
@@ -59,7 +59,7 @@ within("projetmedea.fr", function(publish){
                     },
                     {
                       name: ar + ' WG2+3',
-                      shape: 'vline',
+                      shape: 'circle',
                       valign: 'middle',
                       align: 'top',
                       color: '#00FFFF'
