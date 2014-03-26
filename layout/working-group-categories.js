@@ -32,7 +32,7 @@ within("projetmedea.fr", function(publish){
                   name: 'WG1+2',
                   shape: 'circle',
                   valign: 'middle',
-                  align: 'right',
+                  align: 'center',
                   color: '#FFFF00'
                 },
                 {
