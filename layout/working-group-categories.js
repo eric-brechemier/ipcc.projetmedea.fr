@@ -33,7 +33,7 @@ within("projetmedea.fr", function(publish){
                   shape: 'circle',
                   valign: 'middle',
                   align: 'center',
-                  color: '#FFFF00'
+                  color: '#CCCC00'
                 },
                 {
                   name: 'WG1+2+3',
