@@ -15,7 +15,10 @@ within("projetmedea.fr", function(publish, subscribe){
 
     // size of a tile in pixels
     TILE_WIDTH = 4,
-    TILE_HEIGHT = 4;
+    TILE_HEIGHT = 4
+
+    // radius of the circle drawn in a tile
+    CIRCLE_RADIUS = TILE_WIDTH / 2;
 
   function drawShape(svg, shape){
     var g = svg.append("g");
@@ -23,7 +26,7 @@ within("projetmedea.fr", function(publish, subscribe){
     g.append("title").text(shape.name);
     forEach(shape.tiles, function(tile){
       var circle = g.append("circle");
-      circle.attr("r", TILE_WIDTH / 2);
+      circle.attr("r", CIRCLE_RADIUS);
       circle.attr("cy", ( TOP_MARGIN + tile[0] + 0.5 ) * TILE_HEIGHT);
       circle.attr("cx", ( LEFT_MARGIN + tile[1] + 0.5 ) * TILE_WIDTH);
     });

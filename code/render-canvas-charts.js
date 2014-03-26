@@ -18,7 +18,7 @@ within("projetmedea.fr", function(publish, subscribe){
     TILE_HEIGHT = 4,
 
     // radius of the circle drawn in a tile
-    TILE_RADIUS = TILE_WIDTH / 2,
+    CIRCLE_RADIUS = TILE_WIDTH / 2,
 
     // start angle of a circle, in radians
     CIRCLE_START = 0,
@@ -37,7 +37,7 @@ within("projetmedea.fr", function(publish, subscribe){
       context.arc(
         centerLeft,
         centerTop,
-        TILE_RADIUS,
+        CIRCLE_RADIUS,
         CIRCLE_START,
         CIRCLE_END
       );
