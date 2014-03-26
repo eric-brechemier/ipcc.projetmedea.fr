@@ -18,7 +18,7 @@ within("projetmedea.fr", function(publish, subscribe){
     TILE_HEIGHT = 6,
 
     // radius of the circle drawn in a tile
-    CIRCLE_RADIUS = 2;
+    CIRCLE_RADIUS = 1.5;
 
   function drawShape(svg, shape){
     var g = svg.append("g");
