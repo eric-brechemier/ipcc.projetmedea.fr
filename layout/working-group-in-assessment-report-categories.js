@@ -5,7 +5,7 @@ within("projetmedea.fr", function(publish){
     var assessmentReports = ['AR1','AR2','AR3','AR4','AR5'];
     return [
       ["charts"].concat(assessmentReports),
-      [assessmentReports].concat(map(assessmentReports, function(ar){
+      map(assessmentReports, function(ar){
         return [
           ["chart",ar],
           ["WG",
@@ -82,7 +82,7 @@ within("projetmedea.fr", function(publish){
             ]
           ]
         ];
-      }))
+      })
     ];
   });
 });

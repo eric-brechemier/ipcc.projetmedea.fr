@@ -1,6 +1,7 @@
 within("projetmedea.fr", function(publish, subscribe, get){
   var
     getExpectedCircleWidth = this.getExpectedCircleWidth,
+    getBoxType = this.getBoxType,
     forEach = this.forEach,
     max = this.max,
 
@@ -155,7 +156,16 @@ within("projetmedea.fr", function(publish, subscribe, get){
   }
 
   function setLayoutDimensions(layout){
-    setTableLayoutDimensions(layout);
+    switch ( getBoxType(layout) ){
+      case 'charts':
+        // treat each chart as a table layout
+        forEach(layout[1], setTableLayoutDimensions);
+        break;
+      case 'chart':
+        // treat a single chart as a table layout
+        setTableLayoutDimensions(layout);
+        break;
+    }
   }
 
   function updateLayout(selectedCategories){
