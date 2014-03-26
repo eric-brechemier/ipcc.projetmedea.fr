@@ -255,5 +255,5 @@ within("projetmedea.fr", function(publish, subscribe, get){
     publish("plot", addBoxes([], groupLayout) );
   }
 
-  subscribe("group-layout", plot);
+  subscribe("layout", plot);
 });

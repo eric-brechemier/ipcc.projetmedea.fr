@@ -160,7 +160,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
       layout = get("layout/"+category)();
 
     setLayoutDimensions(layout);
-    publish("group-layout", layout);
+    publish("layout", layout);
   }
 
   subscribe("selected-categories", updateLayout);
