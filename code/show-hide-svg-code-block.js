@@ -1,8 +1,8 @@
 within("projetmedea.fr", function(publish, subscribe){
   var
-    showButton = document.getElementById("show-svg-code"),
-    hideButton = document.getElementById("hide-svg-code"),
-    presenterBlock = document.getElementById("svg-code-presenter"),
+    showButton = document.getElementById("show-svg-code-block"),
+    hideButton = document.getElementById("hide-svg-code-block"),
+    presenterBlock = document.getElementById("svg-code-block-presenter"),
     codeBlock = document.getElementById("svg-code-block");
 
   function showSvgCode(){
