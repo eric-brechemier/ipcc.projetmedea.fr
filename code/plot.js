@@ -1,9 +1,10 @@
-within("projetmedea.fr", function(publish, subscribe, get){
+  within("projetmedea.fr", function(publish, subscribe, get){
   var
     no = this.no,
     reduce = this.reduce,
     forEach = this.forEach,
     getBoxType = this.getBoxType,
+    warn = this.warn,
 
     TILE_X = 1,
     TILE_Y = 2,
@@ -36,6 +37,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
       case 'bottom':
         shape.top = shape.parentTop + shape.parentHeight - shape.height;
         break;
+      default:
+        warn("Unsupported valign value '",shape.valign,"' found in ",shape);
     }
   }
 
@@ -50,6 +53,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
       case 'right':
         shape.left = shape.parentLeft + shape.parentWidth - shape.width;
         break;
+      default:
+        warn("Unsupported align value '",shape.align,"' found in ",shape);
     }
   }
 
