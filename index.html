@@ -5,6 +5,7 @@
     <title>IPCC Tool - ipcc.projetmedea.fr</title>
     <link rel="stylesheet" type="text/css" href="style/typography.css" />
     <link rel="stylesheet" type="text/css" href="style/layout.css" />
+    <link rel="stylesheet" type="text/css" href="style/interactivity.css" />
     <script src="code/within.js"></script>
     <script src="code/utils.js"></script>
     <script src="code/csv-utils.js"></script>
@@ -24,8 +25,15 @@
     <script src="code/render-svg-charts.js"></script>
 
     <h3>SVG Export</h3>
-    <pre id="svg-output"></pre>
-    <script src="code/export-svg.js"></script>
+    <div id="svg-code-block" class="hidden">
+      <button id="hide-svg-code">Hide SVG Code ▼</button>
+      <pre id="svg-output"></pre>
+      <script src="code/export-svg.js"></script>
+    </div>
+    <div id="svg-code-presenter">
+      <button id="show-svg-code">Show SVG Code ▲</button>
+    </div>
+    <script src="code/show-hide-svg-code.js"></script>
 
     <div class="columns">
       <div class="column1of2">
