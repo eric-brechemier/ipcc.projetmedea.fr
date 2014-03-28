@@ -1,10 +1,11 @@
-.column1of2, .column2of2 {
-  width: 50%;
-  overflow: hidden;
+body {
+  margin: 2em;
 }
 
-.column1of2 {
-  float: left;
+.column1of2, .column2of2 {
+  display: inline-block;
+  width: 50%;
+  overflow: hidden;
 }
 
 .column2of2 {
