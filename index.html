@@ -15,7 +15,8 @@
   <body>
     <h1>IPCC Tool</h1>
 
-    <h2>Visualization</h2>
+    <h2>Visualization: <span id="visualization-title"></span></h2>
+    <script src="code/update-visualization-title.js"></script>
     <script src="code/underplot.js"></script>
     <script src="code/layout.js"></script>
     <script src="code/plot.js"></script>
@@ -134,6 +135,7 @@
                   <input type="radio"
                     name="group-by"
                     value="working-group-categories"
+                    data-title="Working Groups"
                     checked="checked"
                   />
                   by Working Group (WG)
@@ -148,6 +150,7 @@
                   <input type="radio"
                     name="group-by"
                     value="working-group-in-assessment-report-categories"
+                    data-title="Working Groups in each Assessment Report"
                   />
                   by Working Group (WG) in each Assessment Report (AR)
                 </label>
@@ -158,6 +161,7 @@
                     disabled="disabled" title="Not Supported Currently"
                     name="group-by"
                     value="chapter-in-working-group-in-assessment-report-categories"
+                    data-title="Chapters in each Working Group in each Assessment Report"
                   />
                   by Chapter in each Working Group (WG) in each Assessment Report (AR)
                 </label>
@@ -168,6 +172,7 @@
                     disabled="disabled" title="Not Supported Currently"
                     name="group-by"
                     value="country-and-working-group-categories"
+                    data-title="Countries and Working Groups"
                   />
                   by Country and by Working Group (WG)
                 </label>
@@ -178,6 +183,7 @@
                     disabled="disabled" title="Not Supported Currently"
                     name="group-by"
                     value="role-in-working-group-categories"
+                    data-title="Roles in each Working Group"
                   />
                   by Role in each Working Group (WG)
                 </label>
@@ -188,6 +194,7 @@
                     disabled="disabled" title="Not Supported Currently"
                     name="group-by"
                     value="discipline-in-working-group-categories"
+                    data-title="Displines in each Working Group"
                   />
                   by Discipline in each Working Group (WG)
                 </label>
@@ -198,6 +205,7 @@
                     disabled="disabled" title="Not Supported Currently"
                     name="group-by"
                     value="institution-type-in-working-group-categories"
+                    data-title="Institution Types in each Working Group"
                   />
                   by Type of Institution in each Working Group (WG)
                 </label>
@@ -254,7 +262,7 @@
         <div id="authors-csv-block-presenter">
           <button id="show-authors-csv-block">Show Authors CSV ▲</button>
         </div>
-        <script src="code/show-hide-authors-csv-block.js"></script>
+          <script src="code/show-hide-authors-csv-block.js"></script>
 
         <!--h2>Data Table</h2>
         <table id="data-table"></table>
