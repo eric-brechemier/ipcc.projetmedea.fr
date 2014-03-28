@@ -13,6 +13,13 @@ within("projetmedea.fr", function(publish, subscribe){
     LEFT_MARGIN = 1,
     RIGHT_MARGIN = 1,
 
+    // margin between chart and shapes, in tiles
+    HEADING_MARGIN = 1,
+
+    // line height of the chart heading and subheading, in pixels
+    CHART_HEADING_LINE_HEIGHT = 20,
+    CHART_SUBHEADING_LINE_HEIGHT = 20,
+
     // size of a tile in pixels
     TILE_WIDTH = 6,
     TILE_HEIGHT = 6,
@@ -38,9 +45,30 @@ within("projetmedea.fr", function(publish, subscribe){
   function renderChart(chart){
     var
       svg = d3.select(chartsBox).append("svg"),
-      width = ( chart.width + LEFT_MARGIN + RIGHT_MARGIN ) * TILE_WIDTH,
-      height = ( chart.height + TOP_MARGIN + BOTTOM_MARGIN )  * TILE_HEIGHT,
-      background = svg.append("rect");
+      width = (LEFT_MARGIN + chart.width + RIGHT_MARGIN) * TILE_WIDTH,
+      headingTop = (TOP_MARGIN + chart.height + HEADING_MARGIN) * TILE_HEIGHT,
+      height =
+        headingTop +
+        CHART_HEADING_LINE_HEIGHT +
+        CHART_SUBHEADING_LINE_HEIGHT +
+        BOTTOM_MARGIN * TILE_HEIGHT;
+      background = svg.append("rect"),
+      headingMiddleX = width / 2,
+      headingBaselineY = headingTop + CHART_HEADING_LINE_HEIGHT,
+      heading = svg.append("text"),
+      subheadingMiddleX = headingMiddleX,
+      subheadingBaselineY = headingBaselineY + CHART_SUBHEADING_LINE_HEIGHT,
+      subheading = svg.append("text");
+
+    heading.text(chart.heading);
+    heading.attr("text-anchor", "middle");
+    heading.attr("x", headingMiddleX);
+    heading.attr("y", headingBaselineY);
+
+    subheading.text(chart.subheading);
+    subheading.attr("text-anchor", "middle");
+    subheading.attr("x", subheadingMiddleX);
+    subheading.attr("y", subheadingBaselineY);
 
     svg.attr("width", width);
     svg.attr("height", height);
