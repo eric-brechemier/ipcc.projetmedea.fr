@@ -60,8 +60,8 @@ within("projetmedea.fr", function(publish){
                     {
                       name: ar + ' WG2+3',
                       shape: 'circle',
-                      valign: 'middle',
-                      align: 'top',
+                      valign: 'top',
+                      align: 'center',
                       color: '#00FFFF'
                     }
                   ]
