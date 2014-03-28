@@ -1,0 +1,12 @@
+.column1of2, .column2of2 {
+  width: 50%;
+  overflow: hidden;
+}
+
+.column1of2 {
+  float: left;
+}
+
+.column2of2 {
+  float: right;
+}
