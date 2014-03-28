@@ -139,6 +139,17 @@ within("projetmedea.fr", function() {
     return b;
   }
 
+  // Log warnings to the console
+  function warn(){
+    console.warn.apply(console,arguments);
+  }
+
+  if ( no(console) || no(console.warn) || no(console.warn.apply) ){
+    this.warn = function(){};
+  } else {
+    this.warn = warn;
+  }
+
   this.forEach = forEach;
   this.map = map;
   this.reduce = reduce;
