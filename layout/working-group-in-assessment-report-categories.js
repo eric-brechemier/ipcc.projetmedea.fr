@@ -49,7 +49,7 @@ within("projetmedea.fr", function(publish){
                       shape: 'circle',
                       valign: 'middle',
                       align: 'center',
-                      color: '#FFFFFF'
+                      color: '#000000'
                     }
                   ],
                   ["row3",
