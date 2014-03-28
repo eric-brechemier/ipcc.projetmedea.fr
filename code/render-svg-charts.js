@@ -25,10 +25,13 @@ within("projetmedea.fr", function(publish, subscribe){
     g.attr("fill", shape.color);
     g.append("title").text(shape.name);
     forEach(shape.tiles, function(tile){
-      var circle = g.append("circle");
+      var
+        circle = g.append("circle"),
+        centerTop = ( TOP_MARGIN + tile[0] + 0.5 ) * TILE_HEIGHT,
+        centerLeft = ( LEFT_MARGIN + tile[1] + 0.5 ) * TILE_WIDTH;
       circle.attr("r", CIRCLE_RADIUS);
-      circle.attr("cy", ( TOP_MARGIN + tile[0] + 0.5 ) * TILE_HEIGHT);
-      circle.attr("cx", ( LEFT_MARGIN + tile[1] + 0.5 ) * TILE_WIDTH);
+      circle.attr("cx", centerLeft);
+      circle.attr("cy", centerTop);
     });
   }
 
