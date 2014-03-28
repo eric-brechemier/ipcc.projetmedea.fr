@@ -1,4 +1,4 @@
-  within("projetmedea.fr", function(publish, subscribe, get){
+within("projetmedea.fr", function(publish, subscribe, get){
   var
     no = this.no,
     reduce = this.reduce,
@@ -148,6 +148,8 @@
       case 'chart':
         chart = {
           type: 'chart',
+          heading: box[0][2],
+          subheading: box[0][3],
           parentTop: 0,
           parentLeft: 0,
           childTop: 0,
