@@ -64,6 +64,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
       centerTop,
       centerLeft;
 
+    if ( tilesCount === 0 ){
+      return [];
+    }
+
     if ( circle.width % 2 === 0 ){
       // even circle: tile (0,0) is on the top-right of the center point
       radius = circle.width / 2;
