@@ -4,6 +4,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     getBoxType = this.getBoxType,
     forEach = this.forEach,
     max = this.max,
+    warn = this.warn,
 
     CATEGORY_NAME = 0,
     CATEGORY_TOTAL_AUTHORS_SELECTED = 2,
@@ -62,6 +63,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
         cell.width = 1;
         cell.height = tilesCount;
         break;
+      default:
+        warn("Unsupported shape value '",cell.shape,"' found in ",cell);
     }
   }
 
