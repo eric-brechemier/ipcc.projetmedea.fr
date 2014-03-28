@@ -223,8 +223,15 @@
         <script src="code/count-selected-categories-percentage.js"></script>
 
         <h3>CSV Data</h3>
-        <pre id="selected-categories-csv-output"></pre>
-        <script src="code/print-selected-categories.js"></script>
+        <div id="categories-csv-block" class="hidden">
+          <button id="hide-categories-csv-block">Hide Categories CSV ▼</button>
+          <pre id="selected-categories-csv-output"></pre>
+          <script src="code/print-selected-categories.js"></script>
+        </div>
+        <div id="categories-csv-block-presenter">
+          <button id="show-categories-csv-block">Show Categories CSV ▲</button>
+        </div>
+        <script src="code/show-hide-categories-csv-block.js"></script>
       </div>
 
       <div class="column1of2">
@@ -239,8 +246,15 @@
         <script src="code/count-selected-authors-percentage.js"></script>
 
         <h3>CSV Data</h3>
-        <pre id="selected-authors-csv-output"></pre>
-        <script src="code/print-selected-authors.js"></script>
+        <div id="authors-csv-block" class="hidden">
+          <button id="hide-authors-csv-block">Hide Authors CSV ▼</button>
+          <pre id="selected-authors-csv-output"></pre>
+          <script src="code/print-selected-authors.js"></script>
+        </div>
+        <div id="authors-csv-block-presenter">
+          <button id="show-authors-csv-block">Show Authors CSV ▲</button>
+        </div>
+        <script src="code/show-hide-authors-csv-block.js"></script>
 
         <!--h2>Data Table</h2>
         <table id="data-table"></table>
