@@ -6,7 +6,8 @@ body {
   font-style: normal;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, input, button {
+  font-family: inherit;
   font-size: inherit;
   line-height: inherit;
   font-weight: inherit;
