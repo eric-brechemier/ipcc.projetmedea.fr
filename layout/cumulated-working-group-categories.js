@@ -1,5 +1,5 @@
 within("projetmedea.fr", function(publish){
-  publish("layout/working-group-categories",function(){
+  publish("layout/cumulated-working-group-categories",function(){
     return [
       ["chart","width","All AR","1990 - 1995 - 2001 - 2007 - 2013"],
       ["height",
