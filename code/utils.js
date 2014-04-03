@@ -36,6 +36,46 @@ within("projetmedea.fr", function() {
     return isBreak;
   }
 
+  /*
+    Run given function for each own property in given object,
+    ignoring inherited properties
+
+    Parameters:
+      object - object, the object to iterate
+      callback - function( name, value ), the callback called for each property,
+                 with the property name and value provided as arguments.
+                 If the callback returns true, the iteration is interrupted and
+                 following properties will not be processed.
+
+    Returns:
+      boolean, true when the iteration has been interrupted by a callback,
+      false otherwise
+
+    Notes:
+      * properties are iterated in no particular order
+      * properties present at the start of the iteration
+        and deleted during the processing of previous properties
+        are not iterated (behavior observed in Firefox, to be confirmed)
+      * properties added during the iteration are not iterated
+        (behavior observed in Firefox, to be confirmed)
+  */
+  function forEachProperty( object, callback ) {
+    var
+      isBreak = false,
+      name,
+      value;
+
+    for ( name in object ) {
+      value = object[name];
+      isBreak = callback( name, value ) === true;
+      if ( isBreak ) {
+        return isBreak;
+      }
+    }
+
+    return isBreak;
+  }
+
   // CC0 - https://raw.github.com/eric-brechemier/nadasurf/master/map.js
   /*
     Apply a function to all the elements in a list
@@ -151,6 +191,7 @@ within("projetmedea.fr", function() {
   }
 
   this.forEach = forEach;
+  this.forEachProperty = forEachProperty;
   this.map = map;
   this.reduce = reduce;
   this.no = no;
