@@ -8,6 +8,17 @@ within("projetmedea.fr", function(){
     return records.length - 1; // do not count header record
   }
 
+  // Loop over data records, skipping the header row
+  function forEachData(records,callback){
+    forEach(records, function(record,recordPosition){
+      if ( recordPosition === 0 ) {
+        return; // skip header row
+      }
+      return callback(record, recordPosition);
+    });
+  }
+
+  // TODO: rename to printRecords to disambiguate
   // Print records as a string in CSV format
   function printData(records) {
     var
@@ -50,5 +61,7 @@ within("projetmedea.fr", function(){
   }
 
   this.countData = countData;
+  this.forEachData = forEachData;
+  // TODO: rename to printRecords to disambiguate
   this.printData = printData;
 });
