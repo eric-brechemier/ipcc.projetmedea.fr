@@ -1,6 +1,8 @@
-within("projetmedea.fr", function(publish, subscribe){
+within("projetmedea.fr", function(publish, subscribe, get){
   var
+    // TODO: use forEachData instead
     forEach = this.forEach,
+    forEachData = this.forEachData,
 
     CATEGORY_NAME = 0,
     CATEGORY_AUTHORS = 1;
@@ -20,10 +22,30 @@ within("projetmedea.fr", function(publish, subscribe){
     );
   }
 
+  function getAuthorsSelectedByFilter(filterName, filterValue){
+    var
+      categories = get(filterName),
+      authors = [];
+
+    forEachData(categories, function(category){
+      if ( category[CATEGORY_NAME] === filterValue ) {
+        authors = category[CATEGORY_AUTHORS];
+        return true;
+      }
+    });
+
+    return authors;
+  }
+
   function publishSelectedFilter(select){
+    var
+      filterName = select.name,
+      filterValue = select.value;
+
     publish("filter-selected",{
-      name: select.name,
-      value: select.value
+      name: filterName,
+      value: filterValue,
+      authors: getAuthorsSelectedByFilter(filterName, filterValue)
     });
   }
 
@@ -32,6 +54,7 @@ within("projetmedea.fr", function(publish, subscribe){
       options = document.createDocumentFragment(),
       isFirstOption = select.childNodes.length === 0;
 
+    // TODO: use forEachData instead
     forEach(categories, function(category, categoryPosition){
       if ( categoryPosition === 0 ) {
         return; // skip header row
