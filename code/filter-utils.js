@@ -22,10 +22,19 @@ within("projetmedea.fr", function(publish, subscribe, get){
     );
   }
 
+  // Get the list of authors selected by given filter,
+  // or null for the default option which accepts all authors.
+  //
+  // Note: an empty array is returned for an unknown category,
+  // which results in no authors being selected.
   function getAuthorsSelectedByFilter(filterName, filterValue){
     var
       categories = get(filterName),
-      authors = [];
+      categoryAuthors = [];
+
+    if ( filterValue === "" ) {
+      return null;
+    }
 
     forEachData(categories, function(category){
       if ( category[CATEGORY_NAME] === filterValue ) {
@@ -40,13 +49,18 @@ within("projetmedea.fr", function(publish, subscribe, get){
   function publishSelectedFilter(select){
     var
       filterName = select.name,
-      filterValue = select.value;
-
-    publish("filter-selected",{
-      name: filterName,
-      value: filterValue,
-      authors: getAuthorsSelectedByFilter(filterName, filterValue)
-    });
+      filterValue = select.value,
+      filterAuthors =
+        getAuthorsSelectedByFilter(filterName, filterValue),
+      filter = {
+        name: filterName,
+        value: filterValue
+      };
+    // do not set the 'authors' property to a null value
+    if ( !no(filterAuthors) ) {
+      filter.authors = filterAuthors;
+    }
+    publish("filter-selected",filter);
   }
 
   function fillFilterSelectionList(select, categories){
