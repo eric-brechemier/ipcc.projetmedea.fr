@@ -3,6 +3,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     // TODO: use forEachData instead
     forEach = this.forEach,
     forEachData = this.forEachData,
+    no = this.no,
 
     CATEGORY_NAME = 0,
     CATEGORY_AUTHORS = 1;
