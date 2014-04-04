@@ -42,8 +42,8 @@ within("projetmedea.fr", function() {
 
     Parameters:
       object - object, the object to iterate
-      callback - function( name, value ), the callback called for each property,
-                 with the property name and value provided as arguments.
+      callback - function( value, name ), the callback called for each property,
+                 with the property value and name provided as arguments.
                  If the callback returns true, the iteration is interrupted and
                  following properties will not be processed.
 
@@ -67,7 +67,7 @@ within("projetmedea.fr", function() {
 
     for ( name in object ) {
       value = object[name];
-      isBreak = callback( name, value ) === true;
+      isBreak = callback( value, name ) === true;
       if ( isBreak ) {
         return isBreak;
       }
