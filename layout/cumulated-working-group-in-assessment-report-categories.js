@@ -1,10 +1,11 @@
-within("projetmedea.fr", function(publish){
-  var map = this.map;
+within("projetmedea.fr", function(publish, subscribe, get){
+  var
+    map = this.map;
 
   publish("layout/cumulated-working-group-in-assessment-report-categories",function(){
     var
-      assessmentReports = ['AR1','AR2','AR3','AR4','AR5'],
-      assessmentReportYears = ['1990','1995','2001','2007','2013'];
+      assessmentReports = get("assessment-reports/names"),
+      assessmentReportYears = get("assessment-reports/years");
     return [
       ["charts"],
       map(assessmentReports, function(ar,arPosition){
