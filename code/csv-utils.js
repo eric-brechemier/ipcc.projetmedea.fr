@@ -18,6 +18,16 @@ within("projetmedea.fr", function(){
     });
   }
 
+  // Read a column of data, without header, into a new array
+  // (the offset for the column is 0-based)
+  function getDataColumn(records, columnOffset) {
+    var column = Array( countData(records) );
+    forEachData(records, function(record, recordOffset) {
+      column[recordOffset - 1] = record[columnOffset];
+    });
+    return column;
+  }
+
   // TODO: rename to printRecords to disambiguate
   // Print records as a string in CSV format
   function printData(records) {
@@ -62,6 +72,7 @@ within("projetmedea.fr", function(){
 
   this.countData = countData;
   this.forEachData = forEachData;
+  this.getDataColumn = getDataColumn;
   // TODO: rename to printRecords to disambiguate
   this.printData = printData;
 });
