@@ -51,19 +51,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     publish("filter-selected",filter);
   }
 
-  function getSelectionDetails(categoryName, categories, totalAuthors){
-    var
-      category = categories[categoryName],
-      categoryAuthors,
-      totalCategoryAuthors;
-
-    if ( no( category ) ) {
-      totalCategoryAuthors = totalAuthors;
-    } else {
-      categoryAuthors = category[CATEGORY_AUTHORS];
-      totalCategoryAuthors = categoryAuthors.length;
-    }
-
+  function getExtraText(totalCategoryAuthors){
     return (
       totalCategoryAuthors +
       " author" +
@@ -79,18 +67,24 @@ within("projetmedea.fr", function(publish, subscribe, get){
     forEachData(listData, function(listItem){
       var
         categoryName = listItem[LIST_ITEM_NAME],
+        category = categories[categoryName],
         option = document.createElement("option"),
         optionText = categoryName,
-        text = document.createTextNode(optionText);
+        text = document.createTextNode(optionText),
+        extraText;
 
       if ( isFirstOption ) {
         option.setAttribute("selected", "selected");
+        extraText = getExtraText(totalAuthors);
+      } else {
+        if ( no(category) ) {
+          extraText = 'No Authors';
+        } else {
+          extraText = getExtraText(category[CATEGORY_AUTHORS].length);
+        }
       }
       option.setAttribute("value", listItem[LIST_ITEM_VALUE]);
-      option.setAttribute(
-        "data-details",
-        getSelectionDetails(categoryName, categories, totalAuthors)
-      );
+      option.setAttribute("data-extra", extraText);
       option.appendChild(text);
       options.appendChild(option);
       isFirstOption = false;
