@@ -14,3 +14,7 @@ select:focus {
 select:focus > option {
   width: auto;
 }
+
+select:focus > option:after {
+  content: " (" attr(data-details) ")";
+}
