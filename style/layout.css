@@ -12,6 +12,8 @@ body {
   float: right;
 }
 
-.clear {
+.columns:after {
+  content: '';
+  display: block;
   clear: both;
 }
