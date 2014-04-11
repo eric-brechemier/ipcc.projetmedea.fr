@@ -5,6 +5,7 @@
     <title>IPCC Tool - ipcc.projetmedea.fr</title>
     <link rel="stylesheet" type="text/css" href="style/typography.css" />
     <link rel="stylesheet" type="text/css" href="style/layout.css" />
+    <link rel="stylesheet" type="text/css" href="style/forms.css" />
     <link rel="stylesheet" type="text/css" href="style/interactivity.css" />
     <script src="code/within.js"></script>
     <script src="code/utils.js"></script>
@@ -50,138 +51,70 @@
             <legend>I wish to select authors...</legend>
             <p>
               <label>
-                with
-                <input type="number"
-                  name="filter-total_contributions"
-                  data-operator="GREATER-THAN-OR-EQUAL-TO"
-                  min="1" step="1" size="2"
-                  placeholder="1" value=""
-                />
-                <select
-                  id="total-contributions-filter"
-                  name="total-contributions-categories"
-                >
-                </select>
-                or more contributions
-              </label>
-              <script src="data/total-contributions-categories.js"></script>
-              <script src="code/list-total-contributions-categories.js"></script>
-              <br/>
-              <label>
-                including at least one as
-                <input type="text"
-                  name="filter-roles"
-                  data-operator="CONTAINS"
-                  value="" size="8"
-                  placeholder="any role"
-                />
-                <select
-                  id="role-filter"
-                  name="role-categories"
-                >
-                  <option value="" selected="selected">any role</option>
-                </select>
-              </label>
-              <script src="data/role-categories.js"></script>
-              <script src="code/list-role-categories.js"></script>
-              <br/>and
-              <label>
-                who contributed to
-                <input type="text"
-                  name="filter-chapters"
-                  data-operator="CONTAINS"
-                  value="" size="11"
-                  placeholder="any chapter"
-                />
-                <select
-                  id="chapter-in-working-group-in-assessment-report-filter"
-                  name="chapter-in-working-group-in-assessment-report-categories"
-                >
-                  <option value="" selected="selected">any chapter</option>
-                </select>
-              </label>
-              <script src="data/chapter-in-working-group-in-assessment-report-categories.js"></script>
-              <script src="code/list-chapter-in-working-group-in-assessment-report-categories.js"></script>
-              <br/>and
-              <label>
-                who contributed to Working Group (WG) number
-                <input type="number"
-                  name="filter-working_groups"
-                  data-operator="CONTAINS"
-                  value=""
-                  min="1" max="3" step="1" size="5"
-                  placeholder="(1-3)"
-                />
-                <select
-                  id="working-group-filter"
-                  name="working-group-categories"
-                >
-                  <option value="" selected="selected">any</option>
-                </select>
-              </label>
-              <script src="data/working-group-categories.js"></script>
-              <script src="code/list-working-group-categories.js"></script>
-              <br/>and
-              <label>
-                who took part in Assessment Report (AR) number
-                <input type="number"
-                  name="filter-assessment_reports"
-                  data-operator="CONTAINS"
-                  value=""
-                  min="1" max="5" step="1" size="5"
-                  placeholder="(1-5)"
-                />
-                <select
-                  id="assessment-report-filter"
-                  name="assessment-report-categories"
-                >
-                  <option value="" selected="selected">any</option>
-                </select>
-              </label>
-              <script src="data/assessment-report-categories.js"></script>
-              <script src="code/list-assessment-report-categories.js"></script>
-              <br/>and
-              <label>
-                who were mandated by
-                <input type="text"
-                  name="filter-institutions"
-                  data-operator="CONTAINS"
-                  value="" size="15"
-                  placeholder="any institution"
-                />
+                mandated by
                 <select
                   id="institution-filter"
                   name="institution-categories"
-                >
-                  <option value="" selected="selected">any institution</option>
-                </select>
+                ></select>
               </label>
+              <script src="data/institution-list.js"></script>
               <script src="data/institution-categories.js"></script>
-              <script src="code/list-institution-categories.js"></script>
+              <script src="code/filter-by-institution.js"></script>
               <label>
                 based in
-                <input type="text"
-                  name="filter-countries"
-                  data-operator="CONTAINS"
-                  value="" size="11"
-                  placeholder="any country"
-                />
                 <select
                   id="country-filter"
                   name="country-categories"
-                >
-                  <option value="" selected="selected">any country</option>
-                </select>
+                ></select>
               </label>
+              <script src="data/country-list.js"></script>
               <script src="data/country-categories.js"></script>
-              <script src="code/list-country-categories.js"></script>
-            </p>
-            <p>
-              <button>Update the Selection</button>
+              <script src="code/filter-by-country.js"></script>
+              <label>
+                with at least
+                <select
+                  id="total-contributions-filter"
+                  name="total-contributions-categories"
+                ></select>
+              </label>
+              <script src="data/total-contributions-list.js"></script>
+              <script src="data/total-contributions-categories.js"></script>
+              <script src="code/filter-by-total-contributions.js"></script>
+              <label>
+                as
+                <select
+                  id="role-filter"
+                  name="role-categories"
+                ></select>
+              </label>
+              <script src="data/role-list.js"></script>
+              <script src="data/role-categories.js"></script>
+              <script src="code/filter-by-role.js"></script>
+              </label>
+              <label>
+                in
+                <select
+                  id="working-group-filter"
+                  name="working-group-categories"
+                ></select>
+              </label>
+              <script src="data/working-group-list.js"></script>
+              <script src="data/working-group-categories.js"></script>
+              <script src="code/filter-by-working-group.js"></script>
+              <label>
+                of
+                <select
+                  id="assessment-report-filter"
+                  name="assessment-report-categories"
+                ></select>.
+              </label>
+              <script src="data/assessment-report-list.js"></script>
+              <script src="data/assessment-report-categories.js"></script>
+              <script src="code/filter-by-assessment-report.js"></script>
             </p>
           </fieldset>
+          <script src="code/filter-authors.js"></script>
         </form>
-        <script src="code/filter-authors.js"></script>
       </div>
 
       <div class="column2of2">

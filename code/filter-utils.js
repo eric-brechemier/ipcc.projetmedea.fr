@@ -1,27 +1,13 @@
 within("projetmedea.fr", function(publish, subscribe, get){
   var
-    // TODO: use forEachData instead
-    forEach = this.forEach,
     forEachData = this.forEachData,
     no = this.no,
 
+    LIST_ITEM_NAME = 0,
+    LIST_ITEM_VALUE = 1,
+
     CATEGORY_NAME = 0,
     CATEGORY_AUTHORS = 1;
-
-  function getFilterText(category){
-    var
-      categoryName = category[CATEGORY_NAME],
-      categoryAuthors = category[CATEGORY_AUTHORS],
-      totalAuthors = categoryAuthors.length;
-    return (
-      categoryName +
-      " (" +
-      totalAuthors +
-      " author" +
-      (totalAuthors===1? "": "s") +
-      ")"
-    );
-  }
 
   // Get the list of authors selected by given filter,
   // or null for the default option which accepts all authors.
@@ -64,47 +50,45 @@ within("projetmedea.fr", function(publish, subscribe, get){
     publish("filter-selected",filter);
   }
 
-  function fillFilterSelectionList(select, categories){
+  function fillFilterSelectionList(select, listData){
     var
       options = document.createDocumentFragment(),
       isFirstOption = select.childNodes.length === 0;
 
-    // TODO: use forEachData instead
-    forEach(categories, function(category, categoryPosition){
-      if ( categoryPosition === 0 ) {
-        return; // skip header row
-      }
+    forEachData(listData, function(listItem){
       var
         option = document.createElement("option"),
-        optionText = getFilterText(category),
+        optionText = listItem[LIST_ITEM_NAME],
         text = document.createTextNode(optionText);
 
       if ( isFirstOption ) {
         option.setAttribute("selected", "selected");
       }
-      option.setAttribute("value", category[CATEGORY_NAME]);
+      option.setAttribute("value", listItem[LIST_ITEM_VALUE]);
       option.appendChild(text);
       options.appendChild(option);
       isFirstOption = false;
     });
     select.appendChild(options);
     // publish initial filter
-    publishSelectedFilter(select);
+    // publishSelectedFilter(select);
   }
 
   function filter(name){
     var
       selectId = name + "-filter",
       select = document.getElementById(selectId),
-      dataPropertyName = name + "-categories";
+      listDataPropertyName = name + "-list";
 
-    subscribe(dataPropertyName, function(categories){
-      fillFilterSelectionList(select, categories);
+    subscribe(listDataPropertyName, function(listData){
+      fillFilterSelectionList(select, listData);
     });
 
+    /*
     select.onchange = function(){
       publishSelectedFilter(select);
     };
+    */
   }
 
   this.filter = filter;
