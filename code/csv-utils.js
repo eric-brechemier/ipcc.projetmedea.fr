@@ -1,7 +1,8 @@
 within("projetmedea.fr", function(){
 
   var
-    forEach = this.forEach;
+    forEach = this.forEach,
+    or = this.or;
 
   // Count actual records (without header) in given list
   function countData(records){
@@ -26,6 +27,18 @@ within("projetmedea.fr", function(){
       column[recordOffset - 1] = record[columnOffset];
     });
     return column;
+  }
+
+  // Store each record in a property named after the value of given column
+  // (which defaults to the first column, at offset 0)
+  function getDataSet(records, nameColumnOffset) {
+    nameColumnOffset = or(nameColumnOffset, 0);
+    var set = {};
+    forEachData(records, function(record) {
+      var name = record[nameColumnOffset];
+      set[name] = record;
+    });
+    return set;
   }
 
   // TODO: rename to printRecords to disambiguate
@@ -73,6 +86,7 @@ within("projetmedea.fr", function(){
   this.countData = countData;
   this.forEachData = forEachData;
   this.getDataColumn = getDataColumn;
+  this.getDataSet = getDataSet;
   // TODO: rename to printRecords to disambiguate
   this.printData = printData;
 });
