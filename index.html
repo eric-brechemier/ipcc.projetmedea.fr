@@ -148,9 +148,32 @@
               <li>
                 <label>
                   <input type="radio"
+                    disabled="disabled" title="Not Supported Currently"
                     name="group-by"
-                    value="working-group-in-assessment-report-categories"
-                    data-title="Working Groups in each Assessment Report"
+                    value="country-categories"
+                    data-title="Countries"
+                  />
+                  by Country
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="radio"
+                    disabled="disabled" title="Not Supported Currently"
+                    name="group-by"
+                    value="country-group-categories"
+                    data-title="Country Aggregations"
+                  />
+                  by Country Aggregation
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="radio"
+                    disabled="disabled" title="Not Supported Currently"
+                    name="group-by"
+                    value="cumulated-working-group-in-assessment-report-categories"
+                    data-title="Working Groups by Assessment Report"
                   />
                   by Working Group (WG) in each Assessment Report (AR)
                 </label>
@@ -160,10 +183,10 @@
                   <input type="radio"
                     disabled="disabled" title="Not Supported Currently"
                     name="group-by"
-                    value="chapter-in-working-group-in-assessment-report-categories"
-                    data-title="Chapters in each Working Group in each Assessment Report"
+                    value="cumulated-role-in-assessment-report-categories"
+                    data-title="Roles by Assessment Report"
                   />
-                  by Chapter in each Working Group (WG) in each Assessment Report (AR)
+                  by Role in each Assessment Report (AR)
                 </label>
               </li>
               <li>
@@ -171,10 +194,10 @@
                   <input type="radio"
                     disabled="disabled" title="Not Supported Currently"
                     name="group-by"
-                    value="country-and-working-group-categories"
-                    data-title="Countries and Working Groups"
+                    value="cumulated-working-group-in-country-group-categories"
+                    data-title="Working Groups by Country Aggregation"
                   />
-                  by Country and by Working Group (WG)
+                  by Working Group (WG) in each Country Aggregation
                 </label>
               </li>
               <li>
@@ -182,10 +205,10 @@
                   <input type="radio"
                     disabled="disabled" title="Not Supported Currently"
                     name="group-by"
-                    value="role-in-working-group-categories"
-                    data-title="Roles in each Working Group"
+                    value="cumulated-role-in-country-group-categories"
+                    data-title="Roles by Country Aggregation"
                   />
-                  by Role in each Working Group (WG)
+                  by Role in each Country Aggregation
                 </label>
               </li>
               <li>
@@ -193,21 +216,10 @@
                   <input type="radio"
                     disabled="disabled" title="Not Supported Currently"
                     name="group-by"
-                    value="discipline-in-working-group-categories"
-                    data-title="Displines in each Working Group"
+                    value="cumulated-working-group-in-institution-type-categories"
+                    data-title="Working Groups by Institution Type"
                   />
-                  by Discipline in each Working Group (WG)
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="radio"
-                    disabled="disabled" title="Not Supported Currently"
-                    name="group-by"
-                    value="institution-type-in-working-group-categories"
-                    data-title="Institution Types in each Working Group"
-                  />
-                  by Type of Institution in each Working Group (WG)
+                  by Working Groups in each Type of Institution
                 </label>
               </li>
             </ul>
