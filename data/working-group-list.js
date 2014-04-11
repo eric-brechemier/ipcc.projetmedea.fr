@@ -1,0 +1,1 @@
+within("projetmedea.fr",function(publish){publish("working-group-list",[["name","value"],["Any WG",""],["WG1","1"],["WG2","2"],["WG3","3"]]);});
