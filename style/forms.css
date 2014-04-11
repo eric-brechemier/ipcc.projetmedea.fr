@@ -1,0 +1,16 @@
+select {
+  width: auto;
+  max-width: 20em;
+}
+
+option {
+  width: 4em;
+}
+
+select:focus {
+  max-width: auto;
+}
+
+select:focus > option {
+  width: auto;
+}
