@@ -11,6 +11,7 @@
     <script src="code/csv-utils.js"></script>
     <script src="code/layout-utils.js"></script>
     <script src="code/interactivity-utils.js"></script>
+    <script src="code/filter-utils.js"></script>
   </head>
   <body>
     <h1>IPCC Tool</h1>
@@ -40,6 +41,7 @@
     <div class="columns">
       <div class="column1of2">
         <h2>Select Authors of Interest</h2>
+        <script src="code/collect-filters.js"></script>
         <form id="data-filters">
           <fieldset>
             <legend>I wish to select authors...</legend>
@@ -52,8 +54,15 @@
                   min="1" step="1" size="2"
                   placeholder="1" value=""
                 />
+                <select
+                  id="total-contributions-filter"
+                  name="total-contributions-categories"
+                >
+                </select>
                 or more contributions
               </label>
+              <script src="data/total-contributions-categories.js"></script>
+              <script src="code/list-total-contributions-categories.js"></script>
               <br/>
               <label>
                 including at least one as
@@ -63,7 +72,15 @@
                   value="" size="8"
                   placeholder="any role"
                 />
+                <select
+                  id="role-filter"
+                  name="role-categories"
+                >
+                  <option value="" selected="selected">any role</option>
+                </select>
               </label>
+              <script src="data/role-categories.js"></script>
+              <script src="code/list-role-categories.js"></script>
               <br/>and
               <label>
                 who contributed to
@@ -73,7 +90,15 @@
                   value="" size="11"
                   placeholder="any chapter"
                 />
+                <select
+                  id="chapter-in-working-group-in-assessment-report-filter"
+                  name="chapter-in-working-group-in-assessment-report-categories"
+                >
+                  <option value="" selected="selected">any chapter</option>
+                </select>
               </label>
+              <script src="data/chapter-in-working-group-in-assessment-report-categories.js"></script>
+              <script src="code/list-chapter-in-working-group-in-assessment-report-categories.js"></script>
               <br/>and
               <label>
                 who contributed to Working Group (WG) number
@@ -84,7 +109,15 @@
                   min="1" max="3" step="1" size="5"
                   placeholder="(1-3)"
                 />
+                <select
+                  id="working-group-filter"
+                  name="working-group-categories"
+                >
+                  <option value="" selected="selected">any</option>
+                </select>
               </label>
+              <script src="data/working-group-categories.js"></script>
+              <script src="code/list-working-group-categories.js"></script>
               <br/>and
               <label>
                 who took part in Assessment Report (AR) number
@@ -95,7 +128,15 @@
                   min="1" max="5" step="1" size="5"
                   placeholder="(1-5)"
                 />
+                <select
+                  id="assessment-report-filter"
+                  name="assessment-report-categories"
+                >
+                  <option value="" selected="selected">any</option>
+                </select>
               </label>
+              <script src="data/assessment-report-categories.js"></script>
+              <script src="code/list-assessment-report-categories.js"></script>
               <br/>and
               <label>
                 who were mandated by
@@ -105,7 +146,15 @@
                   value="" size="15"
                   placeholder="any institution"
                 />
+                <select
+                  id="institution-filter"
+                  name="institution-categories"
+                >
+                  <option value="" selected="selected">any institution</option>
+                </select>
               </label>
+              <script src="data/institution-categories.js"></script>
+              <script src="code/list-institution-categories.js"></script>
               <label>
                 based in
                 <input type="text"
@@ -114,7 +163,15 @@
                   value="" size="11"
                   placeholder="any country"
                 />
+                <select
+                  id="country-filter"
+                  name="country-categories"
+                >
+                  <option value="" selected="selected">any country</option>
+                </select>
               </label>
+              <script src="data/country-categories.js"></script>
+              <script src="code/list-country-categories.js"></script>
             </p>
             <p>
               <button>Update the Selection</button>
@@ -134,14 +191,14 @@
                 <label>
                   <input type="radio"
                     name="group-by"
-                    value="working-group-categories"
+                    value="cumulated-working-group-categories"
                     data-title="Working Groups"
                     checked="checked"
                   />
                   by Working Group (WG)
                 </label>
-                <script src="data/working-group-categories.js"></script>
-                <script src="layout/working-group-categories.js"></script>
+                <script src="data/cumulated-working-group-categories.js"></script>
+                <script src="layout/cumulated-working-group-categories.js"></script>
                 <script src="data/assessment-report-years.js"></script>
               </li>
               <li>
@@ -188,6 +245,7 @@
                   />
                   by Role in each Assessment Report (AR)
                 </label>
+                <script src="data/country-and-working-group-categories.js"></script>
               </li>
               <li>
                 <label>
@@ -199,6 +257,7 @@
                   />
                   by Working Group (WG) in each Country Aggregation
                 </label>
+                <script src="data/role-in-working-group-categories.js"></script>
               </li>
               <li>
                 <label>
@@ -210,6 +269,7 @@
                   />
                   by Role in each Country Aggregation
                 </label>
+                <script src="data/discipline-in-working-group-categories.js"></script>
               </li>
               <li>
                 <label>
@@ -221,6 +281,7 @@
                   />
                   by Working Groups in each Type of Institution
                 </label>
+                <script src="data/institution-type-in-working-group-categories.js"></script>
               </li>
             </ul>
           </fieldset>
