@@ -4,7 +4,7 @@ select {
 }
 
 option {
-  width: 4em;
+  width: 1em;
 }
 
 select:focus {
