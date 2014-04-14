@@ -10,47 +10,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
     CATEGORY_AUTHORS = 1;
 
-  // Get the list of authors selected by given filter,
-  // or null for the default option which accepts all authors.
-  //
-  // Note: an empty array is returned for an unknown category,
-  // which results in no authors being selected.
-  function getAuthorsSelectedByFilter(filterName, filterValue){
-    var
-      categories = get(filterName),
-      categoryAuthors = [];
-
-    if ( filterValue === "" ) {
-      return null;
-    }
-
-    forEachData(categories, function(category){
-      if ( category[CATEGORY_NAME] === filterValue ) {
-        authors = category[CATEGORY_AUTHORS];
-        return true;
-      }
-    });
-
-    return authors;
-  }
-
-  function publishSelectedFilter(select){
-    var
-      filterName = select.name,
-      filterValue = select.value,
-      filterAuthors =
-        getAuthorsSelectedByFilter(filterName, filterValue),
-      filter = {
-        name: filterName,
-        value: filterValue
-      };
-    // do not set the 'authors' property to a null value
-    if ( !no(filterAuthors) ) {
-      filter.authors = filterAuthors;
-    }
-    publish("filter-selected",filter);
-  }
-
   function getExtraText(totalCategoryAuthors){
     return (
       totalCategoryAuthors +
@@ -92,6 +51,27 @@ within("projetmedea.fr", function(publish, subscribe, get){
     select.appendChild(options);
   }
 
+  function publishSelectedFilter(select, listItems, categories) {
+    var
+      value = select.value,
+      listItem = listItems[value],
+      categoryName = listItem[LIST_ITEM_NAME],
+      category,
+      filter = {
+        category: select.name,
+        value: value
+      };
+
+    if ( !no(categoryName) ) {
+      filter.name = categoryName;
+      category = categories[categoryName];
+    }
+    if ( !no(category) ) {
+      filter.authors = category[CATEGORY_AUTHORS];
+    }
+    publish("filter-selected", filter);
+  }
+
   function filter(name){
     var
       selectId = name + "-filter",
@@ -99,16 +79,15 @@ within("projetmedea.fr", function(publish, subscribe, get){
       listDataPropertyName = name + "-list",
       categoriesPropertyName = name + "-categories",
       listData = get(listDataPropertyName),
+      listItems = getDataSet(listData, LIST_ITEM_VALUE),
       categories = getDataSet( get(categoriesPropertyName) );
 
     subscribe("authors", function(authors){
       var totalAuthors = countData(authors);
       fillFilterSelectionList(select, listData, categories, totalAuthors);
-      /*
       select.onchange = function(){
-        publishSelectedFilter(select);
+        publishSelectedFilter(select, listItems, categories);
       };
-      */
     });
   }
 
