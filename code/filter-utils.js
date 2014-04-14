@@ -90,8 +90,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
       isFirstOption = false;
     });
     select.appendChild(options);
-    // publish initial filter
-    // publishSelectedFilter(select);
   }
 
   function filter(name){
