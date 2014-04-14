@@ -58,12 +58,12 @@ within("projetmedea.fr", function(publish, subscribe, get){
       categoryName = listItem[LIST_ITEM_NAME],
       category,
       filter = {
-        category: select.name,
+        name: select.name,
         value: value
       };
 
     if ( !no(categoryName) ) {
-      filter.name = categoryName;
+      filter.categoryName = categoryName;
       category = categories[categoryName];
     }
     if ( !no(category) ) {
