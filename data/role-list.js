@@ -1,0 +1,1 @@
+within("projetmedea.fr",function(publish){publish("role-list",[["name","value"],["Any Role",""],["Coordinating Lead Author","1"],["Lead Author","2"],["Review Editor","3"],["Contributing Author","4"]]);});

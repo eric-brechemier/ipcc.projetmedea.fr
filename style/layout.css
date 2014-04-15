@@ -11,3 +11,9 @@ body {
 .column2of2 {
   float: right;
 }
+
+.columns:after {
+  content: '';
+  display: block;
+  clear: both;
+}

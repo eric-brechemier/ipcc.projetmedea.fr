@@ -1,0 +1,1 @@
+within("projetmedea.fr",function(publish){publish("assessment-report-list",[["name","value"],["Any AR",""],["AR1","1"],["AR2","2"],["AR3","3"],["AR4","4"],["AR5","5"]]);});

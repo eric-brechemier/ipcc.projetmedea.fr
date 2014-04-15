@@ -1,0 +1,20 @@
+select {
+  width: auto;
+  max-width: 20em;
+}
+
+option {
+  width: 1em;
+}
+
+select:focus {
+  max-width: auto;
+}
+
+select:focus > option {
+  width: auto;
+}
+
+select:focus > option:after {
+  content: " (" attr(data-extra) ")";
+}

@@ -1,7 +1,16 @@
-within("projetmedea.fr", function(publish){
-  publish("layout/working-group-categories",function(){
+within("projetmedea.fr", function(publish, subscribe, get){
+  var
+    or = this.or,
+
+    // separator between years in subheading of the chart
+    YEAR_SEPARATOR = " - ";
+
+  publish("layout/cumulated-working-group-categories",function(){
+    var
+      years = or(get("assessment-reports/years"), []),
+      allYears = years.join(YEAR_SEPARATOR);
     return [
-      ["chart","width","All AR","1990 - 1995 - 2001 - 2007 - 2013"],
+      ["chart","width","All AR",allYears],
       ["height",
         [
           ["table-layout","column1+2","column3"],
