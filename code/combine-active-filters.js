@@ -18,10 +18,10 @@ within("projetmedea.fr", function(publish, subscribe) {
 
     // part of the filter expression for a filter that matches any value
     // (matches all characters up to the next filter separator)
-    WILDCARD_FILTER = "[^\.]+",
+    WILDCARD_FILTER = "[^\\.]+",
 
     // character used as separator between filters in the filter expression
-    FILTER_SEPARATOR = "\.",
+    FILTER_SEPARATOR = "\\.",
 
     // start of the filter expression:
     // anchor the expression to the start of the string
