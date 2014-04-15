@@ -3,6 +3,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
   var
     no = this.no,
     forEach = this.forEach,
+    forEachData = this.forEachData,
     percentage = this.percentage,
 
     // fields position in category records
@@ -53,11 +54,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     }
 
     filteredCategories.push( createFilteredCategoryHeaders() );
-    forEach(categories, function(category, categoryIndex){
-      if ( categoryIndex === 0 ){
-        // skip headers row
-        return;
-      }
+    forEachData(categories, function(category){
       var
         authors = category[CATEGORY_AUTHORS],
         selectedAuthors = selectAuthors(authors, selectedAuthorFlags);
