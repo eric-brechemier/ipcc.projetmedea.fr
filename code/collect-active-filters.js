@@ -64,7 +64,8 @@ within("projetmedea.fr", function(publish, subscribe, get, set) {
   }
 
   function publishFilters() {
-    publish("active-filters", getActiveFilterList(activeFilterSet) );
+    publish("active-filter-set", activeFilterSet);
+    publish("active-filter-list", getActiveFilterList(activeFilterSet) );
   }
 
   function whenNewFilterSelected(filter) {
