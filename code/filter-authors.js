@@ -2,9 +2,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
   var
     forEach = this.forEach,
-    reduce = this.reduce,
-    no = this.no,
-    or = this.or,
+    alwaysTrue = this.alwaysTrue,
     form = document.getElementById("filters"),
 
     // offset of the column with author identifier in each author record
@@ -35,7 +33,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
       }
     });
     publish("selected-authors", selected);
-    publish("selected-author-flags", selectedFlags);
+    publish("selected-author-check", function(authorId){
+      return selectedFlags[authorId] === true;
+    });
   }
 
   function applyFilters() {
@@ -47,15 +47,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     if ( activeFilterList.length === 0 ) {
       // shortcut: select all authors
       publish("selected-authors", authors);
-      publish("selected-author-flags", reduce(
-        {},
-        authors,
-        function(flags, author) {
-          var authorId = author[AUTHOR_ID];
-          flags[authorId] = true;
-          return flags;
-        }
-      ));
+      publish("selected-author-check", alwaysTrue);
       return;
     }
 
