@@ -38,11 +38,20 @@ within("projetmedea.fr", function(publish, subscribe, get){
     publish("selected-author-flags", selectedFlags);
   }
 
+  function applyFilters() {
+    var
+      selectorFunction = get("active-filter-selector"),
+      activeFilterList = get("active-filter-list"),
+      authors = get("authors");
+
+    select(
+      filter(authors, activeFilterList),
+      selectorFunction
+    );
+  }
+
   subscribe("authors", function(authors){
-    subscribe("active-filter-selector", function(selectorFunction){
-      var authors = filter( get("authors"), get("active-filter-list") );
-      select(authors, selectorFunction);
-    });
+    subscribe("active-filter-selector", applyFilters);
   });
 
 });
