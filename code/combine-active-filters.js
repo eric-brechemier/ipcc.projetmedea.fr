@@ -34,7 +34,7 @@ within("projetmedea.fr", function(publish, subscribe) {
     // end of the filter expression:
     // add the 'x' character before the multiplier,
     // then capture the remaining characters in group 1.
-    FILTER_END = "x(.+)^",
+    FILTER_END = "x(.+)$",
 
     // index of the group captured for the contribution multiplier
     CAPTURED_MULTIPLIER = 1;
