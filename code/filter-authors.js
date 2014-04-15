@@ -14,6 +14,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return false; // prevent submission to server (reloads the page)
   };
 
+  function filter(data, activeFilterList) {
+    return data;
+  }
+
   function select(data, isAuthorSelected){
     var
       selected = [],
@@ -39,7 +43,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
   subscribe("authors", function(authors){
     subscribe("active-filter-selector", function(selectorFunction){
-      var authors = get('authors');
+      var authors = filter( get("authors"), get("active-filter-list") );
       select(authors, selectorFunction);
     });
   });
