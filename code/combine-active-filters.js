@@ -3,6 +3,10 @@ within("projetmedea.fr", function(publish, subscribe) {
     forEach = this.forEach,
     no = this.no,
 
+    // offset of the field with the list of author contribution codes
+    // in each author record
+    AUTHOR_CONTRIBUTIONS = 3,
+
     // sequence of the names of filters that make up the contribution code
     CONTRIBUTION_CODE_FILTERS = [
       "assessment-report-categories",
@@ -28,15 +32,44 @@ within("projetmedea.fr", function(publish, subscribe) {
     FILTER_START = "^",
 
     // end of the filter expression:
-    // add the 'x' character before the multiplier
-    FILTER_END = "x";
+    // add the 'x' character before the multiplier,
+    // then capture the remaining characters in group 1.
+    FILTER_END = "x(.+)^",
+
+    // index of the group captured for the contribution multiplier
+    CAPTURED_MULTIPLIER = 1;
+
+  function getTotalMatchingContributions(author, filterRegExp) {
+    var
+      totalMatchingContributions = 0,
+      contributions = author[AUTHOR_CONTRIBUTIONS];
+
+    forEach(contributions, function(contribution) {
+      var match = filterRegExp.exec(contribution);
+      if ( no(match) ) {
+        return;
+      }
+      totalMatchingContributions += match[CAPTURED_MULTIPLIER];
+    });
+
+    return totalMatchingContributions;
+  }
+
+  function getSelectorFunction(filterExpression, multiplier) {
+    var filterRegExp = new RegExp(filterExpression);
+    return function(author) {
+      return getTotalMatchingContributions(author, filterRegExp) >= multiplier;
+    };
+  }
 
   // combine active filters to compute the concatenated filter expression
   // and the selector function to apply to authors for funnel filtering
   function combineActiveFilters(activeFilterSet) {
     var
+      filterExpression = FILTER_START,
       multiplierFilter = activeFilterSet[TOTAL_CONTRIBUTIONS_FILTER],
-      filterExpression = FILTER_START;
+      multiplier;
+
     forEach(CONTRIBUTION_CODE_FILTERS, function(filterName) {
       var activeFilter = activeFilterSet[filterName];
       if ( no(activeFilter) ) {
@@ -49,13 +82,15 @@ within("projetmedea.fr", function(publish, subscribe) {
     filterExpression += FILTER_END;
 
     if ( no(multiplierFilter) ) {
-      minimumContributions = 1;
+      multiplier = 1;
     } else {
-      minimumContributions = Number(multiplierFilter.value);
+      multiplier = Number(multiplierFilter.value);
     }
 
-    publish("active-filter-multiplier", minimumContributions);
-    publish("active-filter-expression", filterExpression);
+    publish(
+      "active-filter-selector",
+      getSelectorFunction(filterExpression, multiplier)
+    );
   }
 
   subscribe("active-filter-set", combineActiveFilters);
