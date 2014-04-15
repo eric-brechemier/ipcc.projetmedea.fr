@@ -34,7 +34,9 @@ within("projetmedea.fr", function(publish, subscribe) {
   // combine active filters to compute the concatenated filter expression
   // and the selector function to apply to authors for funnel filtering
   function combineActiveFilters(activeFilterSet) {
-    var filterExpression = FILTER_START;
+    var
+      multiplierFilter = activeFilterSet[TOTAL_CONTRIBUTIONS_FILTER],
+      filterExpression = FILTER_START;
     forEach(CONTRIBUTION_CODE_FILTERS, function(filterName) {
       var activeFilter = activeFilterSet[filterName];
       if ( no(activeFilter) ) {
@@ -45,6 +47,14 @@ within("projetmedea.fr", function(publish, subscribe) {
       filterExpression += FILTER_SEPARATOR;
     });
     filterExpression += FILTER_END;
+
+    if ( no(multiplierFilter) ) {
+      minimumContributions = 1;
+    } else {
+      minimumContributions = Number(multiplierFilter.value);
+    }
+
+    publish("active-filter-multiplier", minimumContributions);
     publish("active-filter-expression", filterExpression);
   }
 
