@@ -54,6 +54,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
   function publishSelectedFilter(select, listItems, categories) {
     var
       value = select.value,
+      isFirstOption = select.firstChild.value === value,
       listItem = listItems[value],
       categoryName = listItem[LIST_ITEM_NAME],
       category,
@@ -66,8 +67,17 @@ within("projetmedea.fr", function(publish, subscribe, get){
       filter.categoryName = categoryName;
       category = categories[categoryName];
     }
-    if ( !no(category) ) {
+    if ( no(category) ) {
+      // missing categories correspond to an empty set
+      // (except the default option, for which the property is deleted)
+      filter.authors = [];
+    } else {
       filter.authors = category[CATEGORY_AUTHORS];
+    }
+    if ( isFirstOption ) {
+      // do not set authors property for default option
+      // (a missing property corresponds to all authors)
+      delete filter.authors;
     }
     publish("filter-selected", filter);
   }
