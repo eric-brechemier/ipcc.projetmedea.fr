@@ -1,4 +1,4 @@
-within("projetmedea.fr", function(publish, subscribe) {
+within("projetmedea.fr", function(publish, subscribe, get) {
   var
     forEach = this.forEach,
     no = this.no,
@@ -62,10 +62,21 @@ within("projetmedea.fr", function(publish, subscribe) {
     };
   }
 
+  function alwaysTrue() {
+    return true;
+  }
+
   // combine active filters to compute the concatenated filter expression
   // and the selector function to apply to authors for funnel filtering
-  function combineActiveFilters(activeFilterSet) {
+  function combineActiveFilters(activeFilterList) {
+    if ( activeFilterList.length === 0 ) {
+      // shortcut
+      publish("active-filter-selector", alwaysTrue);
+      return;
+    }
+
     var
+      activeFilterSet = get("active-filter-set"),
       filterExpression = FILTER_START,
       multiplierFilter = activeFilterSet[TOTAL_CONTRIBUTIONS_FILTER],
       multiplier;
@@ -93,5 +104,8 @@ within("projetmedea.fr", function(publish, subscribe) {
     );
   }
 
-  subscribe("active-filter-set", combineActiveFilters);
+  // select all authors initially
+  publish("active-filter-selector", alwaysTrue);
+
+  subscribe("active-filter-list", combineActiveFilters);
 });
