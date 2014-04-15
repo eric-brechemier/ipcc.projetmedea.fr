@@ -36,7 +36,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
   function selectAuthors(authors, selectedAuthorFlags){
     var selectedAuthors = [];
     forEach(authors, function(authorId){
-      if ( selectedAuthorFlags[authorId] ){
+      if ( selectedAuthorFlags[authorId] === true ){
         selectedAuthors.push(authorId);
       }
     });
