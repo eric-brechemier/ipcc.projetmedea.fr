@@ -21,20 +21,17 @@ within("projetmedea.fr", function(publish, subscribe, get){
   function select(data, isAuthorSelected){
     var
       selected = [],
-      selectedFlags = Array(data.length);
+      selectedFlags = {};
 
     forEach(data, function(record, position){
       var authorId = record[AUTHOR_ID];
       if ( position === 0 ) {
         selected.push(record); // always keep header
-        selectedFlags[0] = false;
         return;
       }
       if ( isAuthorSelected(record) ) {
         selected.push(record);
         selectedFlags[authorId] = true;
-      } else {
-        selectedFlags[authorId] = false;
       }
     });
     publish("selected-authors", selected);
