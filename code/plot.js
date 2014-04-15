@@ -66,8 +66,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
       circleTop = circle.top,
       circleLeft = circle.left,
       radius,
-      centerTop,
-      centerLeft;
+      centerTileTop,
+      centerTileLeft;
 
     if ( tilesCount === 0 ){
       return [];
