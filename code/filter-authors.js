@@ -2,7 +2,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
   var
     forEach = this.forEach,
-    map = this.map,
+    reduce = this.reduce,
     no = this.no,
     or = this.or,
     form = document.getElementById("filters"),
@@ -43,6 +43,21 @@ within("projetmedea.fr", function(publish, subscribe, get){
       selectorFunction = get("active-filter-selector"),
       activeFilterList = get("active-filter-list"),
       authors = get("authors");
+
+    if ( activeFilterList.length === 0 ) {
+      // shortcut: select all authors
+      publish("selected-authors", authors);
+      publish("selected-author-flags", reduce(
+        {},
+        authors,
+        function(flags, author) {
+          var authorId = author[AUTHOR_ID];
+          flags[authorId] = true;
+          return flags;
+        }
+      ));
+      return;
+    }
 
     select(
       filter(authors, activeFilterList),

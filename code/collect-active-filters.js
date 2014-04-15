@@ -84,6 +84,8 @@ within("projetmedea.fr", function(publish, subscribe, get, set) {
 
   subscribe("authors", function(authorsData){
     countTotalAuthors(authorsData);
+    // select all authors initially
+    publishFilters();
     subscribe("filter-selected", whenNewFilterSelected);
   });
 });
