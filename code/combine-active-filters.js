@@ -2,6 +2,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
   var
     forEach = this.forEach,
     no = this.no,
+    alwaysTrue = this.alwaysTrue,
 
     // offset of the field with the list of author contribution codes
     // in each author record
@@ -60,10 +61,6 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     return function(author) {
       return getTotalMatchingContributions(author, filterRegExp) >= multiplier;
     };
-  }
-
-  function alwaysTrue() {
-    return true;
   }
 
   // combine active filters to compute the concatenated filter expression

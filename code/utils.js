@@ -179,6 +179,11 @@ within("projetmedea.fr", function() {
     return b;
   }
 
+  // Return true, always
+  function alwaysTrue() {
+    return true;
+  }
+
   // Log warnings to the console
   function warn(){
     console.warn.apply(console,arguments);
@@ -198,4 +203,5 @@ within("projetmedea.fr", function() {
   this.or = or;
   this.percentage = percentage;
   this.max = max;
+  this.alwaysTrue = alwaysTrue;
 });
