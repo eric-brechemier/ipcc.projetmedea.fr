@@ -49,7 +49,7 @@ within("projetmedea.fr", function(publish, subscribe) {
       if ( no(match) ) {
         return;
       }
-      totalMatchingContributions += match[CAPTURED_MULTIPLIER];
+      totalMatchingContributions += Number(match[CAPTURED_MULTIPLIER]);
     });
 
     return totalMatchingContributions;
