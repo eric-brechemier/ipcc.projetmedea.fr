@@ -12,10 +12,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return false; // prevent submission to server (reloads the page)
   };
 
-  function filter(data, activeFilterList) {
-    return data;
-  }
-
   function select(data, isAuthorSelected){
     var
       selected = [],
@@ -51,10 +47,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
       return;
     }
 
-    select(
-      filter(authors, activeFilterList),
-      selectorFunction
-    );
+    select(authors, selectorFunction);
   }
 
   subscribe("authors", function(authors){
