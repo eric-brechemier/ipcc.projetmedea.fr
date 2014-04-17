@@ -62,6 +62,59 @@ within("projetmedea.fr", function() {
     };
   }
 
+  // CC0 - https://raw.github.com/eric-brechemier/nadasurf/master/alias.js
+  /*
+    Define an alias for a (Native prototype) function
+
+    The alias allows to call the function with the context object
+    as first argument, followed with regular arguments of the function.
+
+    Example:
+      var has = alias( Object.prototype.hasOwnProperty );
+      has( object, name ) === object.hasOwnProperty( name ); // true
+
+    Parameter:
+      func - function, a method part of the prototype of a Constructor
+
+    Dependency:
+      nada/bind.js
+  */
+  function alias( func ) {
+    return bind( func.call, func );
+  }
+
+  // CC0 - https://raw.github.com/eric-brechemier/nadasurf/master/hasOwnProperty.js
+  var hasOwnProperty = alias( Object.prototype.hasOwnProperty );
+
+  // CC0 - https://raw.github.com/eric-brechemier/nadasurf/master/forEachProperty.js
+  /*
+    Run given function for each property of given object matching the filter,
+    skipping inherited properties
+
+    Parameters:
+      object - object, the object to iterate
+      callback - function( value, name ): boolean, the callback called for each
+                 property owned by the object (not inherited), with property
+                 value and name provided as arguments.
+
+    Notes:
+      * properties are iterated in no particular order
+      * whether properties deleted or added during the iteration are iterated
+        or not is unspecified
+  */
+  function forEachProperty( object, callback ) {
+    var
+      name,
+      value;
+
+    for ( name in object ) {
+      if ( hasOwnProperty( object, name ) ) {
+        value = object[name];
+        callback( value, name );
+      }
+    }
+  }
+
   // CC0 - https://raw.github.com/eric-brechemier/nada/master/forEach.js
   /*
     Run given function for each item in given array,
@@ -93,46 +146,6 @@ within("projetmedea.fr", function() {
 
     for ( i = 0; i < length && !isBreak ; i++ ){
       isBreak = callback( array[ i ], i ) === true;
-    }
-
-    return isBreak;
-  }
-
-  /*
-    Run given function for each own property in given object,
-    ignoring inherited properties
-
-    Parameters:
-      object - object, the object to iterate
-      callback - function( value, name ), the callback called for each property,
-                 with the property value and name provided as arguments.
-                 If the callback returns true, the iteration is interrupted and
-                 following properties will not be processed.
-
-    Returns:
-      boolean, true when the iteration has been interrupted by a callback,
-      false otherwise
-
-    Notes:
-      * properties are iterated in no particular order
-      * properties present at the start of the iteration
-        and deleted during the processing of previous properties
-        are not iterated (behavior observed in Firefox, to be confirmed)
-      * properties added during the iteration are not iterated
-        (behavior observed in Firefox, to be confirmed)
-  */
-  function forEachProperty( object, callback ) {
-    var
-      isBreak = false,
-      name,
-      value;
-
-    for ( name in object ) {
-      value = object[name];
-      isBreak = callback( value, name ) === true;
-      if ( isBreak ) {
-        return isBreak;
-      }
     }
 
     return isBreak;
