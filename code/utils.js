@@ -14,6 +14,23 @@ within("projetmedea.fr", function() {
     return value;
   }
 
+  // CC0 - https://raw.github.com/eric-brechemier/nada/master/always.js
+  /*
+    Create a function which always returns the given value
+
+    Parameter:
+      value - any, any value
+
+    Returns:
+      function, a function which always returns the given value,
+      whatever the input
+  */
+  function always( value ) {
+    return function() {
+      return value;
+    };
+  }
+
   // CC0 - https://raw.github.com/eric-brechemier/nada/master/bind.js
   /*
     Wrap a function in a closure that configures given object as context
@@ -216,11 +233,6 @@ within("projetmedea.fr", function() {
     }
   }
 
-  // Return true, always
-  function alwaysTrue() {
-    return true;
-  }
-
   // Log warnings to the console
   function warn(){
     console.warn.apply(console,arguments);
@@ -241,5 +253,5 @@ within("projetmedea.fr", function() {
   this.or = or;
   this.percentage = percentage;
   this.max = bind( Math.max, Math );
-  this.alwaysTrue = alwaysTrue;
+  this.alwaysTrue = always( true );
 });
