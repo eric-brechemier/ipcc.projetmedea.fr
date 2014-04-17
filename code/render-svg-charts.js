@@ -3,7 +3,7 @@ within("projetmedea.fr", function(publish, subscribe){
   var
     forEach = this.forEach,
 
-    chartsBox = document.getElementById("svg-charts");
+    chartsBox = document.getElementById("svg-charts"),
 
     CHART_BACKGROUND_COLOR = "white",
 
@@ -51,7 +51,7 @@ within("projetmedea.fr", function(publish, subscribe){
         headingTop +
         CHART_HEADING_LINE_HEIGHT +
         CHART_SUBHEADING_LINE_HEIGHT +
-        BOTTOM_MARGIN * TILE_HEIGHT;
+        BOTTOM_MARGIN * TILE_HEIGHT,
       background = svg.append("rect"),
       headingMiddleX = width / 2,
       headingBaselineY = headingTop + CHART_HEADING_LINE_HEIGHT,
@@ -70,6 +70,8 @@ within("projetmedea.fr", function(publish, subscribe){
     subheading.attr("x", subheadingMiddleX);
     subheading.attr("y", subheadingBaselineY);
 
+    // TODO: increase width to ensure that the heading and subheading fit
+    // while offsetting the left of the chart accordingly to keep it centered
     svg.attr("width", width);
     svg.attr("height", height);
 

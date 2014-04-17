@@ -33,10 +33,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
     ];
   }
 
-  function selectAuthors(authors, selectedAuthorFlags){
+  function getSelectedAuthors(authors, isAuthorSelected){
     var selectedAuthors = [];
     forEach(authors, function(authorId){
-      if ( selectedAuthorFlags[authorId] ){
+      if ( isAuthorSelected(authorId) ){
         selectedAuthors.push(authorId);
       }
     });
@@ -45,11 +45,11 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
   function filterCategories(){
     var
-      selectedAuthorFlags = get('selected-author-flags'),
-      categories = get('categories'),
+      isAuthorSelected = get("selected-author-check"),
+      categories = get("categories"),
       filteredCategories = [];
 
-    if ( no(selectedAuthorFlags) || no(categories) ){
+    if ( no(isAuthorSelected) || no(categories) ){
       return;
     }
 
@@ -57,7 +57,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     forEachData(categories, function(category){
       var
         authors = category[CATEGORY_AUTHORS],
-        selectedAuthors = selectAuthors(authors, selectedAuthorFlags);
+        selectedAuthors = getSelectedAuthors(authors, isAuthorSelected);
       if ( selectedAuthors.length > 0 ){
         filteredCategories.push(
           createFilteredCategory(category, selectedAuthors)
@@ -68,5 +68,5 @@ within("projetmedea.fr", function(publish, subscribe, get){
   }
 
   subscribe("categories", filterCategories);
-  subscribe("selected-author-flags", filterCategories);
+  subscribe("selected-author-check", filterCategories);
 });

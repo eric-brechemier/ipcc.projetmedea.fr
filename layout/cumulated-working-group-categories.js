@@ -1,16 +1,15 @@
 within("projetmedea.fr", function(publish, subscribe, get){
   var
     or = this.or,
+    identity = this.identity,
 
     // separator between years in subheading of the chart
     YEAR_SEPARATOR = " - ";
 
-  publish("layout/cumulated-working-group-categories",function(){
-    var
-      years = or(get("assessment-reports/years"), []),
-      allYears = years.join(YEAR_SEPARATOR);
+  function getWorkingGroupLayout(title, subtitle, getGroupName) {
+    getGroupName = or( getGroupName, identity );
     return [
-      ["chart","width","All AR",allYears],
+      ["chart","width",title,subtitle],
       ["height",
         [
           ["table-layout","column1+2","column3"],
@@ -22,14 +21,14 @@ within("projetmedea.fr", function(publish, subscribe, get){
               ],
               ["row1",
                 {
-                  name: 'WG1',
+                  name: getGroupName('WG1'),
                   shape: 'circle',
                   valign: 'bottom',
                   align: 'right',
                   color: '#FF0000'
                 },
                 {
-                  name: 'WG1+3',
+                  name: getGroupName('WG1+3'),
                   shape: 'circle',
                   valign: 'bottom',
                   align: 'center',
@@ -38,14 +37,14 @@ within("projetmedea.fr", function(publish, subscribe, get){
               ],
               ["row2",
                 {
-                  name: 'WG1+2',
+                  name: getGroupName('WG1+2'),
                   shape: 'circle',
                   valign: 'middle',
                   align: 'center',
                   color: '#CCCC00'
                 },
                 {
-                  name: 'WG1+2+3',
+                  name: getGroupName('WG1+2+3'),
                   shape: 'circle',
                   valign: 'middle',
                   align: 'center',
@@ -54,14 +53,14 @@ within("projetmedea.fr", function(publish, subscribe, get){
               ],
               ["row3",
                 {
-                  name: 'WG2',
+                  name: getGroupName('WG2'),
                   shape: 'circle',
                   valign: 'top',
                   align: 'right',
                   color: '#00FF00'
                 },
                 {
-                  name: 'WG2+3',
+                  name: getGroupName('WG2+3'),
                   shape: 'circle',
                   valign: 'top',
                   align: 'center',
@@ -73,7 +72,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
               ["table-layout", "column3"],
               ["row1+2+3",
                 {
-                  name: 'WG3',
+                  name: getGroupName('WG3'),
                   shape: 'circle',
                   valign: 'middle',
                   align: 'left',
@@ -85,5 +84,14 @@ within("projetmedea.fr", function(publish, subscribe, get){
         ]
       ]
     ];
+  }
+
+  publish("layout/cumulated-working-group-categories",function(){
+    var
+      years = or(get("assessment-reports/years"), []),
+      allYears = years.join(YEAR_SEPARATOR);
+    return getWorkingGroupLayout("All AR",allYears);
   });
+
+  this.getWorkingGroupLayout = getWorkingGroupLayout;
 });

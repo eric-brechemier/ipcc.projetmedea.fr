@@ -2,7 +2,10 @@ within("projetmedea.fr", function(){
 
   var
     forEach = this.forEach,
-    or = this.or;
+    or = this.or,
+
+    // offset of the record id or name (first position)
+    RECORD_NAME = 0;
 
   // Count actual records (without header) in given list
   function countData(records){
@@ -19,6 +22,22 @@ within("projetmedea.fr", function(){
     });
   }
 
+  // Collect the results of applying given function to each data record,
+  // skipping the header row
+  //
+  // The operation is called with the record name (first column)
+  // followed with the full record and the offset as parameters.
+  function mapData( records, operation ) {
+    var result = Array( countData(records) );
+
+    forEachData( records, function( record, i ) {
+      var name = record[ RECORD_NAME ];
+      result[ i - 1 ] = operation( name, record, i );
+    });
+
+    return result;
+  }
+
   // Read a column of data, without header, into a new array
   // (the offset for the column is 0-based)
   function getDataColumn(records, columnOffset) {
@@ -32,7 +51,7 @@ within("projetmedea.fr", function(){
   // Store each record in a property named after the value of given column
   // (which defaults to the first column, at offset 0)
   function getDataSet(records, nameColumnOffset) {
-    nameColumnOffset = or(nameColumnOffset, 0);
+    nameColumnOffset = or(nameColumnOffset, RECORD_NAME);
     var set = {};
     forEachData(records, function(record) {
       var name = record[nameColumnOffset];
@@ -85,6 +104,7 @@ within("projetmedea.fr", function(){
 
   this.countData = countData;
   this.forEachData = forEachData;
+  this.mapData = mapData;
   this.getDataColumn = getDataColumn;
   this.getDataSet = getDataSet;
   // TODO: rename to printRecords to disambiguate

@@ -2,9 +2,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
   var
     forEach = this.forEach,
-    map = this.map,
-    no = this.no,
-    or = this.or,
+    alwaysTrue = this.alwaysTrue,
     form = document.getElementById("filters"),
 
     // offset of the column with author identifier in each author record
@@ -14,41 +12,46 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return false; // prevent submission to server (reloads the page)
   };
 
-  function select(data, isAuthorSelected){
+  function filter(data, isAuthorSelected){
     var
       selected = [],
-      selectedFlags = Array(data.length);
+      selectedFlags = {};
 
     forEach(data, function(record, position){
       var authorId = record[AUTHOR_ID];
       if ( position === 0 ) {
         selected.push(record); // always keep header
-        selectedFlags[0] = false;
         return;
       }
       if ( isAuthorSelected(record) ) {
         selected.push(record);
         selectedFlags[authorId] = true;
-      } else {
-        selectedFlags[authorId] = false;
       }
     });
     publish("selected-authors", selected);
-    publish("selected-author-flags", selectedFlags);
+    publish("selected-author-check", function(authorId){
+      return selectedFlags[authorId] === true;
+    });
   }
 
-  function alwaysTrue() {
-    return true;
+  function applyFilters() {
+    var
+      selectorFunction = get("active-filter-selector"),
+      activeFilterList = get("active-filter-list"),
+      authors = get("authors");
+
+    if ( activeFilterList.length === 0 ) {
+      // shortcut: select all authors
+      publish("selected-authors", authors);
+      publish("selected-author-check", alwaysTrue);
+      return;
+    }
+
+    filter(authors, selectorFunction);
   }
 
   subscribe("authors", function(authors){
-    // select all authors initially
-    select(authors, alwaysTrue);
-  });
-
-  subscribe("active-filter-selector", function(selectorFunction){
-    var authors = get('authors');
-    select(authors, selectorFunction);
+    subscribe("active-filter-selector", applyFilters);
   });
 
 });

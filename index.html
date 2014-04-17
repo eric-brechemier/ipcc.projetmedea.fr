@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="style/typography.css" />
     <link rel="stylesheet" type="text/css" href="style/layout.css" />
     <link rel="stylesheet" type="text/css" href="style/forms.css" />
+    <link rel="stylesheet" type="text/css" href="style/charts.css" />
     <link rel="stylesheet" type="text/css" href="style/interactivity.css" />
     <script src="code/within.js"></script>
     <script src="code/utils.js"></script>
@@ -140,24 +141,27 @@
               <li>
                 <label>
                   <input type="radio"
-                    disabled="disabled" title="Not Supported Currently"
                     name="group-by"
                     value="country-categories"
                     data-title="Countries"
                   />
                   by Country
                 </label>
+                <script src="data/country-categories.js"></script>
+                <script src="layout/single-group.js"></script>
+                <script src="layout/country-categories.js"></script>
               </li>
               <li>
                 <label>
                   <input type="radio"
-                    disabled="disabled" title="Not Supported Currently"
                     name="group-by"
                     value="country-group-categories"
                     data-title="Country Aggregations"
                   />
                   by Country Aggregation
                 </label>
+                <script src="data/country-group-categories.js"></script>
+                <script src="layout/country-group-categories.js"></script>
               </li>
               <li>
                 <label>
@@ -174,50 +178,51 @@
               <li>
                 <label>
                   <input type="radio"
-                    disabled="disabled" title="Not Supported Currently"
                     name="group-by"
                     value="cumulated-role-in-assessment-report-categories"
                     data-title="Roles by Assessment Report"
                   />
                   by Role in each Assessment Report (AR)
                 </label>
-                <script src="data/country-and-working-group-categories.js"></script>
+                <script src="data/cumulated-role-in-assessment-report-categories.js"></script>
+                <script src="layout/cumulated-role-in-assessment-report-categories.js"></script>
               </li>
               <li>
                 <label>
                   <input type="radio"
-                    disabled="disabled" title="Not Supported Currently"
                     name="group-by"
                     value="cumulated-working-group-in-country-group-categories"
                     data-title="Working Groups by Country Aggregation"
                   />
                   by Working Group (WG) in each Country Aggregation
                 </label>
-                <script src="data/role-in-working-group-categories.js"></script>
+                <script src="data/cumulated-working-group-in-country-group-categories.js"></script>
+                <script src="layout/cumulated-working-group-in-country-group-categories.js"></script>
               </li>
               <li>
                 <label>
                   <input type="radio"
-                    disabled="disabled" title="Not Supported Currently"
                     name="group-by"
                     value="cumulated-role-in-country-group-categories"
                     data-title="Roles by Country Aggregation"
                   />
                   by Role in each Country Aggregation
                 </label>
-                <script src="data/discipline-in-working-group-categories.js"></script>
+                <script src="data/cumulated-role-in-country-group-categories.js"></script>
+                <script src="layout/cumulated-role-in-country-group-categories.js"></script>
               </li>
               <li>
                 <label>
                   <input type="radio"
-                    disabled="disabled" title="Not Supported Currently"
                     name="group-by"
                     value="cumulated-working-group-in-institution-type-categories"
                     data-title="Working Groups by Institution Type"
                   />
-                  by Working Groups in each Type of Institution
+                  by Working Group in each Type of Institution
                 </label>
-                <script src="data/institution-type-in-working-group-categories.js"></script>
+                <script src="data/institution-type-categories.js"></script>
+                <script src="data/cumulated-working-group-in-institution-type-categories.js"></script>
+                <script src="layout/cumulated-working-group-in-institution-type-categories.js"></script>
               </li>
             </ul>
           </fieldset>
