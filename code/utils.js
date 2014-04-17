@@ -1,5 +1,19 @@
 within("projetmedea.fr", function() {
 
+  // CC0 - https://raw.github.com/eric-brechemier/nada/master/identity.js
+  /*
+    Identity Function: return the given argument
+
+    Parameter:
+      value - any value
+
+    Returns:
+      the same value provided as parameter
+  */
+  function identity( value ) {
+    return value;
+  }
+
   // CC0 - https://raw.github.com/eric-brechemier/nada/master/forEach.js
   /*
     Run given function for each item in given array,
@@ -195,6 +209,7 @@ within("projetmedea.fr", function() {
     this.warn = warn;
   }
 
+  this.identity = identity;
   this.forEach = forEach;
   this.forEachProperty = forEachProperty;
   this.map = map;
