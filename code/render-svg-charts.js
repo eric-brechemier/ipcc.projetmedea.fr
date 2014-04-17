@@ -70,6 +70,8 @@ within("projetmedea.fr", function(publish, subscribe){
     subheading.attr("x", subheadingMiddleX);
     subheading.attr("y", subheadingBaselineY);
 
+    // TODO: increase width to ensure that the heading and subheading fit
+    // while offsetting the left of the chart accordingly to keep it centered
     svg.attr("width", width);
     svg.attr("height", height);
 
