@@ -1,20 +1,13 @@
 within("projetmedea.fr", function(publish, subscribe, get){
   var
     or = this.or,
+    identity = this.identity,
 
     // separator between years in subheading of the chart
     YEAR_SEPARATOR = " - ";
 
-  function getWorkingGroupLayout(title, subtitle, groupNames) {
-    groupNames = or( groupNames, {
-      'WG1': 'WG1',
-      'WG1+2': 'WG1+2',
-      'WG1+3': 'WG1+3',
-      'WG1+2+3': 'WG1+2+3',
-      'WG2': 'WG2',
-      'WG2+3': 'WG2+3',
-      'WG3': 'WG3'
-    });
+  function getWorkingGroupLayout(title, subtitle, getGroupName) {
+    getGroupName = or( getGroupName, identity );
     return [
       ["chart","width",title,subtitle],
       ["height",
@@ -28,14 +21,14 @@ within("projetmedea.fr", function(publish, subscribe, get){
               ],
               ["row1",
                 {
-                  name: groupNames['WG1'],
+                  name: getGroupName('WG1'),
                   shape: 'circle',
                   valign: 'bottom',
                   align: 'right',
                   color: '#FF0000'
                 },
                 {
-                  name: groupNames['WG1+3'],
+                  name: getGroupName('WG1+3'),
                   shape: 'circle',
                   valign: 'bottom',
                   align: 'center',
@@ -44,14 +37,14 @@ within("projetmedea.fr", function(publish, subscribe, get){
               ],
               ["row2",
                 {
-                  name: groupNames['WG1+2'],
+                  name: getGroupName('WG1+2'),
                   shape: 'circle',
                   valign: 'middle',
                   align: 'center',
                   color: '#CCCC00'
                 },
                 {
-                  name: groupNames['WG1+2+3'],
+                  name: getGroupName('WG1+2+3'),
                   shape: 'circle',
                   valign: 'middle',
                   align: 'center',
@@ -60,14 +53,14 @@ within("projetmedea.fr", function(publish, subscribe, get){
               ],
               ["row3",
                 {
-                  name: groupNames['WG2'],
+                  name: getGroupName('WG2'),
                   shape: 'circle',
                   valign: 'top',
                   align: 'right',
                   color: '#00FF00'
                 },
                 {
-                  name: groupNames['WG2+3'],
+                  name: getGroupName('WG2+3'),
                   shape: 'circle',
                   valign: 'top',
                   align: 'center',
@@ -79,7 +72,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
               ["table-layout", "column3"],
               ["row1+2+3",
                 {
-                  name: groupNames['WG3'],
+                  name: getGroupName('WG3'),
                   shape: 'circle',
                   valign: 'middle',
                   align: 'left',
