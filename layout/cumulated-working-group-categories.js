@@ -99,4 +99,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
       allYears = years.join(YEAR_SEPARATOR);
     return getWorkingGroupLayout("All AR",allYears);
   });
+
+  this.getWorkingGroupLayout = getWorkingGroupLayout;
 });
