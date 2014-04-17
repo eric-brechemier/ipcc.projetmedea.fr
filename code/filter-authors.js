@@ -12,7 +12,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return false; // prevent submission to server (reloads the page)
   };
 
-  function select(data, isAuthorSelected){
+  function filter(data, isAuthorSelected){
     var
       selected = [],
       selectedFlags = {};
@@ -47,7 +47,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
       return;
     }
 
-    select(authors, selectorFunction);
+    filter(authors, selectorFunction);
   }
 
   subscribe("authors", function(authors){
