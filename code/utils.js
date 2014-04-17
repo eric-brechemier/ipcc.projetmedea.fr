@@ -14,6 +14,37 @@ within("projetmedea.fr", function() {
     return value;
   }
 
+  // CC0 - https://raw.github.com/eric-brechemier/nada/master/bind.js
+  /*
+    Wrap a function in a closure that configures given object as context
+
+    Parameters:
+      func - function, the function to wrap
+      object - object, the object to provide as 'this' for the function
+
+    Returns:
+      function, a closure that calls the given function with provided parameters,
+      with the given object configured as 'this', and returns the same value.
+
+    Note:
+    This function calls the apply() method of the given function, and its
+    behavior changes depending on whether the function is in strict mode.
+
+    When the provided function is not in strict mode:
+
+      1) a null argument for context object defaults to the global object
+      2) automatic boxing of arguments is performed
+
+      Reference:
+      https://developer.mozilla.org/en-US/docs/JavaScript/Reference
+        /Functions_and_function_scope/Strict_mode#.22Securing.22_JavaScript
+  */
+  function bind( func, object ) {
+    return function() {
+      return func.apply( object, arguments );
+    };
+  }
+
   // CC0 - https://raw.github.com/eric-brechemier/nada/master/forEach.js
   /*
     Run given function for each item in given array,
@@ -185,14 +216,6 @@ within("projetmedea.fr", function() {
     }
   }
 
-  // Return the maximum value of a and b
-  function max(a, b){
-    if (a > b){
-      return a;
-    }
-    return b;
-  }
-
   // Return true, always
   function alwaysTrue() {
     return true;
@@ -217,6 +240,6 @@ within("projetmedea.fr", function() {
   this.no = no;
   this.or = or;
   this.percentage = percentage;
-  this.max = max;
+  this.max = bind( Math.max, Math );
   this.alwaysTrue = alwaysTrue;
 });
