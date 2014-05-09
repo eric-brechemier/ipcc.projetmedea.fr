@@ -2,29 +2,30 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
   var
     forEach = this.forEach,
-    groupingForm = document.getElementById('data-grouping'),
-    groupingOptions = groupingForm['group-by'];
+    groupSelection = document.getElementById('group-selection');
 
-  function getCheckedInput(inputs){
-    var checkedInput = null;
-    forEach(inputs, function(input){
-      if ( input.checked ){
-        checkedInput = input;
+  function getSelectedOption(select){
+    var
+      options = select.childNodes,
+      selectedOption = null;
+    forEach(options, function(option){
+      if ( option.selected ){
+        selectedOption = option;
         return true;
       }
     });
-    return checkedInput;
+    return selectedOption;
   }
 
   function updateGroupingCategory(){
-    var selectedOption = getCheckedInput(groupingOptions);
+    var selectedOption = getSelectedOption(groupSelection);
     publish('group-by', selectedOption.value);
-    publish('visualization-title', selectedOption.getAttribute('data-title') );
+    publish('visualization-title',
+      selectedOption.getAttribute('data-title')
+    );
   }
 
-  forEach(groupingOptions, function(input){
-    input.onchange = updateGroupingCategory;
-  });
+  groupSelection.onchange = updateGroupingCategory;
   updateGroupingCategory();
 
   subscribe("group-by", function(groupName){
