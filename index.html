@@ -30,46 +30,16 @@
         <fieldset>
           <p>
             <label>
-              affiliated with
+              who contributed to
               <select
-                id="institution-filter"
-                name="institution-categories"
+                id="assessment-report-filter"
+                name="assessment-report-categories"
               ></select>
             </label>
-            <script src="data/institution-list.js"></script>
-            <script src="data/institution-categories.js"></script>
-            <script src="code/filter-by-institution.js"></script>
-            <label>
-              based in
-              <select
-                id="country-filter"
-                name="country-categories"
-              ></select>
-            </label>
-            <script src="data/country-list.js"></script>
-            <script src="data/country-categories.js"></script>
-            <script src="code/filter-by-country.js"></script>
-            <label>
-              with at least
-              <select
-                id="total-contributions-filter"
-                name="total-contributions-categories"
-              ></select>
-            </label>
-            <script src="data/total-contributions-list.js"></script>
-            <script src="data/total-contributions-categories.js"></script>
-            <script src="code/filter-by-total-contributions.js"></script>
-            <label>
-              as
-              <select
-                id="role-filter"
-                name="role-categories"
-              ></select>
-            </label>
-            <script src="data/role-list.js"></script>
-            <script src="data/role-categories.js"></script>
-            <script src="code/filter-by-role.js"></script>
-            </label>
+            <script src="data/assessment-report-list.js"></script>
+            <script src="data/assessment-report-categories.js"></script>
+            <script src="code/filter-by-assessment-report.js"></script>
+            <br />
             <label>
               in
               <select
@@ -80,16 +50,50 @@
             <script src="data/working-group-list.js"></script>
             <script src="data/working-group-categories.js"></script>
             <script src="code/filter-by-working-group.js"></script>
+            <br />
             <label>
-              of
+              as
               <select
-                id="assessment-report-filter"
-                name="assessment-report-categories"
-              ></select>.
+                id="role-filter"
+                name="role-categories"
+              ></select>
             </label>
-            <script src="data/assessment-report-list.js"></script>
-            <script src="data/assessment-report-categories.js"></script>
-            <script src="code/filter-by-assessment-report.js"></script>
+            <script src="data/role-list.js"></script>
+            <script src="data/role-categories.js"></script>
+            <script src="code/filter-by-role.js"></script>
+            <br />
+            <label>
+              while working in
+              <select
+                id="country-filter"
+                name="country-categories"
+              ></select>
+            </label>
+            <script src="data/country-list.js"></script>
+            <script src="data/country-categories.js"></script>
+            <script src="code/filter-by-country.js"></script>
+            <br />
+            <label>
+              for
+              <select
+                id="institution-filter"
+                name="institution-categories"
+              ></select>,
+            </label>
+            <script src="data/institution-list.js"></script>
+            <script src="data/institution-categories.js"></script>
+            <script src="code/filter-by-institution.js"></script>
+            <br />
+            <label>
+              writing
+              <select
+                id="total-contributions-filter"
+                name="total-contributions-categories"
+              ></select> or more.
+            </label>
+            <script src="data/total-contributions-list.js"></script>
+            <script src="data/total-contributions-categories.js"></script>
+            <script src="code/filter-by-total-contributions.js"></script>
           </p>
         </fieldset>
       </form>
