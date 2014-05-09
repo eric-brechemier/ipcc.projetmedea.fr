@@ -1,3 +1,13 @@
+ul {
+  padding: 0;
+}
+
+fieldset {
+  border: 0;
+  padding: 0;
+  margin-bottom: 2em;
+}
+
 select {
   width: auto;
   max-width: 20em;
