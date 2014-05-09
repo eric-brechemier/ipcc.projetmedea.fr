@@ -7,9 +7,14 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6, input, select, button {
+  margin: 0;
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
   font-weight: inherit;
   font-style: inherit;
+}
+
+h1 {
+  margin-bottom: 1em;
 }
