@@ -7,8 +7,10 @@ body {
 }
 
 .menu {
+  position: fixed;
+  top: 4em;
+  right: 2em;
   width: 350px;
-  float: right;
 }
 
 .column1of2, .column2of2 {
