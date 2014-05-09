@@ -2,6 +2,15 @@ body {
   margin: 2em;
 }
 
+.visualization {
+  margin-right: 350px;
+}
+
+.menu {
+  width: 350px;
+  float: right;
+}
+
 .column1of2, .column2of2 {
   display: inline-block;
   width: 50%;
