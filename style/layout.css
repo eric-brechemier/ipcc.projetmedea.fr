@@ -8,9 +8,11 @@ body {
 
 .menu {
   position: fixed;
-  top: 4em;
+  top: 10%;
   right: 2em;
   width: 350px;
+  height: 90%;
+  overflow-y: scroll;
 }
 
 .column1of2, .column2of2 {
