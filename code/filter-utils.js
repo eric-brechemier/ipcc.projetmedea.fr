@@ -21,7 +21,15 @@ within("projetmedea.fr", function(publish, subscribe, get){
   function fillFilterSelectionList(select, listData, categories, totalAuthors){
     var
       options = document.createDocumentFragment(),
-      isFirstOption = select.childNodes.length === 0;
+      isFirstOption = select.childNodes.length === 0,
+      DEFAULT_CATEGORY = 1,
+      totalCategories = countData(listData) - DEFAULT_CATEGORY,
+      totalCategoriesDisplay =
+        document.getElementById( select.id + "-total" );
+
+    if ( !no(totalCategoriesDisplay) ) {
+      select.nextSibling.innerHTML = "/" + totalCategories;
+    }
 
     forEachData(listData, function(listItem){
       var
