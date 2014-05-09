@@ -11,6 +11,8 @@ body {
   top: 4em;
   right: 2em;
   width: 350px;
+  height: 90%;
+  overflow-y: scroll;
 }
 
 .column1of2, .column2of2 {
