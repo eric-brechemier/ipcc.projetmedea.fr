@@ -18,6 +18,84 @@
   <body>
     <div class="columns">
       <div class="column1of2">
+        <h1>IPCC Tool</h1>
+
+        <h2>Visualization: <span id="visualization-title"></span></h2>
+        <script src="code/update-visualization-title.js"></script>
+        <script src="code/underplot.js"></script>
+        <script src="code/layout.js"></script>
+        <script src="code/plot.js"></script>
+
+        <h3>SVG Rendering (d3.js)</h3>
+        <div id="svg-charts"></div>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="code/render-svg-charts.js"></script>
+        <script src="data/assessment-report-years.js"></script>
+        <script src="code/publish-assessment-report-names.js"></script>
+        <script src="code/publish-assessment-report-years.js"></script>
+
+        <h3>SVG Export</h3>
+        <div id="svg-code-block" class="hidden">
+          <button id="hide-svg-code-block">Hide SVG Code ▼</button>
+          <pre id="svg-output"></pre>
+          <script src="code/export-svg.js"></script>
+        </div>
+        <div id="svg-code-block-presenter">
+          <button id="show-svg-code-block">Show SVG Code ▲</button>
+        </div>
+        <script src="code/show-hide-svg-code-block.js"></script>
+
+        <h2>Authors</h2>
+        <div>Total: <span id="total-records-count"></span></div>
+        <script src="code/count-author-records.js"></script>
+        <div>
+          Selected: <span id="selected-records-count"></span>
+          (<span id="selected-records-percentage"></span>%)
+        </div>
+        <script src="code/count-selected-authors.js"></script>
+        <script src="code/count-selected-authors-percentage.js"></script>
+
+        <h3>CSV Data</h3>
+        <div id="authors-csv-block" class="hidden">
+          <button id="hide-authors-csv-block">Hide Authors CSV ▼</button>
+          <pre id="selected-authors-csv-output"></pre>
+          <script src="code/print-selected-authors.js"></script>
+        </div>
+        <div id="authors-csv-block-presenter">
+          <button id="show-authors-csv-block">Show Authors CSV ▲</button>
+        </div>
+          <script src="code/show-hide-authors-csv-block.js"></script>
+
+        <!--h2>Data Table</h2>
+        <table id="data-table"></table>
+        <script src="code/list-selected-authors.js"></script-->
+
+        <script src="data/authors.js"></script>
+
+        <h2>Categories</h2>
+        <div>Total: <span id="total-categories-count"></span></div>
+        <script src="code/count-categories.js"></script>
+        <div>
+          Selected: <span id="selected-categories-count"></span>
+          (<span id="selected-categories-percentage"></span>%)
+        </div>
+        <script src="code/filter-categories.js"></script>
+        <script src="code/count-selected-categories.js"></script>
+        <script src="code/count-selected-categories-percentage.js"></script>
+
+        <h3>CSV Data</h3>
+        <div id="categories-csv-block" class="hidden">
+          <button id="hide-categories-csv-block">Hide Categories CSV ▼</button>
+          <pre id="selected-categories-csv-output"></pre>
+          <script src="code/print-selected-categories.js"></script>
+        </div>
+        <div id="categories-csv-block-presenter">
+          <button id="show-categories-csv-block">Show Categories CSV ▲</button>
+        </div>
+        <script src="code/show-hide-categories-csv-block.js"></script>
+
+      </div>
+      <div class="column2of2">
         <h2>Select Authors of Interest</h2>
         <script src="code/collect-active-filters.js"></script>
         <script src="code/combine-active-filters.js"></script>
@@ -199,85 +277,6 @@
           </fieldset>
         </form>
         <script src="code/group-by-category.js"></script>
-
-      </div>
-      <div class="column2of2">
-        <h1>IPCC Tool</h1>
-
-        <h2>Visualization: <span id="visualization-title"></span></h2>
-        <script src="code/update-visualization-title.js"></script>
-        <script src="code/underplot.js"></script>
-        <script src="code/layout.js"></script>
-        <script src="code/plot.js"></script>
-
-        <h3>SVG Rendering (d3.js)</h3>
-        <div id="svg-charts"></div>
-        <script src="http://d3js.org/d3.v3.min.js"></script>
-        <script src="code/render-svg-charts.js"></script>
-        <script src="data/assessment-report-years.js"></script>
-        <script src="code/publish-assessment-report-names.js"></script>
-        <script src="code/publish-assessment-report-years.js"></script>
-
-        <h3>SVG Export</h3>
-        <div id="svg-code-block" class="hidden">
-          <button id="hide-svg-code-block">Hide SVG Code ▼</button>
-          <pre id="svg-output"></pre>
-          <script src="code/export-svg.js"></script>
-        </div>
-        <div id="svg-code-block-presenter">
-          <button id="show-svg-code-block">Show SVG Code ▲</button>
-        </div>
-        <script src="code/show-hide-svg-code-block.js"></script>
-
-        <h2>Authors</h2>
-        <div>Total: <span id="total-records-count"></span></div>
-        <script src="code/count-author-records.js"></script>
-        <div>
-          Selected: <span id="selected-records-count"></span>
-          (<span id="selected-records-percentage"></span>%)
-        </div>
-        <script src="code/count-selected-authors.js"></script>
-        <script src="code/count-selected-authors-percentage.js"></script>
-
-        <h3>CSV Data</h3>
-        <div id="authors-csv-block" class="hidden">
-          <button id="hide-authors-csv-block">Hide Authors CSV ▼</button>
-          <pre id="selected-authors-csv-output"></pre>
-          <script src="code/print-selected-authors.js"></script>
-        </div>
-        <div id="authors-csv-block-presenter">
-          <button id="show-authors-csv-block">Show Authors CSV ▲</button>
-        </div>
-          <script src="code/show-hide-authors-csv-block.js"></script>
-
-        <!--h2>Data Table</h2>
-        <table id="data-table"></table>
-        <script src="code/list-selected-authors.js"></script-->
-
-        <script src="data/authors.js"></script>
-
-        <h2>Categories</h2>
-        <div>Total: <span id="total-categories-count"></span></div>
-        <script src="code/count-categories.js"></script>
-        <div>
-          Selected: <span id="selected-categories-count"></span>
-          (<span id="selected-categories-percentage"></span>%)
-        </div>
-        <script src="code/filter-categories.js"></script>
-        <script src="code/count-selected-categories.js"></script>
-        <script src="code/count-selected-categories-percentage.js"></script>
-
-        <h3>CSV Data</h3>
-        <div id="categories-csv-block" class="hidden">
-          <button id="hide-categories-csv-block">Hide Categories CSV ▼</button>
-          <pre id="selected-categories-csv-output"></pre>
-          <script src="code/print-selected-categories.js"></script>
-        </div>
-        <div id="categories-csv-block-presenter">
-          <button id="show-categories-csv-block">Show Categories CSV ▲</button>
-        </div>
-        <script src="code/show-hide-categories-csv-block.js"></script>
-
       </div>
     </div>
 
