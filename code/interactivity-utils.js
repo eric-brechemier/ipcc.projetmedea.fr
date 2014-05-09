@@ -15,18 +15,18 @@ within("projetmedea.fr", function(){
       presenterBlock = document.getElementById(presenterBlockId),
       codeBlock = document.getElementById(blockId);
 
-    function showSvgCode(){
+    function showCodeBlock(){
       presenterBlock.className = CSS_CLASS_HIDDEN;
       codeBlock.className = "";
     }
 
-    function hideSvgCode(){
+    function hideCodeBlock(){
       presenterBlock.className = "";
       codeBlock.className = CSS_CLASS_HIDDEN;
     }
 
-    showButton.onclick = showSvgCode;
-    hideButton.onclick = hideSvgCode;
+    showButton.onclick = showCodeBlock;
+    hideButton.onclick = hideCodeBlock;
   }
 
   this.showHide = showHide;
