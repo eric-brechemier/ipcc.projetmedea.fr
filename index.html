@@ -167,111 +167,86 @@
       </form>
       <script src="code/filter-authors.js"></script>
 
-      <h2>Group Authors in Categories</h2>
-      <form id="data-grouping">
+      <h2>I wish to group authors:</h2>
+      <form id="groups">
         <fieldset>
-          <legend>I wish to group authors</legend>
-          <ul style="list-style-type: none">
-            <li>
-              <label>
-                <input type="radio"
-                  name="group-by"
-                  value="cumulated-working-group-categories"
-                  data-title="Working Groups"
-                  checked="checked"
-                />
-                by Working Group (WG)
-              </label>
-              <script src="data/cumulated-working-group-categories.js"></script>
-              <script src="layout/cumulated-working-group-categories.js"></script>
-            </li>
-            <li>
-              <label>
-                <input type="radio"
-                  name="group-by"
-                  value="country-categories"
-                  data-title="Countries"
-                />
-                by Country
-              </label>
-              <script src="data/country-categories.js"></script>
-              <script src="layout/single-group.js"></script>
-              <script src="layout/country-categories.js"></script>
-            </li>
-            <li>
-              <label>
-                <input type="radio"
-                  name="group-by"
-                  value="country-group-categories"
-                  data-title="Country Aggregations"
-                />
-                by Country Aggregation
-              </label>
-              <script src="data/country-group-categories.js"></script>
-              <script src="layout/country-group-categories.js"></script>
-            </li>
-            <li>
-              <label>
-                <input type="radio"
-                  name="group-by"
-                  value="cumulated-working-group-in-assessment-report-categories"
-                  data-title="Working Groups by Assessment Report"
-                />
-                by Working Group (WG) in each Assessment Report (AR)
-              </label>
-              <script src="data/cumulated-working-group-in-assessment-report-categories.js"></script>
-              <script src="layout/cumulated-working-group-in-assessment-report-categories.js"></script>
-            </li>
-            <li>
-              <label>
-                <input type="radio"
-                  name="group-by"
-                  value="cumulated-role-in-assessment-report-categories"
-                  data-title="Roles by Assessment Report"
-                />
-                by Role in each Assessment Report (AR)
-              </label>
-              <script src="data/cumulated-role-in-assessment-report-categories.js"></script>
-              <script src="layout/cumulated-role-in-assessment-report-categories.js"></script>
-            </li>
-            <li>
-              <label>
-                <input type="radio"
-                  name="group-by"
-                  value="cumulated-working-group-in-country-group-categories"
-                  data-title="Working Groups by Country Aggregation"
-                />
-                by Working Group (WG) in each Country Aggregation
-              </label>
-              <script src="data/cumulated-working-group-in-country-group-categories.js"></script>
-              <script src="layout/cumulated-working-group-in-country-group-categories.js"></script>
-            </li>
-            <li>
-              <label>
-                <input type="radio"
-                  name="group-by"
-                  value="cumulated-role-in-country-group-categories"
-                  data-title="Roles by Country Aggregation"
-                />
-                by Role in each Country Aggregation
-              </label>
-              <script src="data/cumulated-role-in-country-group-categories.js"></script>
-              <script src="layout/cumulated-role-in-country-group-categories.js"></script>
-            </li>
-            <li>
-              <label>
-                <input type="radio"
-                  name="group-by"
-                  value="cumulated-working-group-in-institution-type-categories"
-                  data-title="Working Groups by Institution Type"
-                />
-                by Working Group in each Type of Institution
-              </label>
-              <script src="data/institution-type-categories.js"></script>
-              <script src="data/cumulated-working-group-in-institution-type-categories.js"></script>
-              <script src="layout/cumulated-working-group-in-institution-type-categories.js"></script>
-            </li>
-          </ul>
+          <select id="group-selection">
+            <option
+              name="group-by"
+              value="cumulated-working-group-categories"
+              data-title="Working Groups"
+              selected="selected"
+            >
+              by Working Group (WG)
+            </option>
+            <option
+              name="group-by"
+              value="country-categories"
+              data-title="Countries"
+            >
+              by Country
+            </option>
+            <option
+              name="group-by"
+              value="country-group-categories"
+              data-title="Country Aggregations"
+            >
+              by Country Aggregation
+            </option>
+            <option
+              name="group-by"
+              value="cumulated-working-group-in-assessment-report-categories"
+              data-title="Working Groups by Assessment Report"
+            >
+              by Working Group (WG) in each Assessment Report (AR)
+            </option>
+            <option
+              name="group-by"
+              value="cumulated-role-in-assessment-report-categories"
+              data-title="Roles by Assessment Report"
+            >
+              by Role in each Assessment Report (AR)
+            </option>
+            <option
+              name="group-by"
+              value="cumulated-working-group-in-country-group-categories"
+              data-title="Working Groups by Country Aggregation"
+            >
+              by Working Group (WG) in each Country Aggregation
+            </option>
+            <option
+              name="group-by"
+              value="cumulated-role-in-country-group-categories"
+              data-title="Roles by Country Aggregation"
+            >
+              by Role in each Country Aggregation
+            </option>
+            <option
+              name="group-by"
+              value="cumulated-working-group-in-institution-type-categories"
+              data-title="Working Groups by Institution Type"
+            >
+              by Working Group in each Type of Institution
+            </option>
+          </select>
+          <script src="data/cumulated-working-group-categories.js"></script>
+          <script src="layout/cumulated-working-group-categories.js"></script>
+          <script src="data/country-categories.js"></script>
+          <script src="layout/single-group.js"></script>
+          <script src="layout/country-categories.js"></script>
+          <script src="data/country-group-categories.js"></script>
+          <script src="layout/country-group-categories.js"></script>
+          <script src="data/cumulated-working-group-in-assessment-report-categories.js"></script>
+          <script src="layout/cumulated-working-group-in-assessment-report-categories.js"></script>
+          <script src="data/cumulated-role-in-assessment-report-categories.js"></script>
+          <script src="layout/cumulated-role-in-assessment-report-categories.js"></script>
+          <script src="data/cumulated-working-group-in-country-group-categories.js"></script>
+          <script src="layout/cumulated-working-group-in-country-group-categories.js"></script>
+          <script src="data/cumulated-role-in-country-group-categories.js"></script>
+          <script src="layout/cumulated-role-in-country-group-categories.js"></script>
+          <script src="data/institution-type-categories.js"></script>
+          <script src="data/cumulated-working-group-in-institution-type-categories.js"></script>
+          <script src="layout/cumulated-working-group-in-institution-type-categories.js"></script>
         </fieldset>
       </form>
       <script src="code/group-by-category.js"></script>
