@@ -2,11 +2,11 @@ body {
   margin: 2em;
 }
 
-.visualization {
+.main-display-area {
   margin-right: 350px;
 }
 
-.menu {
+.menu-area {
   position: fixed;
   top: 10%;
   right: 2em;
