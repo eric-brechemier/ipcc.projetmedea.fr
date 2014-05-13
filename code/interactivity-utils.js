@@ -1,6 +1,7 @@
 within("projetmedea.fr", function(){
   var
     or = this.or,
+    forEach = this.forEach,
 
     CSS_CLASS_HIDDEN = "hidden";
 
@@ -43,8 +44,39 @@ within("projetmedea.fr", function(){
     hideButton.onclick = hideCodeBlock;
   }
 
+  function selectBlockToShow( displaySelection ) {
+
+    function selectDisplay() {
+      var
+        selectedValue = displaySelection.value,
+        // WARNING: no text must be left between options in markup
+        // like in following example
+        // <select ...
+        //   ><option ... >...</option
+        //   ><option ... >...</option
+        // ></select>
+        options = displaySelection.childNodes;
+
+      forEach(options, function(option) {
+        var
+          value = option.value,
+          block = document.getElementById(value);
+
+        if ( value === selectedValue ) {
+          showBlock(block);
+        } else {
+          hideBlock(block);
+        }
+      });
+    }
+
+    selectDisplay();
+    displaySelection.onchange = selectDisplay;
+  }
+
   this.showBlock = showBlock;
   this.hideBlock = hideBlock;
   this.showHide = showHide;
+  this.selectBlockToShow = selectBlockToShow;
 
 });
