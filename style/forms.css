@@ -6,12 +6,19 @@ fieldset {
 }
 
 select {
+  -webkit-appearance: none;
+  border-color: transparent;
   width: auto;
   max-width: 20em;
 }
 
 option {
   width: 1em;
+}
+
+select:hover {
+  -webkit-appearance: menulist-button;
+  border-color: threedface;
 }
 
 select:focus {
