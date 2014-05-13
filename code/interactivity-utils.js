@@ -4,6 +4,20 @@ within("projetmedea.fr", function(){
 
     CSS_CLASS_HIDDEN = "hidden";
 
+  // Note:
+  // In this implementation, all other class names are lost, which could
+  // be avoided by adding the class to existing classes instead.
+  function hideBlock(block) {
+    block.className = CSS_CLASS_HIDDEN;
+  }
+
+  // Note:
+  // In this implementation, all other class names are lost, which could
+  // be avoided by removing the class from existing classes instead.
+  function showBlock(block) {
+    block.className = "";
+  }
+
   function showHide(blockId, presenterBlockId, showButtonId, hideButtonId){
     presenterBlockId = or(presenterBlockId, blockId+"-presenter");
     showButtonId = or(showButtonId, "show-"+blockId);
@@ -16,19 +30,21 @@ within("projetmedea.fr", function(){
       codeBlock = document.getElementById(blockId);
 
     function showCodeBlock(){
-      presenterBlock.className = CSS_CLASS_HIDDEN;
-      codeBlock.className = "";
+      hideBlock(presenterBlock);
+      showBlock(codeBlock);
     }
 
     function hideCodeBlock(){
-      presenterBlock.className = "";
-      codeBlock.className = CSS_CLASS_HIDDEN;
+      showBlock(presenterBlock);
+      hideBlock(codeBlock);
     }
 
     showButton.onclick = showCodeBlock;
     hideButton.onclick = hideCodeBlock;
   }
 
+  this.showBlock = showBlock;
+  this.hideBlock = hideBlock;
   this.showHide = showHide;
 
 });
