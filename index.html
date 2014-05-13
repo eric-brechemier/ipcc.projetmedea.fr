@@ -16,75 +16,96 @@
     <script src="code/filter-utils.js"></script>
   </head>
   <body>
-    <div class="visualization">
-      <div id="svg-charts"></div>
-      <script src="http://d3js.org/d3.v3.min.js"></script>
-      <script src="code/render-svg-charts.js"></script>
-      <script src="data/assessment-report-years.js"></script>
-      <script src="code/publish-assessment-report-names.js"></script>
-      <script src="code/publish-assessment-report-years.js"></script>
+    <div class="main-display-area">
+      <form id="display-selector">
+        <fieldset>
+          <select id="display-selection"
+            ><option
+              value="visualization-block"
+              selected="selected"
+            >
+              Visualization
+            </option
+            ><option
+              value="data-block"
+            >
+              Data
+            </option
+          ></select>
+        </fieldset>
+      </form>
+      <div id="visualization-block">
+        <div id="svg-charts"></div>
+        <script src="code/d3.js"></script>
+        <script src="code/render-svg-charts.js"></script>
+        <script src="data/assessment-report-years.js"></script>
+        <script src="code/publish-assessment-report-names.js"></script>
+        <script src="code/publish-assessment-report-years.js"></script>
 
-      <h3>SVG Export</h3>
-      <div id="svg-code-block" class="hidden">
-        <button id="hide-svg-code-block">Hide SVG Code ▼</button>
-        <pre id="svg-output"></pre>
-        <script src="code/export-svg.js"></script>
+        <h3>SVG Export</h3>
+        <div id="svg-code-block" class="hidden">
+          <button id="hide-svg-code-block">Hide SVG Code ▼</button>
+          <pre id="svg-output"></pre>
+          <script src="code/export-svg.js"></script>
+        </div>
+        <div id="svg-code-block-presenter">
+          <button id="show-svg-code-block">Show SVG Code ▲</button>
+        </div>
+        <script src="code/show-hide-svg-code-block.js"></script>
       </div>
-      <div id="svg-code-block-presenter">
-        <button id="show-svg-code-block">Show SVG Code ▲</button>
-      </div>
-      <script src="code/show-hide-svg-code-block.js"></script>
+      <div id="data-block" class="hidden">
+        <h2>Authors</h2>
+        <div>Total: <span id="total-records-count"></span></div>
+        <script src="code/count-author-records.js"></script>
+        <div>
+          Selected: <span id="selected-records-count"></span>
+          (<span id="selected-records-percentage"></span>%)
+        </div>
+        <script src="code/count-selected-authors.js"></script>
+        <script src="code/count-selected-authors-percentage.js"></script>
 
-      <h2>Authors</h2>
-      <div>Total: <span id="total-records-count"></span></div>
-      <script src="code/count-author-records.js"></script>
-      <div>
-        Selected: <span id="selected-records-count"></span>
-        (<span id="selected-records-percentage"></span>%)
-      </div>
-      <script src="code/count-selected-authors.js"></script>
-      <script src="code/count-selected-authors-percentage.js"></script>
+        <h3>CSV Data</h3>
+        <div id="authors-csv-block" class="hidden">
+          <button id="hide-authors-csv-block">Hide Authors CSV ▼</button>
+          <pre id="selected-authors-csv-output"></pre>
+          <script src="code/print-selected-authors.js"></script>
+        </div>
+        <div id="authors-csv-block-presenter">
+          <button id="show-authors-csv-block">Show Authors CSV ▲</button>
+        </div>
+          <script src="code/show-hide-authors-csv-block.js"></script>
 
-      <h3>CSV Data</h3>
-      <div id="authors-csv-block" class="hidden">
-        <button id="hide-authors-csv-block">Hide Authors CSV ▼</button>
-        <pre id="selected-authors-csv-output"></pre>
-        <script src="code/print-selected-authors.js"></script>
-      </div>
-      <div id="authors-csv-block-presenter">
-        <button id="show-authors-csv-block">Show Authors CSV ▲</button>
-      </div>
-        <script src="code/show-hide-authors-csv-block.js"></script>
+        <!--h2>Data Table</h2>
+        <table id="data-table"></table>
+        <script src="code/list-selected-authors.js"></script-->
 
-      <!--h2>Data Table</h2>
-      <table id="data-table"></table>
-      <script src="code/list-selected-authors.js"></script-->
+        <script src="data/authors.js"></script>
 
-      <script src="data/authors.js"></script>
+        <h2>Categories</h2>
+        <div>Total: <span id="total-categories-count"></span></div>
+        <script src="code/count-categories.js"></script>
+        <div>
+          Selected: <span id="selected-categories-count"></span>
+          (<span id="selected-categories-percentage"></span>%)
+        </div>
+        <script src="code/filter-categories.js"></script>
+        <script src="code/count-selected-categories.js"></script>
+        <script src="code/count-selected-categories-percentage.js"></script>
 
-      <h2>Categories</h2>
-      <div>Total: <span id="total-categories-count"></span></div>
-      <script src="code/count-categories.js"></script>
-      <div>
-        Selected: <span id="selected-categories-count"></span>
-        (<span id="selected-categories-percentage"></span>%)
+        <h3>CSV Data</h3>
+        <div id="categories-csv-block" class="hidden">
+          <button id="hide-categories-csv-block">Hide Categories CSV ▼</button>
+          <pre id="selected-categories-csv-output"></pre>
+          <script src="code/print-selected-categories.js"></script>
+        </div>
+        <div id="categories-csv-block-presenter">
+          <button id="show-categories-csv-block">Show Categories CSV ▲</button>
+        </div>
+        <script src="code/show-hide-categories-csv-block.js"></script>
       </div>
-      <script src="code/filter-categories.js"></script>
-      <script src="code/count-selected-categories.js"></script>
-      <script src="code/count-selected-categories-percentage.js"></script>
-
-      <h3>CSV Data</h3>
-      <div id="categories-csv-block" class="hidden">
-        <button id="hide-categories-csv-block">Hide Categories CSV ▼</button>
-        <pre id="selected-categories-csv-output"></pre>
-        <script src="code/print-selected-categories.js"></script>
-      </div>
-      <div id="categories-csv-block-presenter">
-        <button id="show-categories-csv-block">Show Categories CSV ▲</button>
-      </div>
-      <script src="code/show-hide-categories-csv-block.js"></script>
+      <script src="code/display-visualization-or-data.js"></script>
     </div>
-    <div class="menu">
+    <div class="menu-area">
       <h1 id="visualization-title"></h1>
       <script src="code/update-visualization-title.js"></script>
       <script src="code/underplot.js"></script>
@@ -101,7 +122,11 @@
             <select
               id="assessment-report-filter"
               name="assessment-report-categories"
-            ></select>
+            ></select
+            ><span
+              id="assessment-report-filter-total"
+              class="total-categories"
+            ></span>
           </label>
           <script src="data/assessment-report-list.js"></script>
           <script src="data/assessment-report-categories.js"></script>
@@ -112,7 +137,11 @@
             <select
               id="working-group-filter"
               name="working-group-categories"
-            ></select>
+            ></select
+            ><span
+              id="working-group-filter-total"
+              class="total-categories"
+            ></span>
           </label>
           <script src="data/working-group-list.js"></script>
           <script src="data/working-group-categories.js"></script>
@@ -123,7 +152,11 @@
             <select
               id="role-filter"
               name="role-categories"
-            ></select>
+            ></select
+            ><span
+              id="role-filter-total"
+              class="total-categories"
+            ></span>
           </label>
           <script src="data/role-list.js"></script>
           <script src="data/role-categories.js"></script>
@@ -134,7 +167,11 @@
             <select
               id="country-filter"
               name="country-categories"
-            ></select>
+            ></select
+            ><span
+              id="country-filter-total"
+              class="total-categories"
+            ></span>
           </label>
           <script src="data/country-list.js"></script>
           <script src="data/country-categories.js"></script>
@@ -145,7 +182,11 @@
             <select
               id="institution-filter"
               name="institution-categories"
-            ></select>,
+            ></select
+            ><span
+              id="institution-filter-total"
+              class="total-categories"
+            ></span>,
           </label>
           <script src="data/institution-list.js"></script>
           <script src="data/institution-categories.js"></script>
@@ -168,9 +209,8 @@
       <h2>I wish to group authors:</h2>
       <form id="groups">
         <fieldset>
-          <select id="group-selection">
+          <select id="group-selection" name="group-by">
             <option
-              name="group-by"
               value="cumulated-working-group-categories"
               data-title="Working Groups"
               selected="selected"
@@ -178,49 +218,42 @@
               by Working Group (WG)
             </option>
             <option
-              name="group-by"
               value="country-categories"
               data-title="Countries"
             >
               by Country
             </option>
             <option
-              name="group-by"
               value="country-group-categories"
               data-title="Country Aggregations"
             >
               by Country Aggregation
             </option>
             <option
-              name="group-by"
               value="cumulated-working-group-in-assessment-report-categories"
               data-title="Working Groups in each Assessment Report"
             >
               by Assessment Report &gt; WG
             </option>
             <option
-              name="group-by"
               value="cumulated-role-in-assessment-report-categories"
               data-title="Roles in each Assessment Report"
             >
               by Assessment Report &gt; Role
             </option>
             <option
-              name="group-by"
               value="cumulated-working-group-in-country-group-categories"
               data-title="Working Groups in each Country Aggregation"
             >
               by Country Aggregation &gt; WG
             </option>
             <option
-              name="group-by"
               value="cumulated-role-in-country-group-categories"
               data-title="Roles in each Country Aggregation"
             >
               by Country Aggregation &gt; Role
             </option>
             <option
-              name="group-by"
               value="cumulated-working-group-in-institution-type-categories"
               data-title="Working Groups in each Type of Institution"
             >
