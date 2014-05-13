@@ -100,9 +100,12 @@ within("projetmedea.fr", function(publish, subscribe, get){
     publish("filter-selected", filter);
   }
 
-  function updateSelectedOptionText( selectedOption, dataPropertyName ) {
-    selectedOption.firstChild.nodeValue =
-      selectedOption.getAttribute(dataPropertyName);
+  function setOptionText( option, text ) {
+    option.firstChild.nodeValue = text;
+  }
+
+  function getSelectedOptionText( selectedOption, size ) {
+    return selectedOption.getAttribute("data-"+size+"-text");
   }
 
   // adjust the width of the select to match the width of selected option
@@ -111,8 +114,11 @@ within("projetmedea.fr", function(publish, subscribe, get){
   }
 
   function adjustSelectSize( select, size ) {
-    var selectedOption = getSelectedOption(select);
-    updateSelectedOptionText(selectedOption, "data-"+size+"-text");
+    var
+      selectedOption = getSelectedOption(select),
+      selectedOptionText = getSelectedOptionText(selectedOption, size);
+
+    setOptionText(selectedOption, selectedOptionText);
     adjustSelectWidth(select, selectedOption);
   }
 
