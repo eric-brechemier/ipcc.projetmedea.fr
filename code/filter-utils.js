@@ -28,7 +28,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
         document.getElementById( select.id + "-total" );
 
     if ( !no(totalCategoriesDisplay) ) {
-      select.nextSibling.innerHTML = "/" + totalCategories;
+      select.nextSibling.innerHTML = " /" + totalCategories;
     }
 
     forEachData(listData, function(listItem){
