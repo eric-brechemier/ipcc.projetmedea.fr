@@ -10,11 +10,13 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
     CATEGORY_AUTHORS = 1;
 
-  function getExtraText(totalCategoryAuthors){
+  function getExtraText(totalCategoryAuthors, totalAuthors){
     return (
+      "(" +
       totalCategoryAuthors +
-      " author" +
-      (totalCategoryAuthors===1? "": "s")
+      "/" +
+      totalAuthors +
+      ")"
     );
   }
 
@@ -37,22 +39,26 @@ within("projetmedea.fr", function(publish, subscribe, get){
         category = categories[categoryName],
         option = document.createElement("option"),
         optionText = categoryName,
-        text = document.createTextNode(optionText),
         extraText;
 
       if ( isFirstOption ) {
         option.setAttribute("selected", "selected");
-        extraText = getExtraText(totalAuthors);
+        extraText = getExtraText( totalAuthors, totalAuthors );
       } else {
         if ( no(category) ) {
           extraText = 'No Authors';
         } else {
-          extraText = getExtraText(category[CATEGORY_AUTHORS].length);
+          extraText = getExtraText(
+            category[CATEGORY_AUTHORS].length,
+            totalAuthors
+          );
         }
       }
       option.setAttribute("value", listItem[LIST_ITEM_VALUE]);
-      option.setAttribute("data-extra", extraText);
-      option.appendChild(text);
+      option.appendChild(
+        // TODO: pad the extra text to get it right-aligned
+        document.createTextNode(optionText + " " + extraText)
+      );
       options.appendChild(option);
       isFirstOption = false;
     });
