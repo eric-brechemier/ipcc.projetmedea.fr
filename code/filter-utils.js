@@ -9,7 +9,13 @@ within("projetmedea.fr", function(publish, subscribe, get){
     LIST_ITEM_NAME = 0,
     LIST_ITEM_VALUE = 1,
 
-    CATEGORY_AUTHORS = 1;
+    CATEGORY_AUTHORS = 1,
+
+    // hidden option used to measure the size of an option
+    // with a given text in the same style.
+    // The option shall be alone in a select, within a label
+    // hidden using CSS visibility hidden, not display none.
+    HIDDEN_OPTION_ID = "hidden-filter-option";
 
   function getExtraText(totalCategoryAuthors, totalAuthors){
     return (
@@ -104,13 +110,20 @@ within("projetmedea.fr", function(publish, subscribe, get){
     option.firstChild.nodeValue = text;
   }
 
+  // measure the clientWidth of a hidden option created for this purpose
+  function getOptionWidth( optionText ) {
+    var hiddenOption = document.getElementById(HIDDEN_OPTION_ID);
+    setOptionText(hiddenOption, optionText);
+    return hiddenOption.clientWidth;
+  }
+
   function getSelectedOptionText( selectedOption, size ) {
     return selectedOption.getAttribute("data-"+size+"-text");
   }
 
   // adjust the width of the select to match the width of selected option
-  function adjustSelectWidth( select, selectedOption ) {
-
+  function adjustSelectWidth( select, selectedOptionText ) {
+    select.style.width = getOptionWidth( selectedOptionText ) + "px";
   }
 
   function adjustSelectSize( select, size ) {
@@ -119,7 +132,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
       selectedOptionText = getSelectedOptionText(selectedOption, size);
 
     setOptionText(selectedOption, selectedOptionText);
-    adjustSelectWidth(select, selectedOption);
+    adjustSelectWidth(select, selectedOptionText);
   }
 
   function reduceSelectedOption( select ) {
