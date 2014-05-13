@@ -4,6 +4,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     getDataSet = this.getDataSet,
     forEachData = this.forEachData,
     no = this.no,
+    getSelectedOption = this.getSelectedOption,
 
     LIST_ITEM_NAME = 0,
     LIST_ITEM_VALUE = 1,
@@ -54,10 +55,13 @@ within("projetmedea.fr", function(publish, subscribe, get){
           );
         }
       }
+      // TODO: pad the extra text to get it right-aligned
+      optionText += " " + extraText;
+      option.setAttribute("data-short-text", categoryName);
+      option.setAttribute("data-full-text", optionText);
       option.setAttribute("value", listItem[LIST_ITEM_VALUE]);
       option.appendChild(
-        // TODO: pad the extra text to get it right-aligned
-        document.createTextNode(optionText + " " + extraText)
+        document.createTextNode(optionText)
       );
       options.appendChild(option);
       isFirstOption = false;
@@ -96,6 +100,34 @@ within("projetmedea.fr", function(publish, subscribe, get){
     publish("filter-selected", filter);
   }
 
+  // display only the category name
+  function reduceSelectedOptionText( selectedOption ) {
+    selectedOption.firstChild.nodeValue =
+      selectedOption.getAttribute("data-short-text");
+  }
+
+  function expandSelectedOptionText( selectedOption ) {
+    selectedOption.firstChild.nodeValue =
+      selectedOption.getAttribute("data-full-text");
+  }
+
+  // adjust the width of the select to match the width of selected option
+  function adjustSelectWidth( select, selectedOption ) {
+
+  }
+
+  function reduceSelectedOption( select ) {
+    var selectedOption = getSelectedOption(select);
+    reduceSelectedOptionText(selectedOption);
+    adjustSelectWidth(select, selectedOption);
+  }
+
+  function expandSelectedOption( select ) {
+    var selectedOption = getSelectedOption(select);
+    expandSelectedOptionText(selectedOption);
+    adjustSelectWidth(select, selectedOption);
+  }
+
   function filter(name){
     var
       selectId = name + "-filter",
@@ -109,6 +141,13 @@ within("projetmedea.fr", function(publish, subscribe, get){
     subscribe("authors", function(authors){
       var totalAuthors = countData(authors);
       fillFilterSelectionList(select, listData, categories, totalAuthors);
+      reduceSelectedOption(select);
+      select.onfocus = function() {
+        expandSelectedOption(select);
+      };
+      select.onblur = function() {
+        reduceSelectedOption(select);
+      };
       select.onchange = function(){
         publishSelectedFilter(select, listItems, categories);
       };
