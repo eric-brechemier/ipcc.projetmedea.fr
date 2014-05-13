@@ -100,15 +100,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
     publish("filter-selected", filter);
   }
 
-  // display only the category name
-  function reduceSelectedOptionText( selectedOption ) {
+  function updateSelectedOptionText( selectedOption, dataPropertyName ) {
     selectedOption.firstChild.nodeValue =
-      selectedOption.getAttribute("data-short-text");
-  }
-
-  function expandSelectedOptionText( selectedOption ) {
-    selectedOption.firstChild.nodeValue =
-      selectedOption.getAttribute("data-full-text");
+      selectedOption.getAttribute(dataPropertyName);
   }
 
   // adjust the width of the select to match the width of selected option
@@ -116,16 +110,20 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
   }
 
-  function reduceSelectedOption( select ) {
+  function adjustSelectSize( select, size ) {
     var selectedOption = getSelectedOption(select);
-    reduceSelectedOptionText(selectedOption);
+    updateSelectedOptionText(selectedOption, "data-"+size+"-text");
     adjustSelectWidth(select, selectedOption);
   }
 
+  function reduceSelectedOption( select ) {
+    // display only the category name
+    adjustSelectSize( select, "short" );
+  }
+
   function expandSelectedOption( select ) {
-    var selectedOption = getSelectedOption(select);
-    expandSelectedOptionText(selectedOption);
-    adjustSelectWidth(select, selectedOption);
+    // restore the full text of the option
+    adjustSelectSize( select, "full" );
   }
 
   function filter(name){
