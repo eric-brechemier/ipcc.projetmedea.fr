@@ -110,11 +110,11 @@ within("projetmedea.fr", function(publish, subscribe, get){
     option.firstChild.nodeValue = text;
   }
 
-  // measure the clientWidth of a hidden option created for this purpose
-  function getOptionWidth( optionText ) {
+  // measure the clientWidth of a hidden select created for this purpose
+  function getSelectWidth( optionText ) {
     var hiddenOption = document.getElementById(HIDDEN_OPTION_ID);
     setOptionText(hiddenOption, optionText);
-    return hiddenOption.clientWidth;
+    return hiddenOption.parentNode.clientWidth;
   }
 
   function getSelectedOptionText( selectedOption, size ) {
@@ -123,7 +123,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
   // adjust the width of the select to match the width of selected option
   function adjustSelectWidth( select, selectedOptionText ) {
-    select.style.width = getOptionWidth( selectedOptionText ) + "px";
+    select.style.width = getSelectWidth( selectedOptionText ) + "px";
   }
 
   function adjustSelectSize( select, size ) {
