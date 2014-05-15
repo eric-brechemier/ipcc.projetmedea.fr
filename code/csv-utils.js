@@ -2,6 +2,7 @@ within("projetmedea.fr", function(){
 
   var
     forEach = this.forEach,
+    reduce = this.reduce,
     or = this.or,
 
     // offset of the record id or name (first position)
@@ -20,6 +21,20 @@ within("projetmedea.fr", function(){
       }
       return callback(record, recordPosition);
     });
+  }
+
+  // Reduce data records to a single value, skipping the header row
+  function reduceData( accumulator, records, operation ) {
+    return reduce(
+      accumulator,
+      records,
+      function( accumulator, record, recordPosition ) {
+        if ( recordPosition === 0 ) {
+          return accumulator; // skip header row
+        }
+        return operation( accumulator, record, recordPosition );
+      }
+    );
   }
 
   // Collect the results of applying given function to each data record,
@@ -104,6 +119,7 @@ within("projetmedea.fr", function(){
   this.countData = countData;
   this.forEachData = forEachData;
   this.mapData = mapData;
+  this.reduceData = reduceData;
   this.getDataColumn = getDataColumn;
   this.getDataSet = getDataSet;
   this.printRecords = printRecords;
