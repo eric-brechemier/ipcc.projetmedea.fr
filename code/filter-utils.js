@@ -3,8 +3,15 @@ within("projetmedea.fr", function(publish, subscribe, get){
     countData = this.countData,
     getDataSet = this.getDataSet,
     forEachData = this.forEachData,
+    reduceData = this.reduceData,
     no = this.no,
+    max = this.max,
+    padLeft = this.padLeft,
+    padRight = this.padRight,
     getSelectedOption = this.getSelectedOption,
+
+    // non-breaking space, used in padding
+    NBSP = "\u00A0",
 
     LIST_ITEM_NAME = 0,
     LIST_ITEM_VALUE = 1,
@@ -18,9 +25,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
     HIDDEN_OPTION_ID = "hidden-filter-option";
 
   function getExtraText(totalCategoryAuthors, totalAuthors){
+    var maxLength = String(totalAuthors).length;
     return (
       "(" +
-      totalCategoryAuthors +
+      padLeft( String(totalCategoryAuthors), maxLength, NBSP) +
       "/" +
       totalAuthors +
       ")"
@@ -31,6 +39,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     var
       options = document.createDocumentFragment(),
       isFirstOption = select.childNodes.length === 0,
+      maxCategoryNameLength,
       DEFAULT_CATEGORY = 1,
       totalCategories = countData(listData) - DEFAULT_CATEGORY,
       totalCategoriesDisplay =
@@ -40,12 +49,18 @@ within("projetmedea.fr", function(publish, subscribe, get){
       select.nextSibling.innerHTML = " /" + totalCategories;
     }
 
+    maxCategoryNameLength =
+      reduceData(0, listData, function(accumulator, listItem) {
+        var categoryName = listItem[LIST_ITEM_NAME];
+        return max(accumulator, categoryName.length);
+      });
+
     forEachData(listData, function(listItem){
       var
         categoryName = listItem[LIST_ITEM_NAME],
         category = categories[categoryName],
         option = document.createElement("option"),
-        optionText = categoryName,
+        fullText,
         extraText;
 
       if ( isFirstOption ) {
@@ -53,7 +68,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
         extraText = getExtraText( totalAuthors, totalAuthors );
       } else {
         if ( no(category) ) {
-          extraText = 'No Authors';
+          extraText = '(No Authors)';
         } else {
           extraText = getExtraText(
             category[CATEGORY_AUTHORS].length,
@@ -61,13 +76,16 @@ within("projetmedea.fr", function(publish, subscribe, get){
           );
         }
       }
-      // TODO: pad the extra text to get it right-aligned
-      optionText += " " + extraText;
+      fullText =
+        // pad category name on the left to align extra text on the right
+        padRight(categoryName, maxCategoryNameLength, NBSP) +
+        " " +
+        extraText;
       option.setAttribute("data-short-text", categoryName);
-      option.setAttribute("data-full-text", optionText);
+      option.setAttribute("data-full-text", fullText);
       option.setAttribute("value", listItem[LIST_ITEM_VALUE]);
       option.appendChild(
-        document.createTextNode(optionText)
+        document.createTextNode(fullText)
       );
       options.appendChild(option);
       isFirstOption = false;
