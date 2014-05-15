@@ -60,9 +60,8 @@ within("projetmedea.fr", function(){
     return set;
   }
 
-  // TODO: rename to printRecords to disambiguate
   // Print records as a string in CSV format
-  function printData(records) {
+  function printRecords(records) {
     var
       csv = "",
       lastRecord = records.length - 1;
@@ -107,6 +106,5 @@ within("projetmedea.fr", function(){
   this.mapData = mapData;
   this.getDataColumn = getDataColumn;
   this.getDataSet = getDataSet;
-  // TODO: rename to printRecords to disambiguate
-  this.printData = printData;
+  this.printRecords = printRecords;
 });
