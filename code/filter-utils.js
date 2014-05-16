@@ -39,6 +39,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     var
       isAuthorSelected = get("selected-author-check"),
       totalAuthors = get("total-authors"),
+      totalAuthorsSelected = get("total-authors-selected"),
       options = document.createDocumentFragment(),
       isFirstOption = select.childNodes.length === 0,
       maxCategoryNameLength,
@@ -68,7 +69,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
       if ( isFirstOption ) {
         option.setAttribute("selected", "selected");
-        extraText = getExtraText( totalAuthors, totalAuthors );
+        extraText = getExtraText( totalAuthorsSelected, totalAuthors );
       } else {
         if ( no(category) ) {
           extraText = '(No Authors)';
@@ -200,8 +201,16 @@ within("projetmedea.fr", function(publish, subscribe, get){
       isFilterInitialized = true;
     }
 
+    function updateFilter() {
+      if ( !isFilterInitialized ) {
+        initFilter();
+        return;
+      }
+      // TODO: updateFilterSelectionList()
+    }
+
     subscribe("total-authors", initFilter);
-    subscribe("selected-author-check", initFilter);
+    subscribe("selected-author-check", updateFilter);
   }
 
   this.filter = filter;
