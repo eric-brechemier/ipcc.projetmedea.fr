@@ -293,7 +293,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
       if ( !isFilterInitialized ) {
         initFilter();
       } else {
-        updateFilterSelectionList(select, listItems, categories);
+        updateFilterSelectionList(select, listData, categories);
       }
     }
 
