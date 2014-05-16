@@ -28,4 +28,6 @@ within("projetmedea.fr", function() {
 
   this.getSelectedOption = getSelectedOption;
   this.setOptionText = setOptionText;
+  this.hideOption = this.hideElement;
+  this.showOption = this.showElement;
 });

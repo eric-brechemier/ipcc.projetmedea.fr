@@ -12,6 +12,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
     padRight = this.padRight,
     getSelectedOption = this.getSelectedOption,
     setOptionText = this.setOptionText,
+    showOption = this.showOption,
+    hideOption = this.hideOption,
 
     // non-breaking space, used in padding
     NBSP = "\u00A0",
@@ -93,6 +95,16 @@ within("projetmedea.fr", function(publish, subscribe, get){
     setOptionText(option, fullText);
   }
 
+  function hideOptionWithNoAuthorSelected(
+    option, totalCategoryAuthorsSelected
+  ) {
+    if ( totalCategoryAuthorsSelected > 0 ) {
+      showOption(option);
+    } else {
+      hideOption(option);
+    }
+  }
+
   function displayTotalCategoriesSelected(
     select, totalCategoriesSelected
   ) {
@@ -138,6 +150,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
       if ( !isFirstOption && totalCategoryAuthorsSelected > 0 ) {
         totalCategoriesSelected++;
       }
+      hideOptionWithNoAuthorSelected(
+        option,
+        totalCategoryAuthorsSelected
+      );
 
       // pad category name on the left to align extra text on the right
       baseText = padRight(categoryName, maxCategoryNameLength, NBSP);
@@ -176,6 +192,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
       if ( !isFirstOption && totalCategoryAuthorsSelected > 0 ) {
         totalCategoriesSelected++;
       }
+      hideOptionWithNoAuthorSelected(
+        option,
+        totalCategoryAuthorsSelected
+      );
 
       setFullText(
         option,
