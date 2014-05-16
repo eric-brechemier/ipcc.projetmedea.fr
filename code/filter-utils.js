@@ -93,6 +93,19 @@ within("projetmedea.fr", function(publish, subscribe, get){
     setOptionText(option, fullText);
   }
 
+  function displayTotalCategoriesSelected(
+    select, totalCategoriesSelected
+  ) {
+    var
+      totalCategoriesSelectedDisplay =
+        document.getElementById( select.id + "-total" )
+
+    if ( !no(totalCategoriesSelectedDisplay) ) {
+      totalCategoriesSelectedDisplay.innerHTML =
+        " /" + totalCategoriesSelected;
+    }
+  }
+
   function fillFilterSelectionList(select, listData, categories){
     var
       isAuthorSelected = get("selected-author-check"),
@@ -100,9 +113,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
       totalAuthorsSelected = get("total-authors-selected"),
       options = document.createDocumentFragment(),
       maxCategoryNameLength,
-      totalCategoriesSelected = 0,
-      totalCategoriesSelectedDisplay =
-        document.getElementById( select.id + "-total" );
+      totalCategoriesSelected = 0;
 
     maxCategoryNameLength =
       reduceData(0, listData, function(accumulator, listItem) {
@@ -144,11 +155,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
       options.appendChild(option);
     });
     select.appendChild(options);
-
-    if ( !no(totalCategoriesSelectedDisplay) ) {
-      totalCategoriesSelectedDisplay.innerHTML =
-        " /" + totalCategoriesSelected;
-    }
+    displayTotalCategoriesSelected(select, totalCategoriesSelected);
   }
 
   function publishSelectedFilter(select, listItems, categories) {
