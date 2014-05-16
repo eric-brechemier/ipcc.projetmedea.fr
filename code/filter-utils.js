@@ -127,7 +127,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
     if ( !no(totalCategoriesDisplay) ) {
       // TODO: display total categories selected, rather than fixed total
-      select.nextSibling.innerHTML = " /" + totalCategories;
+      totalCategoriesDisplay.innerHTML = " /" + totalCategories;
     }
   }
 
