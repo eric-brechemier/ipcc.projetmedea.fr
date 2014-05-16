@@ -58,13 +58,18 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return categoryAuthors.length;
   }
 
-  function getExtraText(totalCategoryAuthors, totalAuthors){
-    var maxLength = String(totalAuthors).length;
+  function getExtraText(
+    totalCategoryAuthorsSelected,
+    totalCategoryAuthors
+  ) {
+    var
+      totalAuthors = get("total-authors"),
+      maxLength = String(totalAuthors).length;
     return (
       "(" +
-      padLeft( String(totalCategoryAuthors), maxLength, NBSP) +
+      padLeft( String(totalCategoryAuthorsSelected), maxLength, NBSP) +
       "/" +
-      totalAuthors +
+      padLeft( String(totalCategoryAuthors), maxLength, NBSP) +
       ")"
     );
   }
@@ -102,24 +107,19 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
       if ( isFirstOption ) {
         option.setAttribute("selected", "selected");
-        extraText = getExtraText( totalAuthorsSelected, totalAuthors );
       } else {
         if ( totalCategoryAuthorsSelected > 0 ) {
           totalCategoriesSelected++;
         }
-
-        if ( no(category) ) {
-          extraText = '(No Authors)';
-        } else {
-          extraText = getExtraText(
-            category[CATEGORY_AUTHORS].length,
-            totalAuthors
-          );
-        }
       }
       // pad category name on the left to align extra text on the right
       baseText = padRight(categoryName, maxCategoryNameLength, NBSP);
-      fullText = baseText + " " + extraText;
+      fullText =
+        baseText + " " +
+        getExtraText(
+          totalCategoryAuthorsSelected,
+          totalCategoryAuthors
+        );
       option.setAttribute("data-short-text", categoryName);
       option.setAttribute("data-base-text", baseText);
       option.setAttribute("data-full-text", fullText);
