@@ -187,7 +187,22 @@
           <script src="code/filter-by-country.js"></script>
           <br />
           <label>
-            for
+            in
+            <select
+              id="institution-type-filter"
+              name="institution-type-categories"
+            ></select
+            ><span
+              id="institution-type-filter-total"
+              class="total-categories"
+            ></span>,
+          </label>
+          <script src="data/institution-type-list.js"></script>
+          <script src="data/institution-type-categories.js"></script>
+          <script src="code/filter-by-institution-type.js"></script>
+          <br />
+          <label>
+            the
             <select
               id="institution-filter"
               name="institution-categories"
@@ -271,7 +286,8 @@
           </select>
           <script src="data/cumulated-working-group-categories.js"></script>
           <script src="layout/cumulated-working-group-categories.js"></script>
-          <script src="data/country-categories.js"></script>
+          <!-- already loaded with country filter -->
+          <!--script src="data/country-categories.js"></script-->
           <script src="layout/single-group.js"></script>
           <script src="layout/country-categories.js"></script>
           <script src="data/country-group-categories.js"></script>
@@ -284,7 +300,8 @@
           <script src="layout/cumulated-working-group-in-country-group-categories.js"></script>
           <script src="data/cumulated-role-in-country-group-categories.js"></script>
           <script src="layout/cumulated-role-in-country-group-categories.js"></script>
-          <script src="data/institution-type-categories.js"></script>
+          <!-- already loaded with institution type filter -->
+          <!--script src="data/institution-type-categories.js"></script-->
           <script src="data/cumulated-working-group-in-institution-type-categories.js"></script>
           <script src="layout/cumulated-working-group-in-institution-type-categories.js"></script>
         </fieldset>

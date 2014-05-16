@@ -8,13 +8,15 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     // in each author record
     AUTHOR_CONTRIBUTIONS = 3,
 
-    // sequence of the names of filters that make up the contribution code
+    // sequence of the names of filters
+    // that make up the contribution code
     CONTRIBUTION_CODE_FILTERS = [
       "assessment-report-categories",
       "working-group-categories",
       "role-categories",
-      "institution-categories",
-      "country-categories"
+      "country-categories",
+      "institution-type-categories",
+      "institution-categories"
     ],
 
     // name of the filter for the total number of contributions
