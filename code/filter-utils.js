@@ -11,6 +11,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     padLeft = this.padLeft,
     padRight = this.padRight,
     getSelectedOption = this.getSelectedOption,
+    setOptionText = this.setOptionText,
 
     // non-breaking space, used in padding
     NBSP = "\u00A0",
@@ -167,10 +168,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
       delete filter.authors;
     }
     publish("filter-selected", filter);
-  }
-
-  function setOptionText( option, text ) {
-    option.firstChild.nodeValue = text;
   }
 
   // measure the clientWidth of a hidden select created for this purpose
