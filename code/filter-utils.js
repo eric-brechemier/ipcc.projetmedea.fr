@@ -158,6 +158,38 @@ within("projetmedea.fr", function(publish, subscribe, get){
     displayTotalCategoriesSelected(select, totalCategoriesSelected);
   }
 
+  function updateFilterSelectionList(select, listData, categories) {
+    var
+      options = select.options,
+      totalCategoriesSelected = 0;
+
+    forEachData(listData, function(listItem, listItemOffset) {
+      var
+        isFirstOption = listItemOffset === 0,
+        option = options[listItemOffset],
+        baseText = option.getAttribute("data-base-text"),
+        categoryName = listItem[LIST_ITEM_NAME],
+        category = categories[categoryName],
+        totalCategoryAuthorsSelected =
+          getTotalCategoryAuthorsSelected(isFirstOption, category),
+        totalCategoryAuthors =
+          getTotalCategoryAuthors(isFirstOption, category);
+
+      if ( !isFirstOption && totalCategoryAuthorsSelected > 0 ) {
+        totalCategoriesSelected++;
+      }
+
+      setFullText(
+        option,
+        baseText,
+        totalCategoryAuthorsSelected,
+        totalCategoryAuthors
+      );
+    });
+
+    displayTotalCategoriesSelected(select, totalCategoriesSelected);
+  }
+
   function publishSelectedFilter(select, listItems, categories) {
     var
       value = select.value,
@@ -262,9 +294,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
     function updateFilter() {
       if ( !isFilterInitialized ) {
         initFilter();
-        return;
+      } else {
+        updateFilterSelectionList(select, listItems, categories);
       }
-      // TODO: updateFilterSelectionList()
     }
 
     subscribe("total-authors", initFilter);
