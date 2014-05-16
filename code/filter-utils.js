@@ -75,11 +75,11 @@ within("projetmedea.fr", function(publish, subscribe, get){
       totalAuthors = get("total-authors"),
       totalAuthorsSelected = get("total-authors-selected"),
       options = document.createDocumentFragment(),
+      // TODO: just set to true, all lists are now empty initially
       isFirstOption = select.childNodes.length === 0,
       maxCategoryNameLength,
-      DEFAULT_CATEGORY = 1,
-      totalCategories = countData(listData) - DEFAULT_CATEGORY,
-      totalCategoriesDisplay =
+      totalCategoriesSelected = 0,
+      totalCategoriesSelectedDisplay =
         document.getElementById( select.id + "-total" );
 
     maxCategoryNameLength =
@@ -90,9 +90,13 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
     forEachData(listData, function(listItem){
       var
+        option = document.createElement("option"),
         categoryName = listItem[LIST_ITEM_NAME],
         category = categories[categoryName],
-        option = document.createElement("option"),
+        totalCategoryAuthorsSelected =
+          getTotalCategoryAuthorsSelected(isFirstOption, category),
+        totalCategoryAuthors =
+          getTotalCategoryAuthors(isFirstOption, category),
         baseText,
         fullText,
         extraText;
@@ -101,6 +105,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
         option.setAttribute("selected", "selected");
         extraText = getExtraText( totalAuthorsSelected, totalAuthors );
       } else {
+        if ( totalCategoryAuthorsSelected > 0 ) {
+          totalCategoriesSelected++;
+        }
+
         if ( no(category) ) {
           extraText = '(No Authors)';
         } else {
@@ -125,9 +133,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
     });
     select.appendChild(options);
 
-    if ( !no(totalCategoriesDisplay) ) {
-      // TODO: display total categories selected, rather than fixed total
-      totalCategoriesDisplay.innerHTML = " /" + totalCategories;
+    if ( !no(totalCategoriesSelectedDisplay) ) {
+      totalCategoriesSelectedDisplay.innerHTML =
+        " /" + totalCategoriesSelected;
     }
   }
 
