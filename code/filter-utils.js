@@ -58,7 +58,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return categoryAuthors.length;
   }
 
-  function getExtraText(
+  function getFullText(
+    baseText,
     totalCategoryAuthorsSelected,
     totalCategoryAuthors
   ) {
@@ -66,6 +67,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
       totalAuthors = get("total-authors"),
       maxLength = String(totalAuthors).length;
     return (
+      baseText +
+      NBSP +
       "(" +
       padLeft( String(totalCategoryAuthorsSelected), maxLength, NBSP) +
       "/" +
@@ -102,8 +105,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
         totalCategoryAuthors =
           getTotalCategoryAuthors(isFirstOption, category),
         baseText,
-        fullText,
-        extraText;
+        fullText;
 
       if ( isFirstOption ) {
         option.setAttribute("selected", "selected");
@@ -114,12 +116,11 @@ within("projetmedea.fr", function(publish, subscribe, get){
       }
       // pad category name on the left to align extra text on the right
       baseText = padRight(categoryName, maxCategoryNameLength, NBSP);
-      fullText =
-        baseText + " " +
-        getExtraText(
-          totalCategoryAuthorsSelected,
-          totalCategoryAuthors
-        );
+      fullText = getFullText(
+        baseText,
+        totalCategoryAuthorsSelected,
+        totalCategoryAuthors
+      );
       option.setAttribute("data-short-text", categoryName);
       option.setAttribute("data-base-text", baseText);
       option.setAttribute("data-full-text", fullText);
