@@ -35,7 +35,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
     );
   }
 
-  function fillFilterSelectionList(select, listData, categories, totalAuthors){
+  function fillFilterSelectionList(
+    select, listData, categories, isAuthorSelected, totalAuthors
+  ){
     var
       options = document.createDocumentFragment(),
       isFirstOption = select.childNodes.length === 0,
@@ -60,6 +62,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
         categoryName = listItem[LIST_ITEM_NAME],
         category = categories[categoryName],
         option = document.createElement("option"),
+        baseText,
         fullText,
         extraText;
 
@@ -76,12 +79,11 @@ within("projetmedea.fr", function(publish, subscribe, get){
           );
         }
       }
-      fullText =
-        // pad category name on the left to align extra text on the right
-        padRight(categoryName, maxCategoryNameLength, NBSP) +
-        " " +
-        extraText;
+      // pad category name on the left to align extra text on the right
+      baseText = padRight(categoryName, maxCategoryNameLength, NBSP);
+      fullText = baseText + " " + extraText;
       option.setAttribute("data-short-text", categoryName);
+      option.setAttribute("data-base-text", baseText);
       option.setAttribute("data-full-text", fullText);
       option.setAttribute("value", listItem[LIST_ITEM_VALUE]);
       option.appendChild(
@@ -171,11 +173,23 @@ within("projetmedea.fr", function(publish, subscribe, get){
       categoriesPropertyName = name + "-categories",
       listData = get(listDataPropertyName),
       listItems = getDataSet(listData, LIST_ITEM_VALUE),
-      categories = getDataSet( get(categoriesPropertyName) );
+      categories = getDataSet( get(categoriesPropertyName) ),
+      isAuthorSelected,
+      totalAuthors,
+      isFilterInitialized = false;
 
-    subscribe("authors", function(authors){
-      var totalAuthors = countData(authors);
-      fillFilterSelectionList(select, listData, categories, totalAuthors);
+    function initFilter() {
+      if (
+        isFilterInitialized ||
+        no(totalAuthors) ||
+        no(isAuthorSelected) ) {
+        // already initialized, or not ready yet
+        return;
+      }
+
+      fillFilterSelectionList(
+        select, listData, categories, isAuthorSelected, totalAuthors
+      );
       reduceSelectedOption(select);
       select.onfocus = function() {
         expandSelectedOption(select);
@@ -186,6 +200,17 @@ within("projetmedea.fr", function(publish, subscribe, get){
       select.onchange = function(){
         publishSelectedFilter(select, listItems, categories);
       };
+      isFilterInitialized = true;
+    }
+
+    subscribe("authors", function(authors) {
+      totalAuthors = countData(authors);
+      initFilter();
+    });
+
+    subscribe("selected-author-check", function(selectedAuthorCheck){
+      isAuthorSelected = selectedAuthorCheck;
+      initFilter();
     });
   }
 
