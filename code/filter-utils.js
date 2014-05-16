@@ -108,9 +108,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
   function fillFilterSelectionList(select, listData, categories){
     var
-      isAuthorSelected = get("selected-author-check"),
-      totalAuthors = get("total-authors"),
-      totalAuthorsSelected = get("total-authors-selected"),
       options = document.createDocumentFragment(),
       maxCategoryNameLength,
       totalCategoriesSelected = 0;
