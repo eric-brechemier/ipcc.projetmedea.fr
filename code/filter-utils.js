@@ -75,8 +75,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
       totalAuthors = get("total-authors"),
       totalAuthorsSelected = get("total-authors-selected"),
       options = document.createDocumentFragment(),
-      // TODO: just set to true, all lists are now empty initially
-      isFirstOption = select.childNodes.length === 0,
       maxCategoryNameLength,
       totalCategoriesSelected = 0,
       totalCategoriesSelectedDisplay =
@@ -88,8 +86,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
         return max(accumulator, categoryName.length);
       });
 
-    forEachData(listData, function(listItem){
+    forEachData(listData, function(listItem, listItemOffset){
       var
+        isFirstOption = listItemOffset === 0,
         option = document.createElement("option"),
         categoryName = listItem[LIST_ITEM_NAME],
         category = categories[categoryName],
@@ -129,7 +128,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
         document.createTextNode(fullText)
       );
       options.appendChild(option);
-      isFirstOption = false;
     });
     select.appendChild(options);
 
