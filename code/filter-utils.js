@@ -132,8 +132,11 @@ within("projetmedea.fr", function(publish, subscribe, get){
         fullText;
 
       if ( isFirstOption ) {
+        // select the first option initially
         option.setAttribute("selected", "selected");
       } else {
+        // only other options are counted, not the default option,
+        // when at least 1 author of the category is in current selection
         if ( totalCategoryAuthorsSelected > 0 ) {
           totalCategoriesSelected++;
         }
