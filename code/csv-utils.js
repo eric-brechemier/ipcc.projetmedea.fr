@@ -14,12 +14,13 @@ within("projetmedea.fr", function(){
   }
 
   // Loop over data records, skipping the header row
+  // The offset 0 corresponds to the first data record in callback.
   function forEachData(records,callback){
     forEach(records, function(record,recordPosition){
       if ( recordPosition === 0 ) {
         return; // skip header row
       }
-      return callback(record, recordPosition);
+      return callback(record, recordPosition - 1);
     });
   }
 
