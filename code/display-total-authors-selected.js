@@ -1,24 +1,15 @@
 within("projetmedea.fr", function(publish, subscribe, get){
 
-  var
-    no = this.no,
-    percentage = this.percentage,
-    count = this.countData;
+  subscribe("total-authors-selected", function(totalAuthorsSelected){
+    document
+      .getElementById('selected-records-count')
+      .innerHTML = totalAuthorsSelected;
+  });
 
-  function displayPercentage(){
-    var
-      selectedAuthors = get('selected-authors'),
-      authors = get('authors');
-
-    if ( no(selectedAuthors) || no(authors) ) {
-      return;
-    }
-
+  subscribe("percentage-authors-selected", function(percentageSelected){
     document
       .getElementById('selected-records-percentage')
-      .innerHTML = percentage( count(selectedAuthors), count(authors) );
-  }
+      .innerHTML = percentageSelected;
+  });
 
-  subscribe("authors", displayPercentage);
-  subscribe("selected-authors", displayPercentage);
 });
