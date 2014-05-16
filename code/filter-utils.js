@@ -4,6 +4,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
     getDataSet = this.getDataSet,
     forEachData = this.forEachData,
     reduceData = this.reduceData,
+    reduce = this.reduce,
+    alwaysTrue = this.alwaysTrue,
     no = this.no,
     max = this.max,
     padLeft = this.padLeft,
@@ -23,6 +25,38 @@ within("projetmedea.fr", function(publish, subscribe, get){
     // The option shall be alone in a select, within a label
     // hidden using CSS visibility hidden, not display none.
     HIDDEN_OPTION_ID = "hidden-filter-option";
+
+  function getTotalCategoryAuthorsSelected(isFirst, category) {
+    if ( isFirst ) {
+      return get("total-authors-selected");
+    }
+    if ( no(category) ) {
+      return 0;
+    }
+    var
+      categoryAuthors = category[CATEGORY_AUTHORS],
+      isAuthorSelected = get("selected-author-check");
+
+    if ( isAuthorSelected === alwaysTrue ) {
+      // shortcut: all authors
+      return categoryAuthors.length;
+    } else {
+      return reduce(0, categoryAuthors, function(accumulator, author){
+        return accumulator + isAuthorSelected(author)? 1: 0;
+      });
+    }
+  }
+
+  function getTotalCategoryAuthors(isFirst, category) {
+    if ( isFirst ) {
+      return get("total-authors");
+    }
+    if ( no(category) ) {
+      return 0;
+    }
+    var categoryAuthors = category[CATEGORY_AUTHORS];
+    return categoryAuthors.length;
+  }
 
   function getExtraText(totalCategoryAuthors, totalAuthors){
     var maxLength = String(totalAuthors).length;
@@ -47,10 +81,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
       totalCategories = countData(listData) - DEFAULT_CATEGORY,
       totalCategoriesDisplay =
         document.getElementById( select.id + "-total" );
-
-    if ( !no(totalCategoriesDisplay) ) {
-      select.nextSibling.innerHTML = " /" + totalCategories;
-    }
 
     maxCategoryNameLength =
       reduceData(0, listData, function(accumulator, listItem) {
@@ -94,6 +124,11 @@ within("projetmedea.fr", function(publish, subscribe, get){
       isFirstOption = false;
     });
     select.appendChild(options);
+
+    if ( !no(totalCategoriesDisplay) ) {
+      // TODO: display total categories selected, rather than fixed total
+      select.nextSibling.innerHTML = " /" + totalCategories;
+    }
   }
 
   function publishSelectedFilter(select, listItems, categories) {
