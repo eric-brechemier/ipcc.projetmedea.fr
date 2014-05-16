@@ -45,7 +45,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
       return categoryAuthors.length;
     } else {
       return reduce(0, categoryAuthors, function(accumulator, author){
-        return accumulator + isAuthorSelected(author)? 1: 0;
+        return accumulator + (isAuthorSelected(author)? 1: 0);
       });
     }
   }
