@@ -23,6 +23,8 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     // corresponding to the contribution code
     TOTAL_CONTRIBUTIONS_FILTER = "total-contributions-categories",
 
+    FILTERS = CONTRIBUTION_CODE_FILTERS.concat([TOTAL_CONTRIBUTIONS_FILTER ]);
+
     // part of the filter expression for a filter that matches any value
     // (matches all characters up to the next filter separator)
     WILDCARD_FILTER = "[^\\.]+",
@@ -103,5 +105,18 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     );
   }
 
+  // Combine all filters leaving one aside in turn
+  // to prepare a predictive function to detect which extra filter value,
+  // for a single filter with all other active filters kept unchanged,
+  // would allow an author to be selected
+  function combinePredictiveFilter(activeFilterList) {
+    // TODO: publish "predictive-filter-selector",
+    // a function which takes an author as argument
+    // and returns an object with one property named after each filter,
+    // with the list of values which would match the author
+    // with all other filters unchanged
+  }
+
   subscribe("active-filter-list", combineActiveFilters);
+  subscribe("active-filter-list", combinePredictiveFilter);
 });
