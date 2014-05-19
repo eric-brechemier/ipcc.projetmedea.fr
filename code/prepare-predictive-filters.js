@@ -1,7 +1,11 @@
 within("projetmedea.fr", function(publish, subscribe, get) {
   var
-    forEach = this.forEach,
     no = this.no,
+    forEach = this.forEach,
+    forEachProperty = this.forEachProperty,
+    getActiveFilterExpression = this.getActiveFilterExpression,
+    getActiveMultiplier = this.getActiveMultiplier,
+    getTotalMatchingContributions = this.getTotalMatchingContributions,
 
     AUTHOR_CONTRIBUTIONS = this.AUTHOR_CONTRIBUTIONS ,
     CONTRIBUTION_CODE_FILTERS = this.CONTRIBUTION_CODE_FILTERS ,
@@ -13,21 +17,23 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     FILTER_END = this.FILTER_END;
 
   // For given author, find all the values which would match if they
-  // were selected with other active filters kept unchanged, and count
-  // the number of matching chapter contributions for all these values.
-  function predictTotalMatchingContributions(author, relaxedFilterRegExp) {
+  // were selected with other active filters kept unchanged
+  function getMatchingValues(author, relaxedFilterRegExp, activeMultiplier) {
     var
+      // list of filter values matching relaxed filter + active multiplier
+      filterValuesList = [],
       // map of filter value -> total contributions
       //                        matching active filters + this value
-      filterValues = {},
+      filterValuesSet = {},
+      contributions = author[AUTHOR_CONTRIBUTIONS],
 
-    // index of the group captured for the filter value
-    // in a relaxed filter regular expression
-    CAPTURED_FILTER_VALUE = 1,
+      // index of the group captured for the filter value
+      // in a relaxed filter regular expression
+      CAPTURED_FILTER_VALUE = 1,
 
-    // index of the group captured for the contribution multiplier
-    // in a relaxed filter regular expression
-    CAPTURED_MULTIPLIER = 2;
+      // index of the group captured for the contribution multiplier
+      // in a relaxed filter regular expression
+      CAPTURED_MULTIPLIER = 2;
 
     forEach(contributions, function(contribution) {
       var
@@ -40,16 +46,22 @@ within("projetmedea.fr", function(publish, subscribe, get) {
       }
 
       value = Number( match[CAPTURED_FILTER_VALUE] );
-      count = Number( match[CAPTURED_MULTIPLIER] );
+      multiplier = Number( match[CAPTURED_MULTIPLIER] );
 
-      if ( !filterValues.hasOwnProperty(value) ) {
-        filterValues[value] = count;
+      if ( !filterValuesSet.hasOwnProperty(value) ) {
+        filterValuesSet[value] = multiplier;
       } else {
-        filterValues[value] += count;
+        filterValuesSet[value] += multiplier;
       }
     });
 
-    return filterValues;
+    forEachProperty(filterValuesSet, function(multiplier, filterValue) {
+      if ( multiplier >= activeMultiplier ) {
+        filterValuesList.push(filterValue);
+      }
+    });
+
+    return filterValuesList;
   }
 
   // a relaxed filter expression matches all active filters except given one,
@@ -83,18 +95,58 @@ within("projetmedea.fr", function(publish, subscribe, get) {
   // which values of this filter may be selected for an author to match,
   // all other filters being left unchanged
   function preparePredictiveFilters(activeFilterList) {
-    // TODO: publish "predictive-filter-function",
-    // a function which takes an author as argument and returns an object
-    // with one property named after each filter:
+    var
+      activeFilterRegExp = getActiveFilterExpression(),
+      activeMultiplier = getActiveMultiplier(),
+      relaxedFilterExpressions = {};
+
+    forEach(CONTRIBUTION_CODE_FILTERS, function(filterName) {
+      relaxedFilterExpressions[filterName] =
+        getRelaxedFilterExpression(filterName);
+    });
+
+    // Get predictive filters for a given author
+    //
+    // Parameter:
+    //   author - array, author record
+    //
+    // Returns:
+    //   object, the set of predictive filters,
+    //   a map of filter name -> array of filter values:
     //
     // * for each filter except the TOTAL_CONTRIBUTIONS filter,
     //   the property contains an array with the list of filter values
     //   for which the author would match, with all other filters and
     //   the TOTAL_CONTRIBUTIONS filter left unchanged;
     //
-    // * for the TOTAL_CONTRIBUTIONS filter, the property contains an array
-    //   with at most a single value, the minimum value for which the author
+    // * for the TOTAL_CONTRIBUTIONS filter, the array is empty or
+    //   contains a single value, the minimum value for which the author
     //   would be selected with other filters unchanged.
+    function getPredictiveFilters(author) {
+      var
+        predictiveFilters = {},
+        totalContributionsSelected;
+
+      forEach(CONTRIBUTION_CODE_FILTERS, function(filterName) {
+        var relaxedFilterRegExp = relaxedFilterExpressions[filterName];
+        predictiveFilters[filterName] =
+          getMatchingValues(author, relaxedFilterRegExp, activeMultiplier);
+      });
+
+      totalContributionsSelected =
+        getTotalMatchingContributions(author, activeFilterRegExp);
+      if ( totalContributionsSelected === 0 ) {
+        predictiveFilters[TOTAL_CONTRIBUTIONS_FILTER] = [];
+      } else {
+        predictiveFilters[TOTAL_CONTRIBUTIONS_FILTER] = [
+          totalContributionsSelected
+        ];
+      }
+
+      return predictiveFilters;
+    }
+
+    publish("predictive-filter-function", getPredictiveFilters);
   }
 
   subscribe("active-filter-list", preparePredictiveFilters);
