@@ -66,7 +66,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     return multiplier;
   }
 
-  function getSelectorFunction() {
+  function getActiveSelectorFunction() {
     var
       filterRegExp = getFilterExpression(),
       multiplier = getMultiplier();
@@ -84,7 +84,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
       return;
     }
 
-    publish("active-filter-selector", getSelectorFunction() );
+    publish("active-filter-selector", getActiveSelectorFunction() );
   }
 
   subscribe("active-filter-list", combineActiveFilters);
