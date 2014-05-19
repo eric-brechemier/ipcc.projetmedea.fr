@@ -80,7 +80,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
 
   // Prepare predictive filters: for each filter in turn,
   // combine all other filters and create a function which predicts
-  // which values of this filter may be selected for an author to match,]
+  // which values of this filter may be selected for an author to match,
   // all other filters being left unchanged
   function preparePredictiveFilters(activeFilterList) {
     // TODO: publish "predictive-filter-function",
