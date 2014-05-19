@@ -94,7 +94,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
   // combine all other filters and create a function which predicts
   // which values of this filter may be selected for an author to match,
   // all other filters being left unchanged
-  function preparePredictiveFilters(activeFilterList) {
+  function preparePredictiveFilters() {
     var
       activeFilterRegExp = getActiveFilterExpression(),
       activeMultiplier = getActiveMultiplier(),
