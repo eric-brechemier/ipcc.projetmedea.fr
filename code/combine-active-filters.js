@@ -35,20 +35,20 @@ within("projetmedea.fr", function(publish, subscribe, get) {
   function getActiveFilterExpression() {
     var
       activeFilterSet = get("active-filter-set"),
-      filterExpression = FILTER_START;
+      activeFilterExpression = FILTER_START;
 
     forEach(CONTRIBUTION_CODE_FILTERS, function(filterName) {
       var activeFilter = activeFilterSet[filterName];
       if ( no(activeFilter) ) {
-        filterExpression += WILDCARD_FILTER;
+        activeFilterExpression += WILDCARD_FILTER;
       } else {
-        filterExpression += activeFilter.value;
+        activeFilterExpression += activeFilter.value;
       }
-      filterExpression += FILTER_SEPARATOR;
+      activeFilterExpression += FILTER_SEPARATOR;
     });
 
-    filterExpression += FILTER_END;
-    return new RegExp(filterExpression);
+    activeFilterExpression += FILTER_END;
+    return new RegExp(activeFilterExpression);
   }
 
   function getMultiplier() {
