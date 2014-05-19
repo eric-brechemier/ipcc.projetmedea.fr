@@ -147,7 +147,8 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     }
 
     publish("predictive-filter-function", getPredictiveFilters);
+    publish("active-and-predictive-filters-ready");
   }
 
-  subscribe("active-filter-list", preparePredictiveFilters);
+  subscribe("active-filter-selector", preparePredictiveFilters);
 });
