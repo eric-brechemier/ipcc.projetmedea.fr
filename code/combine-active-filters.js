@@ -92,8 +92,11 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     return multiplier;
   }
 
-  function getSelectorFunction(filterExpression, multiplier) {
-    var filterRegExp = new RegExp(filterExpression);
+  function getSelectorFunction() {
+    var
+      filterExpression = getFilterExpression(),
+      filterRegExp = new RegExp(filterExpression),
+      multiplier = getMultiplier();
     return function(author) {
       return getTotalMatchingContributions(author, filterRegExp) >= multiplier;
     };
@@ -108,10 +111,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
       return;
     }
 
-    publish(
-      "active-filter-selector",
-      getSelectorFunction(getFilterExpression(), getMultiplier())
-    );
+    publish("active-filter-selector", getSelectorFunction() );
   }
 
   // Combine all filters leaving one aside in turn
