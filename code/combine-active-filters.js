@@ -89,4 +89,8 @@ within("projetmedea.fr", function(publish, subscribe, get) {
   }
 
   subscribe("active-filter-list", combineActiveFilters);
+
+  this.getTotalMatchingContributions = getTotalMatchingContributions;
+  this.getActiveFilterExpression = getActiveFilterExpression;
+  this.getActiveMultiplier = getActiveMultiplier;
 });
