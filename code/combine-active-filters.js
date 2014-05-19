@@ -99,8 +99,8 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     };
   }
 
-  // combine active filters to compute the concatenated filter expression
-  // and the selector function to apply to authors for funnel filtering
+  // combine active filters to compute the selector function
+  // to apply to authors for funnel filtering
   function combineActiveFilters(activeFilterList) {
     if ( activeFilterList.length === 0 ) {
       // shortcut
