@@ -23,8 +23,6 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     // corresponding to the contribution code
     TOTAL_CONTRIBUTIONS_FILTER = "total-contributions-categories",
 
-    FILTERS = CONTRIBUTION_CODE_FILTERS.concat([TOTAL_CONTRIBUTIONS_FILTER ]);
-
     // part of the filter expression for a filter that matches any value
     // (matches all characters up to the next filter separator)
     WILDCARD_FILTER = "[^\\.]+",
@@ -67,6 +65,25 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     };
   }
 
+  function getFilterExpression() {
+    var
+      activeFilterSet = get("active-filter-set"),
+      filterExpression = FILTER_START;
+
+    forEach(CONTRIBUTION_CODE_FILTERS, function(filterName) {
+      var activeFilter = activeFilterSet[filterName];
+      if ( no(activeFilter) ) {
+        filterExpression += WILDCARD_FILTER;
+      } else {
+        filterExpression += activeFilter.value;
+      }
+      filterExpression += FILTER_SEPARATOR;
+    });
+
+    filterExpression += FILTER_END;
+    return filterExpression;
+  }
+
   // combine active filters to compute the concatenated filter expression
   // and the selector function to apply to authors for funnel filtering
   function combineActiveFilters(activeFilterList) {
@@ -78,20 +95,8 @@ within("projetmedea.fr", function(publish, subscribe, get) {
 
     var
       activeFilterSet = get("active-filter-set"),
-      filterExpression = FILTER_START,
       multiplierFilter = activeFilterSet[TOTAL_CONTRIBUTIONS_FILTER],
       multiplier;
-
-    forEach(CONTRIBUTION_CODE_FILTERS, function(filterName) {
-      var activeFilter = activeFilterSet[filterName];
-      if ( no(activeFilter) ) {
-        filterExpression += WILDCARD_FILTER;
-      } else {
-        filterExpression += activeFilter.value;
-      }
-      filterExpression += FILTER_SEPARATOR;
-    });
-    filterExpression += FILTER_END;
 
     if ( no(multiplierFilter) ) {
       multiplier = 1;
@@ -101,7 +106,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
 
     publish(
       "active-filter-selector",
-      getSelectorFunction(filterExpression, multiplier)
+      getSelectorFunction(getFilterExpression(), multiplier)
     );
   }
 
