@@ -74,7 +74,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     });
 
     filterExpression += FILTER_END;
-    return filterExpression;
+    return new RegExp(filterExpression);
   }
 
   function getMultiplier() {
@@ -94,8 +94,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
 
   function getSelectorFunction() {
     var
-      filterExpression = getFilterExpression(),
-      filterRegExp = new RegExp(filterExpression),
+      filterRegExp = getFilterExpression(),
       multiplier = getMultiplier();
     return function(author) {
       return getTotalMatchingContributions(author, filterRegExp) >= multiplier;
