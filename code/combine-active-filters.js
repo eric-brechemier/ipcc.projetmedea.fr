@@ -54,13 +54,14 @@ within("projetmedea.fr", function(publish, subscribe, get) {
   function getActiveMultiplier() {
     var
       activeFilterSet = get("active-filter-set"),
-      multiplierFilter = activeFilterSet[TOTAL_CONTRIBUTIONS_FILTER],
+      activeMultiplierFilter =
+        activeFilterSet[TOTAL_CONTRIBUTIONS_FILTER],
       multiplier;
 
-    if ( no(multiplierFilter) ) {
+    if ( no(activeMultiplierFilter) ) {
       multiplier = 1;
     } else {
-      multiplier = Number(multiplierFilter.value);
+      multiplier = Number(activeMultiplierFilter.value);
     }
 
     return multiplier;
