@@ -58,7 +58,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
   function applyFilters() {
     var
-      selectorFunction = get("active-filter-selector"),
+      isAuthorSelected = get("active-filter-selector"),
       activeFilterList = get("active-filter-list"),
       authors = get("authors");
 
@@ -70,7 +70,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
       return;
     }
 
-    filter(authors, selectorFunction);
+    filter(authors, isAuthorSelected);
   }
 
   subscribe("authors", function(authors){
