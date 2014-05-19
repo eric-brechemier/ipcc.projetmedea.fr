@@ -78,17 +78,18 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     return new RegExp(filterExpression);
   }
 
-  // Combine all filters leaving one aside in turn
-  // to prepare a predictive function to detect which extra filter value,
-  // for a single filter with all other active filters kept unchanged,
-  // would allow an author to be selected
-  function combinePredictiveFilter(activeFilterList) {
-    // TODO: publish "predictive-filter-selector",
-    // a function which takes an author as argument
-    // and returns an object with one property named after each filter,
-    // with the list of values which would match the author
-    // with all other filters unchanged
+  // Prepare predictive filters: for each filter in turn,
+  // combine all other filters and create a function which predicts
+  // which values of this filter may be selected for an author to match,]
+  // all other filters being left unchanged
+  function preparePredictiveFilters(activeFilterList) {
+    // TODO: publish "predictive-filters",
+    // an array of functions which take an author as argument
+    // and return an object with one property named after each filter,
+    // with the list of values matching when applied on top of active filters,
+    // or for the TOTAL_CONTRIBUTIONS filter, the minimum number which
+    // may be selected for an author to match, or null if no such value exists.
   }
 
-  subscribe("active-filter-list", combinePredictiveFilter);
+  subscribe("active-filter-list", preparePredictiveFilters);
 });
