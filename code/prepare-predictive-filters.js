@@ -83,12 +83,18 @@ within("projetmedea.fr", function(publish, subscribe, get) {
   // which values of this filter may be selected for an author to match,]
   // all other filters being left unchanged
   function preparePredictiveFilters(activeFilterList) {
-    // TODO: publish "predictive-filters",
-    // an array of functions which take an author as argument
-    // and return an object with one property named after each filter,
-    // with the list of values matching when applied on top of active filters,
-    // or for the TOTAL_CONTRIBUTIONS filter, the minimum number which
-    // may be selected for an author to match, or null if no such value exists.
+    // TODO: publish "predictive-filter-function",
+    // a function which takes an author as argument and returns an object
+    // with one property named after each filter:
+    //
+    // * for each filter except the TOTAL_CONTRIBUTIONS filter,
+    //   the property contains an array with the list of filter values
+    //   for which the author would match, with all other filters and
+    //   the TOTAL_CONTRIBUTIONS filter left unchanged;
+    //
+    // * for the TOTAL_CONTRIBUTIONS filter, the property contains an array
+    //   with at most a single value, the minimum value for which the author
+    //   would be selected with other filters unchanged.
   }
 
   subscribe("active-filter-list", preparePredictiveFilters);
