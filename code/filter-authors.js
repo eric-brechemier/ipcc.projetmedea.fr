@@ -17,12 +17,12 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return false; // prevent submission to server (reloads the page)
   };
 
-  function filter(data, isAuthorSelected){
+  function filter(authors, isAuthorSelected){
     var
       selected = [],
       selectedFlags = {};
 
-    forEach(data, function(record, position){
+    forEach(authors, function(record, position){
       var authorId = record[AUTHOR_ID];
       if ( position === 0 ) {
         selected.push(record); // always keep header
