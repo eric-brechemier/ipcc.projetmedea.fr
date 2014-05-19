@@ -84,15 +84,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     return filterExpression;
   }
 
-  // combine active filters to compute the concatenated filter expression
-  // and the selector function to apply to authors for funnel filtering
-  function combineActiveFilters(activeFilterList) {
-    if ( activeFilterList.length === 0 ) {
-      // shortcut
-      publish("active-filter-selector", alwaysTrue);
-      return;
-    }
-
+  function getMultiplier() {
     var
       activeFilterSet = get("active-filter-set"),
       multiplierFilter = activeFilterSet[TOTAL_CONTRIBUTIONS_FILTER],
@@ -104,9 +96,21 @@ within("projetmedea.fr", function(publish, subscribe, get) {
       multiplier = Number(multiplierFilter.value);
     }
 
+    return multiplier;
+  }
+
+  // combine active filters to compute the concatenated filter expression
+  // and the selector function to apply to authors for funnel filtering
+  function combineActiveFilters(activeFilterList) {
+    if ( activeFilterList.length === 0 ) {
+      // shortcut
+      publish("active-filter-selector", alwaysTrue);
+      return;
+    }
+
     publish(
       "active-filter-selector",
-      getSelectorFunction(getFilterExpression(), multiplier)
+      getSelectorFunction(getFilterExpression(), getMultiplier())
     );
   }
 
