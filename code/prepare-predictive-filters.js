@@ -113,19 +113,15 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     // Returns:
     //   object, the set of predictive filters,
     //   a map of filter name -> array of filter values:
-    //
-    // * for each filter except the TOTAL_CONTRIBUTIONS filter,
+    //   for each filter including the TOTAL_CONTRIBUTIONS_FILTER,
     //   the property contains an array with the list of filter values
-    //   for which the author would match, with all other filters and
-    //   the TOTAL_CONTRIBUTIONS filter left unchanged;
-    //
-    // * for the TOTAL_CONTRIBUTIONS filter, the array is empty or
-    //   contains a single value, the minimum value for which the author
-    //   would be selected with other filters unchanged.
+    //   for which the author would match as string values.
     function getPredictiveFilters(author) {
       var
         predictiveFilters = {},
-        totalContributionsSelected;
+        totalContributionsSelected,
+        totalContributionsList = [],
+        i;
 
       forEach(CONTRIBUTION_CODE_FILTERS, function(filterName) {
         var relaxedFilterRegExp = relaxedFilterExpressions[filterName];
@@ -135,13 +131,10 @@ within("projetmedea.fr", function(publish, subscribe, get) {
 
       totalContributionsSelected =
         getTotalMatchingContributions(author, activeFilterRegExp);
-      if ( totalContributionsSelected === 0 ) {
-        predictiveFilters[TOTAL_CONTRIBUTIONS_FILTER] = [];
-      } else {
-        predictiveFilters[TOTAL_CONTRIBUTIONS_FILTER] = [
-          totalContributionsSelected
-        ];
+      for ( i=1; i<=totalContributionsSelected; i++ ) {
+        totalContributionsList.push( String(i) );
       }
+      predictiveFilters[TOTAL_CONTRIBUTIONS_FILTER] = totalContributionsList;
 
       return predictiveFilters;
     }
