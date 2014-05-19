@@ -17,10 +17,29 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return false; // prevent submission to server (reloads the page)
   };
 
-  function filter(authors, isAuthorSelected){
+  function getTotalAuthorsInCategory(category) {
+    if ( no(category) ) {
+      return 0;
+    }
+    var authors = category[CATEGORY_AUTHORS];
+    return authors.length;
+  }
+
+  function applyFilters() {
     var
+      isAuthorSelected = get("active-filter-selector"),
+      activeFilterList = get("active-filter-list"),
+      authors = get("authors"),
       selected = [],
       selectedFlags = {};
+
+    if ( activeFilterList.length === 0 ) {
+      // shortcut: select all authors
+      publish("selected-authors", authors);
+      publish("selected-authors-prediction", getTotalAuthorsInCategory);
+      publish("selected-author-check", alwaysTrue);
+      return;
+    }
 
     forEach(authors, function(record, position){
       var authorId = record[AUTHOR_ID];
@@ -46,31 +65,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
     publish("selected-author-check", function(authorId){
       return selectedFlags[authorId] === true;
     });
-  }
-
-  function getTotalAuthorsInCategory(category) {
-    if ( no(category) ) {
-      return 0;
-    }
-    var authors = category[CATEGORY_AUTHORS];
-    return authors.length;
-  }
-
-  function applyFilters() {
-    var
-      isAuthorSelected = get("active-filter-selector"),
-      activeFilterList = get("active-filter-list"),
-      authors = get("authors");
-
-    if ( activeFilterList.length === 0 ) {
-      // shortcut: select all authors
-      publish("selected-authors", authors);
-      publish("selected-authors-prediction", getTotalAuthorsInCategory);
-      publish("selected-author-check", alwaysTrue);
-      return;
-    }
-
-    filter(authors, isAuthorSelected);
   }
 
   subscribe("authors", function(authors){
