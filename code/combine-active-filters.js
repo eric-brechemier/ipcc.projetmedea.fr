@@ -27,6 +27,10 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     // (matches all characters up to the next filter separator)
     WILDCARD_FILTER = "[^\\.]+",
 
+    // a wildcard filter which captures the value;
+    // used in a relaxed filter expression to capture the filter value
+    CAPTURE_WILDCARD_FILTER = "(" + WILDCARD_FILTER + ")",
+
     // character used as separator between filters in the filter expression
     FILTER_SEPARATOR = "\\.",
 
@@ -36,16 +40,17 @@ within("projetmedea.fr", function(publish, subscribe, get) {
 
     // end of the filter expression:
     // add the 'x' character before the multiplier,
-    // then capture the remaining characters in group 1.
-    FILTER_END = "x(.+)$",
-
-    // index of the group captured for the contribution multiplier
-    CAPTURED_MULTIPLIER = 1;
+    // then capture the remaining characters in group CAPTURED_MULTIPLIER.
+    FILTER_END = "x(.+)$";
 
   function getTotalMatchingContributions(author, filterRegExp) {
     var
       totalMatchingContributions = 0,
-      contributions = author[AUTHOR_CONTRIBUTIONS];
+      contributions = author[AUTHOR_CONTRIBUTIONS],
+
+    // index of the group captured for the contribution multiplier
+    // in an active filter regular expression
+    CAPTURED_MULTIPLIER = 1;
 
     forEach(contributions, function(contribution) {
       var match = filterRegExp.exec(contribution);
@@ -56,6 +61,46 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     });
 
     return totalMatchingContributions;
+  }
+
+  // For given author, find all the values which would match if they
+  // were selected with other active filters kept unchanged, and count
+  // the number of matching chapter contributions for all these values.
+  function predictTotalMatchingContributions(author, relaxedFilterRegExp) {
+    var
+      // map of filter value -> total contributions
+      //                        matching active filters + this value
+      filterValues = {},
+
+    // index of the group captured for the filter value
+    // in a relaxed filter regular expression
+    CAPTURED_FILTER_VALUE = 1,
+
+    // index of the group captured for the contribution multiplier
+    // in a relaxed filter regular expression
+    CAPTURED_MULTIPLIER = 2;
+
+    forEach(contributions, function(contribution) {
+      var
+        match = relaxedFilterRegExp.exec(contribution),
+        value,
+        count;
+
+      if ( no(match) ) {
+        return;
+      }
+
+      value = Number( match[CAPTURED_FILTER_VALUE] );
+      count = Number( match[CAPTURED_MULTIPLIER] );
+
+      if ( !filterValues.hasOwnProperty(value) ) {
+        filterValues[value] = count;
+      } else {
+        filterValues[value] += count;
+      }
+    });
+
+    return filterValues;
   }
 
   function getFilterExpression() {
@@ -69,6 +114,32 @@ within("projetmedea.fr", function(publish, subscribe, get) {
         filterExpression += WILDCARD_FILTER;
       } else {
         filterExpression += activeFilter.value;
+      }
+      filterExpression += FILTER_SEPARATOR;
+    });
+
+    filterExpression += FILTER_END;
+    return new RegExp(filterExpression);
+  }
+
+  // a relaxed filter expression matches all active filters except given one,
+  // and captures the filter value and multiplier for matching contributions
+  function getRelaxedFilterExpression(relaxedFilterName) {
+    var
+      activeFilterSet = get("active-filter-set"),
+      filterExpression = FILTER_START;
+
+    forEach(CONTRIBUTION_CODE_FILTERS, function(filterName) {
+      var activeFilter;
+      if ( filterName === relaxedFilterName ) {
+        filterExpression += CAPTURE_WILDCARD_FILTER;
+      } else {
+        activeFilter = activeFilterSet[filterName];
+        if ( no(activeFilter) ) {
+          filterExpression += WILDCARD_FILTER;
+        } else {
+          filterExpression += activeFilter.value;
+        }
       }
       filterExpression += FILTER_SEPARATOR;
     });
