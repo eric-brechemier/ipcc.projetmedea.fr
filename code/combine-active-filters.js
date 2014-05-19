@@ -51,7 +51,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     return new RegExp(activeFilterExpression);
   }
 
-  function getMultiplier() {
+  function getActiveMultiplier() {
     var
       activeFilterSet = get("active-filter-set"),
       multiplierFilter = activeFilterSet[TOTAL_CONTRIBUTIONS_FILTER],
@@ -69,7 +69,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
   function getActiveSelectorFunction() {
     var
       filterRegExp = getActiveFilterExpression(),
-      multiplier = getMultiplier();
+      multiplier = getActiveMultiplier();
     return function(author) {
       return getTotalMatchingContributions(author, filterRegExp) >= multiplier;
     };
