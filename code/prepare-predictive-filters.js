@@ -7,9 +7,9 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     getActiveMultiplier = this.getActiveMultiplier,
     getTotalMatchingContributions = this.getTotalMatchingContributions,
 
-    AUTHOR_CONTRIBUTIONS = this.AUTHOR_CONTRIBUTIONS ,
+    AUTHOR_CONTRIBUTIONS = this.AUTHOR_CONTRIBUTIONS,
     CATEGORY_NAME = this.CATEGORY_NAME,
-    CONTRIBUTION_CODE_FILTERS = this.CONTRIBUTION_CODE_FILTERS ,
+    CONTRIBUTION_CODE_FILTERS = this.CONTRIBUTION_CODE_FILTERS,
     TOTAL_CONTRIBUTIONS_FILTER = this.TOTAL_CONTRIBUTIONS_FILTER,
     WILDCARD_FILTER = this.WILDCARD_FILTER,
     CAPTURE_WILDCARD_FILTER = this.CAPTURE_WILDCARD_FILTER,
