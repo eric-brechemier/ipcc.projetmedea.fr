@@ -1,57 +1,82 @@
 within("projetmedea.fr", function(publish, subscribe, get){
 
   var
+    no = this.no,
+    or = this.or,
     forEach = this.forEach,
+    forEachProperty = this.forEachProperty,
+    incrementProperty = this.incrementProperty,
     alwaysTrue = this.alwaysTrue,
-    form = document.getElementById("filters"),
+    preventFormSubmission = this.preventFormSubmission,
+    getTotalAuthorsInCategory = this.getTotalAuthorsInCategory;
 
-    // offset of the column with author identifier in each author record
-    AUTHOR_ID = 0;
+    AUTHOR_ID = this.AUTHOR_ID,
+    ANY_VALUE = this.LIST_ITEM_DEFAULT_VALUE,
+    CATEGORY_NAME = this.CATEGORY_NAME,
+    CATEGORY_AUTHORS = this.CATEGORY_AUTHORS;
 
-  form.onsubmit = function(){
-    return false; // prevent submission to server (reloads the page)
-  };
-
-  function filter(data, isAuthorSelected){
+  function applyFilters() {
     var
+      isAuthorSelected = get("active-filter-selector"),
+      activeFilterList = get("active-filter-list"),
+      totalAuthorsByFilter = get("predictive-filters-root"),
+      getPredictiveFilters = get("predictive-filter-function"),
+      authors = get("authors"),
       selected = [],
       selectedFlags = {};
 
-    forEach(data, function(record, position){
-      var authorId = record[AUTHOR_ID];
+    if ( activeFilterList.length === 0 ) {
+      // shortcut: select all authors
+      publish("selected-authors", authors);
+      publish("selected-authors-prediction", getTotalAuthorsInCategory);
+      publish("selected-author-check", alwaysTrue);
+      return;
+    }
+
+    forEach(authors, function(record, position){
+      var
+        authorId = record[AUTHOR_ID],
+        predictiveFilters;
+
       if ( position === 0 ) {
         selected.push(record); // always keep header
         return;
       }
+
       if ( isAuthorSelected(record) ) {
         selected.push(record);
         selectedFlags[authorId] = true;
       }
+
+      predictiveFilters = getPredictiveFilters(record);
+      forEachProperty(predictiveFilters, function(filterValues, filterName) {
+        var totalAuthorsByValue = totalAuthorsByFilter[filterName];
+        forEach(filterValues, function(filterValue) {
+          incrementProperty( totalAuthorsByValue, filterValue );
+        });
+        if ( filterValues.length > 0 ) {
+          incrementProperty( totalAuthorsByValue, ANY_VALUE );
+        }
+      });
     });
+
     publish("selected-authors", selected);
+    publish("selected-authors-prediction", function(
+      category, filterName, filterValue
+    ) {
+      return or(totalAuthorsByFilter[filterName][filterValue], 0);
+    });
     publish("selected-author-check", function(authorId){
       return selectedFlags[authorId] === true;
     });
   }
 
-  function applyFilters() {
-    var
-      selectorFunction = get("active-filter-selector"),
-      activeFilterList = get("active-filter-list"),
-      authors = get("authors");
-
-    if ( activeFilterList.length === 0 ) {
-      // shortcut: select all authors
-      publish("selected-authors", authors);
-      publish("selected-author-check", alwaysTrue);
-      return;
-    }
-
-    filter(authors, selectorFunction);
-  }
+  preventFormSubmission(
+    document.getElementById("filters")
+  );
 
   subscribe("authors", function(authors){
-    subscribe("active-filter-selector", applyFilters);
+    subscribe("active-and-predictive-filters-ready", applyFilters);
   });
 
 });

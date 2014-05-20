@@ -10,9 +10,13 @@
     <link rel="stylesheet" type="text/css" href="style/interactivity.css" />
     <script src="code/within.js"></script>
     <script src="code/utils.js"></script>
+    <script src="code/string-utils.js"></script>
+    <script src="code/dom-utils.js"></script>
     <script src="code/csv-utils.js"></script>
     <script src="code/layout-utils.js"></script>
+    <script src="code/forms-utils.js"></script>
     <script src="code/interactivity-utils.js"></script>
+    <script src="code/filter-constants.js"></script>
     <script src="code/filter-utils.js"></script>
   </head>
   <body>
@@ -56,13 +60,14 @@
       <div id="data-block" class="hidden">
         <h2>Authors</h2>
         <div>Total: <span id="total-records-count"></span></div>
-        <script src="code/count-author-records.js"></script>
+        <script src="code/count-total-authors.js"></script>
+        <script src="code/display-total-authors.js"></script>
         <div>
           Selected: <span id="selected-records-count"></span>
           (<span id="selected-records-percentage"></span>%)
         </div>
-        <script src="code/count-selected-authors.js"></script>
-        <script src="code/count-selected-authors-percentage.js"></script>
+        <script src="code/count-total-authors-selected.js"></script>
+        <script src="code/display-total-authors-selected.js"></script>
 
         <h3>CSV Data</h3>
         <div id="authors-csv-block" class="hidden">
@@ -115,8 +120,16 @@
       <h2>I wish to select authors:</h2>
       <script src="code/collect-active-filters.js"></script>
       <script src="code/combine-active-filters.js"></script>
+      <script src="code/prepare-predictive-filters.js"></script>
       <form id="filters">
         <fieldset>
+          <label class="hidden-to-measure-select">
+            <select>
+              <option id="hidden-filter-option"
+                selected="selected"
+              >Text Node</option>
+            </select>
+          </label>
           <label>
             who contributed to
             <select
@@ -178,7 +191,22 @@
           <script src="code/filter-by-country.js"></script>
           <br />
           <label>
-            for
+            in
+            <select
+              id="institution-type-filter"
+              name="institution-type-categories"
+            ></select
+            ><span
+              id="institution-type-filter-total"
+              class="total-categories"
+            ></span>,
+          </label>
+          <script src="data/institution-type-list.js"></script>
+          <script src="data/institution-type-categories.js"></script>
+          <script src="code/filter-by-institution-type.js"></script>
+          <br />
+          <label>
+            the
             <select
               id="institution-filter"
               name="institution-categories"
@@ -262,7 +290,8 @@
           </select>
           <script src="data/cumulated-working-group-categories.js"></script>
           <script src="layout/cumulated-working-group-categories.js"></script>
-          <script src="data/country-categories.js"></script>
+          <!-- already loaded with country filter -->
+          <!--script src="data/country-categories.js"></script-->
           <script src="layout/single-group.js"></script>
           <script src="layout/country-categories.js"></script>
           <script src="data/country-group-categories.js"></script>
@@ -275,7 +304,8 @@
           <script src="layout/cumulated-working-group-in-country-group-categories.js"></script>
           <script src="data/cumulated-role-in-country-group-categories.js"></script>
           <script src="layout/cumulated-role-in-country-group-categories.js"></script>
-          <script src="data/institution-type-categories.js"></script>
+          <!-- already loaded with institution type filter -->
+          <!--script src="data/institution-type-categories.js"></script-->
           <script src="data/cumulated-working-group-in-institution-type-categories.js"></script>
           <script src="layout/cumulated-working-group-in-institution-type-categories.js"></script>
         </fieldset>

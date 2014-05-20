@@ -1,21 +1,8 @@
 within("projetmedea.fr", function(publish, subscribe, get){
 
   var
-    forEach = this.forEach,
+    getSelectedOption = this.getSelectedOption,
     groupSelection = document.getElementById('group-selection');
-
-  function getSelectedOption(select){
-    var
-      options = select.childNodes,
-      selectedOption = null;
-    forEach(options, function(option){
-      if ( option.selected ){
-        selectedOption = option;
-        return true;
-      }
-    });
-    return selectedOption;
-  }
 
   function updateGroupingCategory(){
     var selectedOption = getSelectedOption(groupSelection);

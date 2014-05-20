@@ -3,8 +3,6 @@ within("projetmedea.fr", function(publish, subscribe){
     count = this.countData;
 
   subscribe("authors", function(authors){
-    document
-      .getElementById('total-records-count')
-      .innerHTML = count(authors);
+    publish("total-authors", count(authors) );
   });
 });
