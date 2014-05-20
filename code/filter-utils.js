@@ -29,11 +29,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
     // hidden using CSS visibility hidden, not display none.
     HIDDEN_OPTION_ID = "hidden-filter-option";
 
-  // TODO: rename to getTotalAuthorsInCategory
   // Get the total number of authors in a category
   // Note: this function's signature must match the signature
   // of the "selected-authors-prediction" function.
-  function getTotalCategoryAuthors(category, filterName, filterValue) {
+  function getTotalAuthorsInCategory(category, filterName, filterValue) {
     if ( filterValue === LIST_ITEM_DEFAULT_VALUE ) {
       return get("total-authors");
     }
@@ -124,7 +123,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
         totalCategoryAuthorsSelected =
           getTotalAuthorsSelectedInCategory(category, filterName, filterValue),
         totalCategoryAuthors =
-          getTotalCategoryAuthors(category, filterName, filterValue),
+          getTotalAuthorsInCategory(category, filterName, filterValue),
         baseText,
         fullText;
 
@@ -174,7 +173,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
         totalCategoryAuthorsSelected =
           getTotalAuthorsSelectedInCategory(category, filterName, filterValue),
         totalCategoryAuthors =
-          getTotalCategoryAuthors(category, filterName, filterValue);
+          getTotalAuthorsInCategory(category, filterName, filterValue);
 
       if ( !isFirstOption && totalCategoryAuthorsSelected > 0 ) {
         totalCategoriesSelected++;
