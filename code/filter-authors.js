@@ -5,17 +5,13 @@ within("projetmedea.fr", function(publish, subscribe, get){
     or = this.or,
     forEach = this.forEach,
     alwaysTrue = this.alwaysTrue,
-    form = document.getElementById("filters"),
+    preventFormSubmission = this.preventFormSubmission,
 
     // offset of the column with author identifier in each author record
     AUTHOR_ID = 0,
 
     // offset of the column with the list of authors in a category record
     CATEGORY_AUTHORS = 2;
-
-  form.onsubmit = function(){
-    return false; // prevent submission to server (reloads the page)
-  };
 
   function getTotalAuthorsInCategory(category) {
     if ( no(category) ) {
@@ -66,6 +62,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
       return selectedFlags[authorId] === true;
     });
   }
+
+  preventFormSubmission(
+    document.getElementById("filters")
+  );
 
   subscribe("authors", function(authors){
     subscribe("active-and-predictive-filters-ready", applyFilters);

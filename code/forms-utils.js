@@ -3,6 +3,12 @@ within("projetmedea.fr", function() {
     no = this.no,
     forEach = this.forEach;
 
+  function preventFormSubmission(form) {
+    form.onsubmit = function(){
+      return false; // prevent submission to server (reloads the page)
+    };
+  }
+
   function getSelectedOption(select){
     var
       options = select.childNodes,
@@ -26,6 +32,7 @@ within("projetmedea.fr", function() {
     }
   }
 
+  this.preventFormSubmission = preventFormSubmission;
   this.getSelectedOption = getSelectedOption;
   this.setOptionText = setOptionText;
   this.hideOption = this.hideElement;
