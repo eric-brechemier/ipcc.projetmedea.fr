@@ -300,8 +300,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
       isFilterInitialized = true;
     }
 
-    // TODO: rename to initOrUpdateLists()
-    function updateFilter() {
+    function initOrUpdateFilterLists() {
       if ( !isFilterInitialized ) {
         initFilter();
       } else {
@@ -314,8 +313,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
       }
     }
 
-    // TODO: rename to initOrUpdateLists()
-    subscribe("selected-author-check", updateFilter);
+    subscribe("selected-author-check", initOrUpdateFilterLists);
   }
 
   this.filter = filter;
