@@ -28,21 +28,17 @@ within("projetmedea.fr", function(publish, subscribe, get){
     // hidden using CSS visibility hidden, not display none.
     HIDDEN_OPTION_ID = "hidden-filter-option";
 
+  // TODO: inline
   function getTotalCategoryAuthorsSelected(
-    isFirst, category, filterName, filterValue
+    category, filterName, filterValue
   ) {
-    if ( isFirst ) {
-      return get("total-authors-selected");
-    }
-    if ( no(category) ) {
-      return 0;
-    }
     var
       getTotalAuthorsSelectedPredicted =
         get("selected-authors-prediction");
     return getTotalAuthorsSelectedPredicted(category, filterName, filterValue);
   }
 
+  // TODO: replace isFirst with filterValue === ""
   function getTotalCategoryAuthors(isFirst, category) {
     if ( isFirst ) {
       return get("total-authors");
@@ -131,9 +127,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
         filterValue = listItem[LIST_ITEM_VALUE],
         category = categories[categoryName],
         totalCategoryAuthorsSelected =
-          getTotalCategoryAuthorsSelected(
-            isFirstOption, category, filterName, filterValue
-          ),
+          getTotalCategoryAuthorsSelected(category, filterName, filterValue),
         totalCategoryAuthors =
           getTotalCategoryAuthors(isFirstOption, category),
         baseText,
@@ -182,9 +176,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
         filterValue = listItem[LIST_ITEM_VALUE],
         category = categories[categoryName],
         totalCategoryAuthorsSelected =
-          getTotalCategoryAuthorsSelected(
-            isFirstOption, category, filterName, filterValue
-          ),
+          getTotalCategoryAuthorsSelected(category, filterName, filterValue),
         totalCategoryAuthors =
           getTotalCategoryAuthors(isFirstOption, category);
 

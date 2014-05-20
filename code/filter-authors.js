@@ -9,10 +9,15 @@ within("projetmedea.fr", function(publish, subscribe, get){
     preventFormSubmission = this.preventFormSubmission,
 
     AUTHOR_ID = this.AUTHOR_ID,
+    ANY_VALUE = this.LIST_ITEM_DEFAULT_VALUE,
     CATEGORY_NAME = this.CATEGORY_NAME,
     CATEGORY_AUTHORS = this.CATEGORY_AUTHORS;
 
-  function getTotalAuthorsInCategory(category) {
+  // TODO: use the function defined in filter-utils
+  function getTotalAuthorsInCategory(category, filterName, filterValue) {
+    if ( filterValue === "" ) {
+      return get("total-authors");
+    }
     if ( no(category) ) {
       return 0;
     }
@@ -57,12 +62,21 @@ within("projetmedea.fr", function(publish, subscribe, get){
       forEachProperty(predictiveFilters, function(filterValues, filterName) {
         var totalAuthorsByValue = totalAuthorsByFilter[filterName];
         forEach(filterValues, function(filterValue) {
+          // TODO: extract function incrementProperty(object, name)
           if ( !totalAuthorsByValue.hasOwnProperty(filterValue) ) {
             totalAuthorsByValue[filterValue] = 1;
           } else {
             totalAuthorsByValue[filterValue]++;
           }
         });
+        if ( filterValues.length > 0 ) {
+          // TODO: extract function incrementProperty(object, name)
+          if ( !totalAuthorsByValue.hasOwnProperty(ANY_VALUE) ) {
+            totalAuthorsByValue[ANY_VALUE] = 1;
+          } else {
+            totalAuthorsByValue[ANY_VALUE]++;
+          }
+        }
       });
     });
 

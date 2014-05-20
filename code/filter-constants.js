@@ -13,6 +13,9 @@ within("projetmedea.fr", function() {
   // offset of the item value in a list item record
   this.LIST_ITEM_VALUE = 1;
 
+  // value of the first item, which lists all authors
+  this.LIST_ITEM_DEFAULT_VALUE = "";
+
   // offset of the field with the category name in a category record
   this.CATEGORY_NAME = 0;
 
