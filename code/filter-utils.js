@@ -314,8 +314,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
       }
     }
 
-    // TODO: remove first subscription, keep only second to init or update
-    subscribe("total-authors", initFilter);
+    // TODO: rename to initOrUpdateLists()
     subscribe("selected-author-check", updateFilter);
   }
 
