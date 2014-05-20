@@ -115,6 +115,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
   function fillFilterSelectionList(select, filterName, listData, categories){
     var
       options = document.createDocumentFragment(),
+      getTotalAuthorsSelectedInCategory = get("selected-authors-prediction"),
       maxCategoryNameLength,
       totalCategoriesSelected = 0;
 
@@ -132,7 +133,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
         filterValue = listItem[LIST_ITEM_VALUE],
         category = categories[categoryName],
         totalCategoryAuthorsSelected =
-          getTotalCategoryAuthorsSelected(category, filterName, filterValue),
+          getTotalAuthorsSelectedInCategory(category, filterName, filterValue),
         totalCategoryAuthors =
           getTotalCategoryAuthors(category, filterName, filterValue),
         baseText,
@@ -170,6 +171,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
   function updateFilterSelectionList(select, filterName, listData, categories) {
     var
       options = select.options,
+      getTotalAuthorsSelectedInCategory = get("selected-authors-prediction"),
       totalCategoriesSelected = 0;
 
     forEachData(listData, function(listItem, listItemOffset) {
@@ -181,7 +183,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
         filterValue = listItem[LIST_ITEM_VALUE],
         category = categories[categoryName],
         totalCategoryAuthorsSelected =
-          getTotalCategoryAuthorsSelected(category, filterName, filterValue),
+          getTotalAuthorsSelectedInCategory(category, filterName, filterValue),
         totalCategoryAuthors =
           getTotalCategoryAuthors(category, filterName, filterValue);
 
@@ -310,6 +312,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
       isFilterInitialized = true;
     }
 
+    // TODO: rename to initOrUpdateLists()
     function updateFilter() {
       if ( !isFilterInitialized ) {
         initFilter();
@@ -323,6 +326,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
       }
     }
 
+    // TODO: remove first subscription, keep only second to init or update
     subscribe("total-authors", initFilter);
     subscribe("selected-author-check", updateFilter);
   }
