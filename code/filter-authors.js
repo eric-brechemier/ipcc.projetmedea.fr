@@ -11,6 +11,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
     // offset of the column with author identifier in each author record
     AUTHOR_ID = 0,
 
+    CATEGORY_NAME = this.CATEGORY_NAME,
+
     // offset of the column with the list of authors in a category record
     CATEGORY_AUTHORS = 2;
 
