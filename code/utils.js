@@ -150,10 +150,15 @@ within("projetmedea.fr", function() {
     }
   }
 
-  // Set or increment the value of an object property
+  // Set or increment the value  an object property
   // by given quantity (optional, defaults to 1)
   function incrementProperty( object, property, quantity ) {
-
+    quantity = or( quantity, 1 );
+    if ( !hasOwnProperty( object, property ) ) {
+      object[ property ] = quantity;
+    } else {
+      object[ property ] += quantity;
+    }
   }
 
   // CC0 - https://raw.github.com/eric-brechemier/nada/master/forEach.js
