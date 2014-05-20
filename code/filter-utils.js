@@ -17,6 +17,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
     LIST_ITEM_NAME = this.LIST_ITEM_NAME,
     LIST_ITEM_VALUE = this.LIST_ITEM_VALUE,
+    LIST_ITEM_DEFAULT_VALUE = this.LIST_ITEM_DEFAULT_VALUE,
     CATEGORY_AUTHORS = this.CATEGORY_AUTHORS,
 
     // non-breaking space, used in padding
@@ -44,7 +45,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
   // Note: this function's signature must match the signature
   // of the "selected-authors-prediction" function.
   function getTotalCategoryAuthors(category, filterName, filterValue) {
-    if ( filterValue === "" ) {
+    if ( filterValue === LIST_ITEM_DEFAULT_VALUE ) {
       return get("total-authors");
     }
     if ( no(category) ) {
