@@ -11,7 +11,7 @@ within("projetmedea.fr", function() {
   this.CATEGORY_NAME = 0;
 
   // offset of the column with the list of authors in a category record
-  this.CATEGORY_AUTHORS = 2;
+  this.CATEGORY_AUTHORS = 1;
 
   // sequence of the names of filters
   // that make up the contribution code
