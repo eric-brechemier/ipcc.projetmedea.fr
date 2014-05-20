@@ -29,6 +29,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     HIDDEN_OPTION_ID = "hidden-filter-option";
 
   // TODO: inline
+  // TODO: rename to getTotalAuthorsSelectedInCategory
   function getTotalCategoryAuthorsSelected(
     category, filterName, filterValue
   ) {
@@ -38,9 +39,12 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return getTotalAuthorsSelectedPredicted(category, filterName, filterValue);
   }
 
-  // TODO: replace isFirst with filterValue === ""
-  function getTotalCategoryAuthors(isFirst, category) {
-    if ( isFirst ) {
+  // TODO: rename to getTotalAuthorsInCategory
+  // Get the total number of authors in a category
+  // Note: this function's signature must match the signature
+  // of the "selected-authors-prediction" function.
+  function getTotalCategoryAuthors(category, filterName, filterValue) {
+    if ( filterValue === "" ) {
       return get("total-authors");
     }
     if ( no(category) ) {
@@ -129,7 +133,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
         totalCategoryAuthorsSelected =
           getTotalCategoryAuthorsSelected(category, filterName, filterValue),
         totalCategoryAuthors =
-          getTotalCategoryAuthors(isFirstOption, category),
+          getTotalCategoryAuthors(category, filterName, filterValue),
         baseText,
         fullText;
 
@@ -178,7 +182,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
         totalCategoryAuthorsSelected =
           getTotalCategoryAuthorsSelected(category, filterName, filterValue),
         totalCategoryAuthors =
-          getTotalCategoryAuthors(isFirstOption, category);
+          getTotalCategoryAuthors(category, filterName, filterValue);
 
       if ( !isFirstOption && totalCategoryAuthorsSelected > 0 ) {
         totalCategoriesSelected++;
