@@ -31,6 +31,41 @@ within("projetmedea.fr", function() {
     };
   }
 
+  // CC0 - https://raw.github.com/eric-brechemier/nada/master/no.js
+  /*
+    Check whether given value is null or undefined
+
+    Parameter:
+      value - any, the value to check
+
+    Returns:
+      boolean, false when the value is null or undefined,
+      true otherwise
+  */
+  function no( value ) {
+    var undef; // do not trust global undefined, which can be set to a value
+    return value === null || value === undef;
+  }
+
+  // CC0 - https://raw.github.com/eric-brechemier/nadasurf/master/or.js
+  /*
+    Get a default value when given value is null or undefined
+
+    Parameters:
+      a - any, the value to check
+      b - any, the default value
+
+    Returns:
+      any, the default value when the value is null or undefined,
+      the value itself otherwise.
+
+    Dependency:
+      nada/no.js
+  */
+  function or( a, b ) {
+    return no( a )? b: a;
+  }
+
   // CC0 - https://raw.github.com/eric-brechemier/nada/master/bind.js
   /*
     Wrap a function in a closure that configures given object as context
@@ -206,41 +241,6 @@ within("projetmedea.fr", function() {
     return accumulator;
   }
 
-  // CC0 - https://raw.github.com/eric-brechemier/nada/master/no.js
-  /*
-    Check whether given value is null or undefined
-
-    Parameter:
-      value - any, the value to check
-
-    Returns:
-      boolean, false when the value is null or undefined,
-      true otherwise
-  */
-  function no( value ) {
-    var undef; // do not trust global undefined, which can be set to a value
-    return value === null || value === undef;
-  }
-
-  // CC0 - https://raw.github.com/eric-brechemier/nadasurf/master/or.js
-  /*
-    Get a default value when given value is null or undefined
-
-    Parameters:
-      a - any, the value to check
-      b - any, the default value
-
-    Returns:
-      any, the default value when the value is null or undefined,
-      the value itself otherwise.
-
-    Dependency:
-      nada/no.js
-  */
-  function or( a, b ) {
-    return no( a )? b: a;
-  }
-
   // Compute the percentage that the part represents in the whole
   function percentage(part, whole){
     var percents = part / whole * 100;
@@ -264,13 +264,13 @@ within("projetmedea.fr", function() {
   }
 
   this.identity = identity;
+  this.no = no;
+  this.or = or;
   this.forEach = forEach;
   this.forEachProperty = forEachProperty;
   this.incrementProperty = incrementProperty;
   this.map = map;
   this.reduce = reduce;
-  this.no = no;
-  this.or = or;
   this.percentage = percentage;
   this.max = bind( Math.max, Math );
   this.alwaysTrue = always( true );
