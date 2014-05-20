@@ -28,7 +28,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     // hidden using CSS visibility hidden, not display none.
     HIDDEN_OPTION_ID = "hidden-filter-option";
 
-  function getTotalCategoryAuthorsSelected(isFirst, category) {
+  function getTotalCategoryAuthorsSelected(isFirst, category, filterName) {
     if ( isFirst ) {
       return get("total-authors-selected");
     }
@@ -36,17 +36,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
       return 0;
     }
     var
-      categoryAuthors = category[CATEGORY_AUTHORS],
-      isAuthorSelected = get("selected-author-check");
-
-    if ( isAuthorSelected === alwaysTrue ) {
-      // shortcut: all authors
-      return categoryAuthors.length;
-    } else {
-      return reduce(0, categoryAuthors, function(accumulator, author){
-        return accumulator + (isAuthorSelected(author)? 1: 0);
-      });
-    }
+      getTotalAuthorsSelectedPredicted =
+        get("selected-authors-prediction");
+    return getTotalAuthorsSelectedPredicted(category, filterName);
   }
 
   function getTotalCategoryAuthors(isFirst, category) {
@@ -117,7 +109,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     }
   }
 
-  function fillFilterSelectionList(select, listData, categories){
+  function fillFilterSelectionList(select, filterName, listData, categories){
     var
       options = document.createDocumentFragment(),
       maxCategoryNameLength,
@@ -136,7 +128,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
         categoryName = listItem[LIST_ITEM_NAME],
         category = categories[categoryName],
         totalCategoryAuthorsSelected =
-          getTotalCategoryAuthorsSelected(isFirstOption, category),
+          getTotalCategoryAuthorsSelected(isFirstOption, category, filterName),
         totalCategoryAuthors =
           getTotalCategoryAuthors(isFirstOption, category),
         baseText,
@@ -171,7 +163,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     displayTotalCategoriesSelected(select, totalCategoriesSelected);
   }
 
-  function updateFilterSelectionList(select, listData, categories) {
+  function updateFilterSelectionList(select, filterName, listData, categories) {
     var
       options = select.options,
       totalCategoriesSelected = 0;
@@ -184,7 +176,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
         categoryName = listItem[LIST_ITEM_NAME],
         category = categories[categoryName],
         totalCategoryAuthorsSelected =
-          getTotalCategoryAuthorsSelected(isFirstOption, category),
+          getTotalCategoryAuthorsSelected(isFirstOption, category, filterName),
         totalCategoryAuthors =
           getTotalCategoryAuthors(isFirstOption, category);
 
@@ -294,7 +286,12 @@ within("projetmedea.fr", function(publish, subscribe, get){
         return;
       }
 
-      fillFilterSelectionList(select, listData, categories);
+      fillFilterSelectionList(
+        select,
+        categoriesPropertyName,
+        listData,
+        categories
+      );
       reduceSelectedOption(select);
       select.onfocus = function() {
         expandSelectedOption(select);
@@ -312,7 +309,12 @@ within("projetmedea.fr", function(publish, subscribe, get){
       if ( !isFilterInitialized ) {
         initFilter();
       } else {
-        updateFilterSelectionList(select, listData, categories);
+        updateFilterSelectionList(
+          select,
+          categoriesPropertyName,
+          listData,
+          categories
+        );
       }
     }
 
