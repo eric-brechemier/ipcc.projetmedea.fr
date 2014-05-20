@@ -28,7 +28,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
     // hidden using CSS visibility hidden, not display none.
     HIDDEN_OPTION_ID = "hidden-filter-option";
 
-  function getTotalCategoryAuthorsSelected(isFirst, category, filterName) {
+  function getTotalCategoryAuthorsSelected(
+    isFirst, category, filterName, filterValue
+  ) {
     if ( isFirst ) {
       return get("total-authors-selected");
     }
@@ -38,7 +40,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     var
       getTotalAuthorsSelectedPredicted =
         get("selected-authors-prediction");
-    return getTotalAuthorsSelectedPredicted(category, filterName);
+    return getTotalAuthorsSelectedPredicted(category, filterName, filterValue);
   }
 
   function getTotalCategoryAuthors(isFirst, category) {
@@ -126,9 +128,12 @@ within("projetmedea.fr", function(publish, subscribe, get){
         isFirstOption = listItemOffset === 0,
         option = document.createElement("option"),
         categoryName = listItem[LIST_ITEM_NAME],
+        filterValue = listItem[LIST_ITEM_VALUE],
         category = categories[categoryName],
         totalCategoryAuthorsSelected =
-          getTotalCategoryAuthorsSelected(isFirstOption, category, filterName),
+          getTotalCategoryAuthorsSelected(
+            isFirstOption, category, filterName, filterValue
+          ),
         totalCategoryAuthors =
           getTotalCategoryAuthors(isFirstOption, category),
         baseText,
@@ -174,9 +179,12 @@ within("projetmedea.fr", function(publish, subscribe, get){
         option = options[listItemOffset],
         baseText = option.getAttribute("data-base-text"),
         categoryName = listItem[LIST_ITEM_NAME],
+        filterValue = listItem[LIST_ITEM_VALUE],
         category = categories[categoryName],
         totalCategoryAuthorsSelected =
-          getTotalCategoryAuthorsSelected(isFirstOption, category, filterName),
+          getTotalCategoryAuthorsSelected(
+            isFirstOption, category, filterName, filterValue
+          ),
         totalCategoryAuthors =
           getTotalCategoryAuthors(isFirstOption, category);
 

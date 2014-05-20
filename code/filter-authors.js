@@ -67,11 +67,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
     });
 
     publish("selected-authors", selected);
-    publish("selected-authors-prediction", function(category, filterName) {
-      var
-        filterValue = category[CATEGORY_NAME],
-        totalAuthors = totalAuthorsByFilter[filterName][filterValue];
-      return or(totalAuthors, 0);
+    publish("selected-authors-prediction", function(
+      category, filterName, filterValue
+    ) {
+      return or(totalAuthorsByFilter[filterName][filterValue], 0);
     });
     publish("selected-author-check", function(authorId){
       return selectedFlags[authorId] === true;
