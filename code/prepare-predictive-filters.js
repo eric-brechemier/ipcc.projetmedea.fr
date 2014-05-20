@@ -8,6 +8,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     getTotalMatchingContributions = this.getTotalMatchingContributions,
 
     AUTHOR_CONTRIBUTIONS = this.AUTHOR_CONTRIBUTIONS ,
+    CATEGORY_NAME = this.CATEGORY_NAME,
     CONTRIBUTION_CODE_FILTERS = this.CONTRIBUTION_CODE_FILTERS ,
     TOTAL_CONTRIBUTIONS_FILTER = this.TOTAL_CONTRIBUTIONS_FILTER,
     WILDCARD_FILTER = this.WILDCARD_FILTER,

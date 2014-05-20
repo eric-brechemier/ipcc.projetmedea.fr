@@ -4,6 +4,9 @@ within("projetmedea.fr", function() {
   // in each author record
   this.AUTHOR_CONTRIBUTIONS = 3;
 
+  // offset of the field with the category name in a category record
+  this.CATEGORY_NAME = 0;
+
   // sequence of the names of filters
   // that make up the contribution code
   this.CONTRIBUTION_CODE_FILTERS = [
