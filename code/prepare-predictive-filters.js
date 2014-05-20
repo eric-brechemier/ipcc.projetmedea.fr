@@ -98,12 +98,16 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     var
       activeFilterRegExp = getActiveFilterExpression(),
       activeMultiplier = getActiveMultiplier(),
-      relaxedFilterExpressions = {};
+      relaxedFilterExpressions = {},
+      // map of filter name -> map of filter value -> number of authors
+      predictiveFiltersRoot = {};
 
     forEach(CONTRIBUTION_CODE_FILTERS, function(filterName) {
       relaxedFilterExpressions[filterName] =
         getRelaxedFilterExpression(filterName);
+      predictiveFiltersRoot[filterName] = {};
     });
+    predictiveFiltersRoot[TOTAL_CONTRIBUTIONS_FILTER] = {};
 
     // Get predictive filters for a given author
     //
@@ -139,6 +143,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
       return predictiveFilters;
     }
 
+    publish("predictive-filters-root", predictiveFiltersRoot);
     publish("predictive-filter-function", getPredictiveFilters);
     publish("active-and-predictive-filters-ready");
   }
