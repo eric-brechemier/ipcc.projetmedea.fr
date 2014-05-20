@@ -29,17 +29,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
     // hidden using CSS visibility hidden, not display none.
     HIDDEN_OPTION_ID = "hidden-filter-option";
 
-  // TODO: inline
-  // TODO: rename to getTotalAuthorsSelectedInCategory
-  function getTotalCategoryAuthorsSelected(
-    category, filterName, filterValue
-  ) {
-    var
-      getTotalAuthorsSelectedPredicted =
-        get("selected-authors-prediction");
-    return getTotalAuthorsSelectedPredicted(category, filterName, filterValue);
-  }
-
   // TODO: rename to getTotalAuthorsInCategory
   // Get the total number of authors in a category
   // Note: this function's signature must match the signature
