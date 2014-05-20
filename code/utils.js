@@ -115,6 +115,12 @@ within("projetmedea.fr", function() {
     }
   }
 
+  // Set or increment the value of an object property
+  // by given quantity (optional, defaults to 1)
+  function incrementProperty( object, property, quantity ) {
+
+  }
+
   // CC0 - https://raw.github.com/eric-brechemier/nada/master/forEach.js
   /*
     Run given function for each item in given array,
@@ -260,6 +266,7 @@ within("projetmedea.fr", function() {
   this.identity = identity;
   this.forEach = forEach;
   this.forEachProperty = forEachProperty;
+  this.incrementProperty = incrementProperty;
   this.map = map;
   this.reduce = reduce;
   this.no = no;
