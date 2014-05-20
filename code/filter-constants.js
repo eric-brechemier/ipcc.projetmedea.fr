@@ -1,11 +1,17 @@
 within("projetmedea.fr", function() {
 
+  // offset of the column with author identifier in each author record
+  this.AUTHOR_ID = 0;
+
   // offset of the field with the list of author contribution codes
   // in each author record
   this.AUTHOR_CONTRIBUTIONS = 3;
 
   // offset of the field with the category name in a category record
   this.CATEGORY_NAME = 0;
+
+  // offset of the column with the list of authors in a category record
+  this.CATEGORY_AUTHORS = 2;
 
   // sequence of the names of filters
   // that make up the contribution code
