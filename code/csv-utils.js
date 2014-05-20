@@ -2,6 +2,7 @@ within("projetmedea.fr", function(){
 
   var
     forEach = this.forEach,
+    reduce = this.reduce,
     or = this.or,
 
     // offset of the record id or name (first position)
@@ -13,13 +14,28 @@ within("projetmedea.fr", function(){
   }
 
   // Loop over data records, skipping the header row
+  // The offset 0 corresponds to the first data record in callback.
   function forEachData(records,callback){
     forEach(records, function(record,recordPosition){
       if ( recordPosition === 0 ) {
         return; // skip header row
       }
-      return callback(record, recordPosition);
+      return callback(record, recordPosition - 1);
     });
+  }
+
+  // Reduce data records to a single value, skipping the header row
+  function reduceData( accumulator, records, operation ) {
+    return reduce(
+      accumulator,
+      records,
+      function( accumulator, record, recordPosition ) {
+        if ( recordPosition === 0 ) {
+          return accumulator; // skip header row
+        }
+        return operation( accumulator, record, recordPosition );
+      }
+    );
   }
 
   // Collect the results of applying given function to each data record,
@@ -60,9 +76,8 @@ within("projetmedea.fr", function(){
     return set;
   }
 
-  // TODO: rename to printRecords to disambiguate
   // Print records as a string in CSV format
-  function printData(records) {
+  function printRecords(records) {
     var
       csv = "",
       lastRecord = records.length - 1;
@@ -105,8 +120,8 @@ within("projetmedea.fr", function(){
   this.countData = countData;
   this.forEachData = forEachData;
   this.mapData = mapData;
+  this.reduceData = reduceData;
   this.getDataColumn = getDataColumn;
   this.getDataSet = getDataSet;
-  // TODO: rename to printRecords to disambiguate
-  this.printData = printData;
+  this.printRecords = printRecords;
 });

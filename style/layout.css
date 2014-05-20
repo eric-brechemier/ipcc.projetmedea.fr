@@ -2,6 +2,19 @@ body {
   margin: 2em;
 }
 
+.main-display-area {
+  margin-right: 350px;
+}
+
+.menu-area {
+  position: fixed;
+  top: 10%;
+  right: 2em;
+  width: 350px;
+  height: 90%;
+  overflow-y: scroll;
+}
+
 .column1of2, .column2of2 {
   display: inline-block;
   width: 50%;

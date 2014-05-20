@@ -1,8 +1,9 @@
 within("projetmedea.fr", function(){
   var
     or = this.or,
-
-    CSS_CLASS_HIDDEN = "hidden";
+    forEach = this.forEach,
+    hideBlock = this.hideElement,
+    showBlock = this.showElement;
 
   function showHide(blockId, presenterBlockId, showButtonId, hideButtonId){
     presenterBlockId = or(presenterBlockId, blockId+"-presenter");
@@ -15,20 +16,53 @@ within("projetmedea.fr", function(){
       presenterBlock = document.getElementById(presenterBlockId),
       codeBlock = document.getElementById(blockId);
 
-    function showSvgCode(){
-      presenterBlock.className = CSS_CLASS_HIDDEN;
-      codeBlock.className = "";
+    function showCodeBlock(){
+      hideBlock(presenterBlock);
+      showBlock(codeBlock);
     }
 
-    function hideSvgCode(){
-      presenterBlock.className = "";
-      codeBlock.className = CSS_CLASS_HIDDEN;
+    function hideCodeBlock(){
+      showBlock(presenterBlock);
+      hideBlock(codeBlock);
     }
 
-    showButton.onclick = showSvgCode;
-    hideButton.onclick = hideSvgCode;
+    showButton.onclick = showCodeBlock;
+    hideButton.onclick = hideCodeBlock;
   }
 
+  function selectBlockToShow( displaySelection ) {
+
+    function selectDisplay() {
+      var
+        selectedValue = displaySelection.value,
+        // WARNING: no text must be left between options in markup
+        // like in following example
+        // <select ...
+        //   ><option ... >...</option
+        //   ><option ... >...</option
+        // ></select>
+        options = displaySelection.childNodes;
+
+      forEach(options, function(option) {
+        var
+          value = option.value,
+          block = document.getElementById(value);
+
+        if ( value === selectedValue ) {
+          showBlock(block);
+        } else {
+          hideBlock(block);
+        }
+      });
+    }
+
+    selectDisplay();
+    displaySelection.onchange = selectDisplay;
+  }
+
+  this.showBlock = showBlock;
+  this.hideBlock = hideBlock;
   this.showHide = showHide;
+  this.selectBlockToShow = selectBlockToShow;
 
 });

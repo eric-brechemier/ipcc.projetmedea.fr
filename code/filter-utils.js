@@ -3,52 +3,195 @@ within("projetmedea.fr", function(publish, subscribe, get){
     countData = this.countData,
     getDataSet = this.getDataSet,
     forEachData = this.forEachData,
+    reduceData = this.reduceData,
+    reduce = this.reduce,
+    alwaysTrue = this.alwaysTrue,
     no = this.no,
+    max = this.max,
+    padLeft = this.padLeft,
+    padRight = this.padRight,
+    getSelectedOption = this.getSelectedOption,
+    setOptionText = this.setOptionText,
+    showOption = this.showOption,
+    hideOption = this.hideOption,
 
-    LIST_ITEM_NAME = 0,
-    LIST_ITEM_VALUE = 1,
+    LIST_ITEM_NAME = this.LIST_ITEM_NAME,
+    LIST_ITEM_VALUE = this.LIST_ITEM_VALUE,
+    LIST_ITEM_DEFAULT_VALUE = this.LIST_ITEM_DEFAULT_VALUE,
+    CATEGORY_AUTHORS = this.CATEGORY_AUTHORS,
 
-    CATEGORY_AUTHORS = 1;
+    // non-breaking space, used in padding
+    NBSP = "\u00A0",
 
-  function getExtraText(totalCategoryAuthors){
+    // hidden option used to measure the size of an option
+    // with a given text in the same style.
+    // The option shall be alone in a select, within a label
+    // hidden using CSS visibility hidden, not display none.
+    HIDDEN_OPTION_ID = "hidden-filter-option";
+
+  // Get the total number of authors in a category
+  // Note: this function's signature must match the signature
+  // of the "selected-authors-prediction" function.
+  function getTotalAuthorsInCategory(category, filterName, filterValue) {
+    if ( filterValue === LIST_ITEM_DEFAULT_VALUE ) {
+      return get("total-authors");
+    }
+    if ( no(category) ) {
+      return 0;
+    }
+    var categoryAuthors = category[CATEGORY_AUTHORS];
+    return categoryAuthors.length;
+  }
+
+  function getFullText(
+    baseText,
+    totalCategoryAuthorsSelected,
+    totalCategoryAuthors
+  ) {
+    var
+      totalAuthors = get("total-authors"),
+      maxLength = String(totalAuthors).length;
     return (
-      totalCategoryAuthors +
-      " author" +
-      (totalCategoryAuthors===1? "": "s")
+      baseText +
+      NBSP +
+      "(" +
+      padLeft( String(totalCategoryAuthorsSelected), maxLength, NBSP) +
+      "/" +
+      padLeft( String(totalCategoryAuthors), maxLength, NBSP) +
+      ")"
     );
   }
 
-  function fillFilterSelectionList(select, listData, categories, totalAuthors){
+  function setFullText(
+    option,
+    baseText,
+    totalCategoryAuthorsSelected,
+    totalCategoryAuthors
+  ) {
+    var fullText = getFullText(
+      baseText,
+      totalCategoryAuthorsSelected,
+      totalCategoryAuthors
+    );
+    option.setAttribute("data-full-text", fullText);
+    setOptionText(option, fullText);
+  }
+
+  function hideOptionWithNoAuthorSelected(
+    option, totalCategoryAuthorsSelected
+  ) {
+    if ( totalCategoryAuthorsSelected > 0 ) {
+      showOption(option);
+    } else {
+      hideOption(option);
+    }
+  }
+
+  function displayTotalCategoriesSelected(
+    select, totalCategoriesSelected
+  ) {
+    var
+      totalCategoriesSelectedDisplay =
+        document.getElementById( select.id + "-total" )
+
+    if ( !no(totalCategoriesSelectedDisplay) ) {
+      totalCategoriesSelectedDisplay.innerHTML =
+        " /" + totalCategoriesSelected;
+    }
+  }
+
+  function fillFilterSelectionList(select, filterName, listData, categories){
     var
       options = document.createDocumentFragment(),
-      isFirstOption = select.childNodes.length === 0;
+      getTotalAuthorsSelectedInCategory = get("selected-authors-prediction"),
+      maxCategoryNameLength,
+      totalCategoriesSelected = 0;
 
-    forEachData(listData, function(listItem){
+    maxCategoryNameLength =
+      reduceData(0, listData, function(accumulator, listItem) {
+        var categoryName = listItem[LIST_ITEM_NAME];
+        return max(accumulator, categoryName.length);
+      });
+
+    forEachData(listData, function(listItem, listItemOffset){
       var
-        categoryName = listItem[LIST_ITEM_NAME],
-        category = categories[categoryName],
+        isFirstOption = listItemOffset === 0,
         option = document.createElement("option"),
-        optionText = categoryName,
-        text = document.createTextNode(optionText),
-        extraText;
+        categoryName = listItem[LIST_ITEM_NAME],
+        filterValue = listItem[LIST_ITEM_VALUE],
+        category = categories[categoryName],
+        totalCategoryAuthorsSelected =
+          getTotalAuthorsSelectedInCategory(category, filterName, filterValue),
+        totalCategoryAuthors =
+          getTotalAuthorsInCategory(category, filterName, filterValue),
+        baseText,
+        fullText;
 
       if ( isFirstOption ) {
         option.setAttribute("selected", "selected");
-        extraText = getExtraText(totalAuthors);
-      } else {
-        if ( no(category) ) {
-          extraText = 'No Authors';
-        } else {
-          extraText = getExtraText(category[CATEGORY_AUTHORS].length);
-        }
       }
+
+      if ( !isFirstOption && totalCategoryAuthorsSelected > 0 ) {
+        totalCategoriesSelected++;
+      }
+      hideOptionWithNoAuthorSelected(
+        option,
+        totalCategoryAuthorsSelected
+      );
+
+      // pad category name on the left to align extra text on the right
+      baseText = padRight(categoryName, maxCategoryNameLength, NBSP);
+      option.setAttribute("data-short-text", categoryName);
+      option.setAttribute("data-base-text", baseText);
       option.setAttribute("value", listItem[LIST_ITEM_VALUE]);
-      option.setAttribute("data-extra", extraText);
-      option.appendChild(text);
+      setFullText(
+        option,
+        baseText,
+        totalCategoryAuthorsSelected,
+        totalCategoryAuthors
+      );
       options.appendChild(option);
-      isFirstOption = false;
     });
     select.appendChild(options);
+    displayTotalCategoriesSelected(select, totalCategoriesSelected);
+  }
+
+  function updateFilterSelectionList(select, filterName, listData, categories) {
+    var
+      options = select.options,
+      getTotalAuthorsSelectedInCategory = get("selected-authors-prediction"),
+      totalCategoriesSelected = 0;
+
+    forEachData(listData, function(listItem, listItemOffset) {
+      var
+        isFirstOption = listItemOffset === 0,
+        option = options[listItemOffset],
+        baseText = option.getAttribute("data-base-text"),
+        categoryName = listItem[LIST_ITEM_NAME],
+        filterValue = listItem[LIST_ITEM_VALUE],
+        category = categories[categoryName],
+        totalCategoryAuthorsSelected =
+          getTotalAuthorsSelectedInCategory(category, filterName, filterValue),
+        totalCategoryAuthors =
+          getTotalAuthorsInCategory(category, filterName, filterValue);
+
+      if ( !isFirstOption && totalCategoryAuthorsSelected > 0 ) {
+        totalCategoriesSelected++;
+      }
+      hideOptionWithNoAuthorSelected(
+        option,
+        totalCategoryAuthorsSelected
+      );
+
+      setFullText(
+        option,
+        baseText,
+        totalCategoryAuthorsSelected,
+        totalCategoryAuthors
+      );
+    });
+
+    displayTotalCategoriesSelected(select, totalCategoriesSelected);
   }
 
   function publishSelectedFilter(select, listItems, categories) {
@@ -82,6 +225,41 @@ within("projetmedea.fr", function(publish, subscribe, get){
     publish("filter-selected", filter);
   }
 
+  // measure the clientWidth of a hidden select created for this purpose
+  function getSelectWidth( optionText ) {
+    var hiddenOption = document.getElementById(HIDDEN_OPTION_ID);
+    setOptionText(hiddenOption, optionText);
+    return hiddenOption.parentNode.clientWidth;
+  }
+
+  function getSelectedOptionText( selectedOption, size ) {
+    return selectedOption.getAttribute("data-"+size+"-text");
+  }
+
+  // adjust the width of the select to match the width of selected option
+  function adjustSelectWidth( select, selectedOptionText ) {
+    select.style.width = getSelectWidth( selectedOptionText ) + "px";
+  }
+
+  function adjustSelectSize( select, size ) {
+    var
+      selectedOption = getSelectedOption(select),
+      selectedOptionText = getSelectedOptionText(selectedOption, size);
+
+    setOptionText(selectedOption, selectedOptionText);
+    adjustSelectWidth(select, selectedOptionText);
+  }
+
+  function reduceSelectedOption( select ) {
+    // display only the category name
+    adjustSelectSize( select, "short" );
+  }
+
+  function expandSelectedOption( select ) {
+    // restore the full text of the option
+    adjustSelectSize( select, "full" );
+  }
+
   function filter(name){
     var
       selectId = name + "-filter",
@@ -90,16 +268,54 @@ within("projetmedea.fr", function(publish, subscribe, get){
       categoriesPropertyName = name + "-categories",
       listData = get(listDataPropertyName),
       listItems = getDataSet(listData, LIST_ITEM_VALUE),
-      categories = getDataSet( get(categoriesPropertyName) );
+      categories = getDataSet( get(categoriesPropertyName) ),
+      isFilterInitialized = false;
 
-    subscribe("authors", function(authors){
-      var totalAuthors = countData(authors);
-      fillFilterSelectionList(select, listData, categories, totalAuthors);
+    function initFilter() {
+      if (
+        isFilterInitialized ||
+        no( get("total-authors") ) ||
+        no( get("selected-author-check") )
+      ) {
+        // already initialized, or not ready yet
+        return;
+      }
+
+      fillFilterSelectionList(
+        select,
+        categoriesPropertyName,
+        listData,
+        categories
+      );
+      reduceSelectedOption(select);
+      select.onfocus = function() {
+        expandSelectedOption(select);
+      };
+      select.onblur = function() {
+        reduceSelectedOption(select);
+      };
       select.onchange = function(){
         publishSelectedFilter(select, listItems, categories);
       };
-    });
+      isFilterInitialized = true;
+    }
+
+    function initOrUpdateFilterLists() {
+      if ( !isFilterInitialized ) {
+        initFilter();
+      } else {
+        updateFilterSelectionList(
+          select,
+          categoriesPropertyName,
+          listData,
+          categories
+        );
+      }
+    }
+
+    subscribe("selected-author-check", initOrUpdateFilterLists);
   }
 
+  this.getTotalAuthorsInCategory = getTotalAuthorsInCategory;
   this.filter = filter;
 });

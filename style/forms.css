@@ -1,20 +1,22 @@
+fieldset {
+  border: 0;
+  padding: 0;
+  margin-top: 1em;
+  margin-bottom: 2em;
+}
+
 select {
-  width: auto;
-  max-width: 20em;
+  -webkit-appearance: none;
+  border-color: transparent;
 }
 
-option {
-  width: 1em;
+select:hover {
+  -webkit-appearance: menulist-button;
+  border-color: threedface;
 }
 
-select:focus {
-  max-width: auto;
-}
-
-select:focus > option {
-  width: auto;
-}
-
-select:focus > option:after {
-  content: " (" attr(data-extra) ")";
+.hidden-to-measure-select {
+  /* hidden while preserving dimensions */
+  visibility: hidden;
+  position: absolute;
 }
