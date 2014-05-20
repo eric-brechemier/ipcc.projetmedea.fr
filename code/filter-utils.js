@@ -316,5 +316,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
     subscribe("selected-author-check", initOrUpdateFilterLists);
   }
 
+  this.getTotalAuthorsInCategory = getTotalAuthorsInCategory;
   this.filter = filter;
 });

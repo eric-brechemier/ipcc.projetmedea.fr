@@ -7,23 +7,12 @@ within("projetmedea.fr", function(publish, subscribe, get){
     forEachProperty = this.forEachProperty,
     alwaysTrue = this.alwaysTrue,
     preventFormSubmission = this.preventFormSubmission,
+    getTotalAuthorsInCategory = this.getTotalAuthorsInCategory;
 
     AUTHOR_ID = this.AUTHOR_ID,
     ANY_VALUE = this.LIST_ITEM_DEFAULT_VALUE,
     CATEGORY_NAME = this.CATEGORY_NAME,
     CATEGORY_AUTHORS = this.CATEGORY_AUTHORS;
-
-  // TODO: use the function defined in filter-utils
-  function getTotalAuthorsInCategory(category, filterName, filterValue) {
-    if ( filterValue === "" ) {
-      return get("total-authors");
-    }
-    if ( no(category) ) {
-      return 0;
-    }
-    var authors = category[CATEGORY_AUTHORS];
-    return authors.length;
-  }
 
   function applyFilters() {
     var
