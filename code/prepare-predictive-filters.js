@@ -3,6 +3,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     no = this.no,
     forEach = this.forEach,
     forEachProperty = this.forEachProperty,
+    incrementProperty = this.incrementProperty,
     getActiveFilterExpression = this.getActiveFilterExpression,
     getActiveMultiplier = this.getActiveMultiplier,
     getTotalMatchingContributions = this.getTotalMatchingContributions,
@@ -48,11 +49,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
       value = Number( match[CAPTURED_FILTER_VALUE] );
       multiplier = Number( match[CAPTURED_MULTIPLIER] );
 
-      if ( !filterValuesSet.hasOwnProperty(value) ) {
-        filterValuesSet[value] = multiplier;
-      } else {
-        filterValuesSet[value] += multiplier;
-      }
+      incrementProperty( filterValuesSet, value, multiplier );
     });
 
     forEachProperty(filterValuesSet, function(multiplier, filterValue) {

@@ -5,6 +5,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     or = this.or,
     forEach = this.forEach,
     forEachProperty = this.forEachProperty,
+    incrementProperty = this.incrementProperty,
     alwaysTrue = this.alwaysTrue,
     preventFormSubmission = this.preventFormSubmission,
     getTotalAuthorsInCategory = this.getTotalAuthorsInCategory;
@@ -51,20 +52,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
       forEachProperty(predictiveFilters, function(filterValues, filterName) {
         var totalAuthorsByValue = totalAuthorsByFilter[filterName];
         forEach(filterValues, function(filterValue) {
-          // TODO: extract function incrementProperty(object, name)
-          if ( !totalAuthorsByValue.hasOwnProperty(filterValue) ) {
-            totalAuthorsByValue[filterValue] = 1;
-          } else {
-            totalAuthorsByValue[filterValue]++;
-          }
+          incrementProperty( totalAuthorsByValue, filterValue );
         });
         if ( filterValues.length > 0 ) {
-          // TODO: extract function incrementProperty(object, name)
-          if ( !totalAuthorsByValue.hasOwnProperty(ANY_VALUE) ) {
-            totalAuthorsByValue[ANY_VALUE] = 1;
-          } else {
-            totalAuthorsByValue[ANY_VALUE]++;
-          }
+          incrementProperty( totalAuthorsByValue, ANY_VALUE );
         }
       });
     });
