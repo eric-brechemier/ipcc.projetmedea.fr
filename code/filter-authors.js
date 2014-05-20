@@ -4,6 +4,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     no = this.no,
     or = this.or,
     forEach = this.forEach,
+    forEachProperty = this.forEachProperty,
     alwaysTrue = this.alwaysTrue,
     preventFormSubmission = this.preventFormSubmission,
 
@@ -25,6 +26,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
     var
       isAuthorSelected = get("active-filter-selector"),
       activeFilterList = get("active-filter-list"),
+      totalAuthorsByFilter = get("predictive-filters-root"),
+      getPredictiveFilters = get("predictive-filter-function"),
       authors = get("authors"),
       selected = [],
       selectedFlags = {};
@@ -38,26 +41,40 @@ within("projetmedea.fr", function(publish, subscribe, get){
     }
 
     forEach(authors, function(record, position){
-      var authorId = record[AUTHOR_ID];
+      var
+        authorId = record[AUTHOR_ID],
+        predictiveFilters;
+
       if ( position === 0 ) {
         selected.push(record); // always keep header
         return;
       }
+
       if ( isAuthorSelected(record) ) {
         selected.push(record);
         selectedFlags[authorId] = true;
       }
+
+      predictiveFilters = getPredictiveFilters(record);
+      forEachProperty(predictiveFilters, function(filterValues, filterName) {
+        var totalAuthorsByValue = totalAuthorsByFilter[filterName];
+        forEach(filterValues, function(filterValue) {
+          if ( !totalAuthorsByValue.hasOwnProperty(filterValue) ) {
+            totalAuthorsByValue[filterValue] = 1;
+          } else {
+            totalAuthorsByValue[filterValue]++;
+          }
+        });
+      });
     });
 
     publish("selected-authors", selected);
-    /* Work in progress
     publish("selected-authors-prediction", function(category, filterName) {
       var
         filterValue = category[CATEGORY_NAME],
         totalAuthors = totalAuthorsByFilter[filterName][filterValue];
       return or(totalAuthors, 0);
     });
-    */
     publish("selected-author-check", function(authorId){
       return selectedFlags[authorId] === true;
     });
