@@ -7,6 +7,12 @@ within("projetmedea.fr", function() {
   // in each author record
   this.AUTHOR_CONTRIBUTIONS = 3;
 
+  // offset of the item name in a list item record
+  this.LIST_ITEM_NAME = 0;
+
+  // offset of the item value in a list item record
+  this.LIST_ITEM_VALUE = 1;
+
   // offset of the field with the category name in a category record
   this.CATEGORY_NAME = 0;
 

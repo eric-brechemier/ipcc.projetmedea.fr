@@ -15,13 +15,12 @@ within("projetmedea.fr", function(publish, subscribe, get){
     showOption = this.showOption,
     hideOption = this.hideOption,
 
+    LIST_ITEM_NAME = this.LIST_ITEM_NAME,
+    LIST_ITEM_VALUE = this.LIST_ITEM_VALUE,
+    CATEGORY_AUTHORS = this.CATEGORY_AUTHORS,
+
     // non-breaking space, used in padding
     NBSP = "\u00A0",
-
-    LIST_ITEM_NAME = 0,
-    LIST_ITEM_VALUE = 1,
-
-    CATEGORY_AUTHORS = 1,
 
     // hidden option used to measure the size of an option
     // with a given text in the same style.
