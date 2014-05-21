@@ -48,7 +48,7 @@ within("projetmedea.fr", function(){
 
     forEachData( records, function( record, i ) {
       var name = record[ RECORD_NAME ];
-      result[ i - 1 ] = operation( name, record, i );
+      result[ i ] = operation( name, record, i );
     });
 
     return result;
