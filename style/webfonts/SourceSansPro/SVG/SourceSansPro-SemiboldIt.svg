@@ -1,4 +1,4 @@
-<font horiz-adv-x="1000">
+<font id="SourceSansPro-SemiboldIt" horiz-adv-x="1000">
 <!-- Source is a trademark of Adobe Systems Incorporated in the United States and/or other countries. -->
 <font-face font-family="SourceSansPro-SemiboldIt" units-per-em="1000" underline-position="-100" underline-thickness="50"/>
 <missing-glyph horiz-adv-x="646" d="M32,0l481,0l130,660l-481,0 z M286,340l-150,-214l85,428 z M396,340l152,214l-88,-428 z M262,182l65,99l4,0l25,-99l33,-110l-205,0 z M354,396l-4,0l-26,95l-29,97l190,0l-67,-97z"/>
