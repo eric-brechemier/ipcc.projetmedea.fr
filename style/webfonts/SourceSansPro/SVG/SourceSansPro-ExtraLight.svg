@@ -1,3 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg">
 <font id="SourceSansPro-ExtraLight" horiz-adv-x="1000">
 <!-- Source is a trademark of Adobe Systems Incorporated in the United States and/or other countries. -->
 <font-face font-family="SourceSansPro-ExtraLight" units-per-em="1000" underline-position="-100" underline-thickness="50"/>
@@ -1115,3 +1116,4 @@
 <glyph unicode="&#xE1E2;" horiz-adv-x="0" d="M-32,826l28,0l108,104l-40,0 z M-110,736l220,0l0,28l-220,0z"/>
 <glyph unicode="&#xFEFF;" horiz-adv-x="0"/>
 </font>
+</svg>

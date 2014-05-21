@@ -1,3 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg">
 <font id="SourceCodePro-Bold" horiz-adv-x="1000">
 <!-- Source is a trademark of Adobe Systems Incorporated in the United States and/or other countries. -->
 <font-face font-family="SourceCodePro-Bold" units-per-em="1000" underline-position="-100" underline-thickness="50"/>
@@ -965,3 +966,4 @@
 <glyph unicode="&#x259E;" horiz-adv-x="600" d="M0,-200l300,0l0,500l-300,0 z M300,300l300,0l0,500l-300,0z"/>
 <glyph unicode="&#x259F;" horiz-adv-x="600" d="M0,-200l600,0l0,1000l-300,0l0,-500l-300,0z"/>
 </font>
+</svg>

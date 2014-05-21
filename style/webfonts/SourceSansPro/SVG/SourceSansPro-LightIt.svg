@@ -1,3 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg">
 <font id="SourceSansPro-LightIt" horiz-adv-x="1000">
 <!-- Source is a trademark of Adobe Systems Incorporated in the United States and/or other countries. -->
 <font-face font-family="SourceSansPro-LightIt" units-per-em="1000" underline-position="-100" underline-thickness="50"/>
@@ -858,3 +859,4 @@
 <glyph unicode="&#xE0E5;" horiz-adv-x="0" d="M47,829l38,0l121,104l-50,0 z M-43,734l217,0l7,34l-217,0z"/>
 <glyph unicode="&#xFEFF;" horiz-adv-x="0"/>
 </font>
+</svg>
