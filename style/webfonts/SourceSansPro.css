@@ -14,7 +14,7 @@
 @font-face {
   font-family: 'Source Sans Pro';
   font-style: normal; /* Roman (Regular) */
-  src: url('SourceSansPro/EOT/SourceSansPro-Regular.eot'),
+  src: url('SourceSansPro/EOT/SourceSansPro-Regular.eot');
   src: url('SourceSansPro/EOT/SourceSansPro-Regular.eot?#iefix') format('embedded-opentype'),
        url('SourceSansPro/WOFF/OTF/SourceSansPro-Regular.otf.woff') format('woff'),
        url('SourceSansPro/WOFF/TTF/SourceSansPro-Regular.ttf.woff') format('truetype'),
