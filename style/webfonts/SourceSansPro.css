@@ -18,5 +18,5 @@
   src: url('SourceSansPro/EOT/SourceSansPro-Regular.eot?#iefix') format('embedded-opentype'),
        url('SourceSansPro/WOFF/OTF/SourceSansPro-Regular.otf.woff') format('woff'),
        url('SourceSansPro/WOFF/TTF/SourceSansPro-Regular.ttf.woff') format('truetype'),
-       url('SourceSansPro/SVG/SourceSansPro-Regular.svg') format('svg');
+       url('SourceSansPro/SVG/SourceSansPro-Regular.svg#SourceSansPro-Regular') format('svg');
 }
