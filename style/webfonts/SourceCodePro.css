@@ -18,5 +18,5 @@
   src: url('SourceCodePro/EOT/SourceCodePro-Regular.eot?#iefix') format('embedded-opentype'),
        url('SourceCodePro/WOFF/OTF/SourceCodePro-Regular.otf.woff') format('woff'),
        url('SourceCodePro/WOFF/TTF/SourceCodePro-Regular.ttf.woff') format('truetype'),
-       url('SourceCodePro/SVG/SourceCodePro-Regular.svg') format('svg');
+       url('SourceCodePro/SVG/SourceCodePro-Regular.svg#SourceCodePro-Regular') format('svg');
 }
