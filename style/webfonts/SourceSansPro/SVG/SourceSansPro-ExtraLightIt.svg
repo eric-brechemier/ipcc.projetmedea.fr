@@ -1,4 +1,5 @@
-<font horiz-adv-x="1000">
+<svg xmlns="http://www.w3.org/2000/svg">
+<font id="SourceSansPro-ExtraLightIt" horiz-adv-x="1000">
 <!-- Source is a trademark of Adobe Systems Incorporated in the United States and/or other countries. -->
 <font-face font-family="SourceSansPro-ExtraLightIt" units-per-em="1000" underline-position="-100" underline-thickness="50"/>
 <missing-glyph horiz-adv-x="600" d="M42,0l416,0l130,660l-416,0 z M294,340l-198,-268l106,538 z M342,340l202,270l-110,-538 z M228,208l82,104l4,0l40,-104l60,-176l-318,0 z M324,364l-4,0l-34,92l-56,172l292,0l-126,-172z"/>
@@ -858,3 +859,4 @@
 <glyph unicode="&#xE0E5;" horiz-adv-x="0" d="M44,826l28,0l118,102l-36,0 z M-46,736l210,0l6,26l-210,0z"/>
 <glyph unicode="&#xFEFF;" horiz-adv-x="0"/>
 </font>
+</svg>
