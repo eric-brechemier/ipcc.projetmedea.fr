@@ -15,6 +15,16 @@ h1, h2, h3, h4, h5, h6, input, select, button {
   font-style: inherit;
 }
 
+select {
+  /*
+    fall back: half of browsers (2014: IE, Safari)
+    only support system fonts in select lists;
+    on a system without these system fonts (Linux...),
+    it is probably safe to use the web font (Firefox, Chrome).
+  */
+  font-family: "Menlo", "Monaco", "Lucida Console", "Source Code Pro";
+}
+
 h1 {
   margin-bottom: 3em;
 }
