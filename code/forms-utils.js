@@ -1,7 +1,9 @@
 within("projetmedea.fr", function() {
   var
     no = this.no,
-    forEach = this.forEach;
+    forEach = this.forEach,
+    hideElement = this.hideElement,
+    showElement = this.showElement;
 
   function preventFormSubmission(form) {
     form.onsubmit = function(){
@@ -32,9 +34,22 @@ within("projetmedea.fr", function() {
     }
   }
 
+  function hideOption( option ) {
+    hideElement( option );
+    // hiding options is not supported in all browsers (2014: IE, Safari)
+    // make sure that the option cannot be selected.
+    option.disabled = true;
+  }
+
+  function showOption( option ) {
+    showElement( option );
+    // hiding options is not supported in all browsers (2014: IE, Safari)
+    option.disabled = false;
+  }
+
   this.preventFormSubmission = preventFormSubmission;
   this.getSelectedOption = getSelectedOption;
   this.setOptionText = setOptionText;
-  this.hideOption = this.hideElement;
-  this.showOption = this.showElement;
+  this.hideOption = hideOption;
+  this.showOption = showOption;
 });

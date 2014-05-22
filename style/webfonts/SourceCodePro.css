@@ -13,10 +13,77 @@
 */
 @font-face {
   font-family: 'Source Code Pro';
+  font-weight: 200; /* Extra Light */
+  font-style: normal; /* Roman (Regular) */
+  src: url('SourceCodePro/EOT/SourceCodePro-ExtraLight.eot');
+  src: url('SourceCodePro/EOT/SourceCodePro-ExtraLight.eot?#iefix') format('embedded-opentype'),
+       url('SourceCodePro/WOFF/OTF/SourceCodePro-ExtraLight.otf.woff') format('woff'),
+       url('SourceCodePro/WOFF/TTF/SourceCodePro-ExtraLight.ttf.woff') format('truetype'),
+       url('SourceCodePro/SVG/SourceCodePro-ExtraLight.svg#SourceCodePro-ExtraLight') format('svg');
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  font-weight: 300; /* Light */
+  font-style: normal; /* Roman (Regular) */
+  src: url('SourceCodePro/EOT/SourceCodePro-Light.eot');
+  src: url('SourceCodePro/EOT/SourceCodePro-Light.eot?#iefix') format('embedded-opentype'),
+       url('SourceCodePro/WOFF/OTF/SourceCodePro-Light.otf.woff') format('woff'),
+       url('SourceCodePro/WOFF/TTF/SourceCodePro-Light.ttf.woff') format('truetype'),
+       url('SourceCodePro/SVG/SourceCodePro-Light.svg#SourceCodePro-Light') format('svg');
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  font-weight: 400; /* normal (Regular) */
   font-style: normal; /* Roman (Regular) */
   src: url('SourceCodePro/EOT/SourceCodePro-Regular.eot');
   src: url('SourceCodePro/EOT/SourceCodePro-Regular.eot?#iefix') format('embedded-opentype'),
        url('SourceCodePro/WOFF/OTF/SourceCodePro-Regular.otf.woff') format('woff'),
        url('SourceCodePro/WOFF/TTF/SourceCodePro-Regular.ttf.woff') format('truetype'),
-       url('SourceCodePro/SVG/SourceCodePro-Regular.svg') format('svg');
+       url('SourceCodePro/SVG/SourceCodePro-Regular.svg#SourceCodePro-Regular') format('svg');
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  font-weight: 500; /* Medium */
+  font-style: normal; /* Roman (Regular) */
+  src: url('SourceCodePro/EOT/SourceCodePro-Medium.eot');
+  src: url('SourceCodePro/EOT/SourceCodePro-Medium.eot?#iefix') format('embedded-opentype'),
+       url('SourceCodePro/WOFF/OTF/SourceCodePro-Medium.otf.woff') format('woff'),
+       url('SourceCodePro/WOFF/TTF/SourceCodePro-Medium.ttf.woff') format('truetype'),
+       url('SourceCodePro/SVG/SourceCodePro-Medium.svg#SourceCodePro-Medium') format('svg');
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  font-weight: 600; /* Semibold */
+  font-style: normal; /* Roman (Regular) */
+  src: url('SourceCodePro/EOT/SourceCodePro-Semibold.eot');
+  src: url('SourceCodePro/EOT/SourceCodePro-Semibold.eot?#iefix') format('embedded-opentype'),
+       url('SourceCodePro/WOFF/OTF/SourceCodePro-Semibold.otf.woff') format('woff'),
+       url('SourceCodePro/WOFF/TTF/SourceCodePro-Semibold.ttf.woff') format('truetype'),
+       url('SourceCodePro/SVG/SourceCodePro-Semibold.svg#SourceCodePro-Semibold') format('svg');
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  font-weight: 700; /* Bold */
+  font-style: normal; /* Roman (Regular) */
+  src: url('SourceCodePro/EOT/SourceCodePro-Bold.eot');
+  src: url('SourceCodePro/EOT/SourceCodePro-Bold.eot?#iefix') format('embedded-opentype'),
+       url('SourceCodePro/WOFF/OTF/SourceCodePro-Bold.otf.woff') format('woff'),
+       url('SourceCodePro/WOFF/TTF/SourceCodePro-Bold.ttf.woff') format('truetype'),
+       url('SourceCodePro/SVG/SourceCodePro-Bold.svg#SourceCodePro-Bold') format('svg');
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  font-weight: 900; /* Black */
+  font-style: normal; /* Roman (Regular) */
+  src: url('SourceCodePro/EOT/SourceCodePro-Black.eot');
+  src: url('SourceCodePro/EOT/SourceCodePro-Black.eot?#iefix') format('embedded-opentype'),
+       url('SourceCodePro/WOFF/OTF/SourceCodePro-Black.otf.woff') format('woff'),
+       url('SourceCodePro/WOFF/TTF/SourceCodePro-Black.ttf.woff') format('truetype'),
+       url('SourceCodePro/SVG/SourceCodePro-Black.svg#SourceCodePro-Black') format('svg');
 }
