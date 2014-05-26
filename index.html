@@ -22,6 +22,16 @@
   </head>
   <body>
     <div class="main-display-area">
+      <div id="authors-selected">
+        <span id="selected-records-count"></span>
+        /
+        <span id="total-records-count"></span>
+        (<span id="selected-records-percentage"></span>%)
+        <script src="code/count-total-authors.js"></script>
+        <script src="code/display-total-authors.js"></script>
+        <script src="code/count-total-authors-selected.js"></script>
+        <script src="code/display-total-authors-selected.js"></script>
+      </div>
       <div id="visualization-block">
         <div id="svg-charts"></div>
         <script src="code/d3.js"></script>
@@ -43,15 +53,6 @@
       </div>
       <div id="data-block" class="hidden">
         <h2>Authors</h2>
-        <div>Total: <span id="total-records-count"></span></div>
-        <script src="code/count-total-authors.js"></script>
-        <script src="code/display-total-authors.js"></script>
-        <div>
-          Selected: <span id="selected-records-count"></span>
-          (<span id="selected-records-percentage"></span>%)
-        </div>
-        <script src="code/count-total-authors-selected.js"></script>
-        <script src="code/display-total-authors-selected.js"></script>
 
         <h3>CSV Data</h3>
         <div id="authors-csv-block" class="hidden">
