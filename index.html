@@ -60,28 +60,6 @@
         <script src="code/list-selected-authors.js"></script-->
 
         <script src="data/authors.js"></script>
-
-        <h2>Categories</h2>
-        <div>Total: <span id="total-categories-count"></span></div>
-        <script src="code/count-categories.js"></script>
-        <div>
-          Selected: <span id="selected-categories-count"></span>
-          (<span id="selected-categories-percentage"></span>%)
-        </div>
-        <script src="code/filter-categories.js"></script>
-        <script src="code/count-selected-categories.js"></script>
-        <script src="code/count-selected-categories-percentage.js"></script>
-
-        <h3>CSV Data</h3>
-        <div id="categories-csv-block" class="hidden">
-          <button id="hide-categories-csv-block">Hide Categories CSV ▼</button>
-          <pre id="selected-categories-csv-output"></pre>
-          <script src="code/print-selected-categories.js"></script>
-        </div>
-        <div id="categories-csv-block-presenter">
-          <button id="show-categories-csv-block">Show Categories CSV ▲</button>
-        </div>
-        <script src="code/show-hide-categories-csv-block.js"></script>
       </div>
     </div>
     <div class="menu-area">
@@ -299,6 +277,7 @@
         </fieldset>
       </form>
       <script src="code/group-by-category.js"></script>
+      <script src="code/filter-categories.js"></script>
       <script src="code/display-visualization-or-data.js"></script>
     </div>
   </body>
