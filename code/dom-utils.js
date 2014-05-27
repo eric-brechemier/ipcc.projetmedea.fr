@@ -20,6 +20,7 @@ within("projetmedea.fr", function() {
     element.className = "";
   }
 
+  this.PREVENT_DEFAULT = PREVENT_DEFAULT;
   this.hideElement = hideElement;
   this.showElement = showElement;
 });
