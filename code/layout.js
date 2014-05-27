@@ -182,7 +182,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
     var
       category = get("group-by"),
       layout = get("layout/"+category)(),
-      charts;
+      filteredLayout,
+      charts,
+      totalAuthors;
 
     switch ( getBoxType(layout) ){
       case 'charts':
@@ -193,12 +195,14 @@ within("projetmedea.fr", function(publish, subscribe, get){
         break;
     }
 
-    forEach( charts, function( chart ) {
+    totalAuthors = Array( charts.length );
+    forEach( charts, function( chart, chartPosition ) {
       // treat each chart as a table layout
-      setTableLayoutDimensionsAndCountAuthors( chart );
+      totalAuthors[ chartPosition ] =
+        setTableLayoutDimensionsAndCountAuthors( chart );
     });
 
-    publish("layout", layout);
+    publish( "layout",[ ["charts"], charts ] );
   }
 
   subscribe("selected-categories", updateLayout);
