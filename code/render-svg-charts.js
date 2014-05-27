@@ -2,6 +2,7 @@ within("projetmedea.fr", function(publish, subscribe){
 
   var
     forEach = this.forEach,
+    max = this.max,
 
     chartsBox = document.getElementById("svg-charts"),
 
@@ -45,33 +46,53 @@ within("projetmedea.fr", function(publish, subscribe){
   function renderChart(chart){
     var
       svg = d3.select(chartsBox).append("svg"),
-      width = (LEFT_MARGIN + chart.width + RIGHT_MARGIN) * TILE_WIDTH,
-      headingTop = (TOP_MARGIN + chart.height + HEADING_MARGIN) * TILE_HEIGHT,
-      height =
-        headingTop +
-        CHART_HEADING_LINE_HEIGHT +
-        CHART_SUBHEADING_LINE_HEIGHT +
-        BOTTOM_MARGIN * TILE_HEIGHT,
       background = svg.append("rect"),
-      headingMiddleX = width / 2,
-      headingBaselineY = headingTop + CHART_HEADING_LINE_HEIGHT,
       heading = svg.append("text"),
-      subheadingMiddleX = headingMiddleX,
-      subheadingBaselineY = headingBaselineY + CHART_SUBHEADING_LINE_HEIGHT,
-      subheading = svg.append("text");
+      subheading = svg.append("text"),
+      width,
+      halfWidth,
+      height,
+      headingTop,
+      headingBaselineY,
+      subheadingBaselineY;
 
     heading.text(chart.heading);
+    subheading.text(chart.subheading);
+
+    width = (
+      LEFT_MARGIN +
+      chart.width +
+      RIGHT_MARGIN
+    ) * TILE_WIDTH;
+
+    headingTop = (
+      TOP_MARGIN +
+      chart.height +
+      HEADING_MARGIN
+    ) * TILE_HEIGHT;
+
+    height =
+      headingTop +
+      CHART_HEADING_LINE_HEIGHT +
+      CHART_SUBHEADING_LINE_HEIGHT +
+      BOTTOM_MARGIN * TILE_HEIGHT;
+
+    // increase chart width to ensure that the heading and subheading fit
+    width = max( width, heading.node().getComputedTextLength() );
+    width = max( width, subheading.node().getComputedTextLength() );
+
+    halfWidth = width / 2;
     heading.attr("text-anchor", "middle");
-    heading.attr("x", headingMiddleX);
+    heading.attr("x", halfWidth);
+    subheading.attr("text-anchor", "middle");
+    subheading.attr("x", halfWidth);
+
+    headingBaselineY = headingTop + CHART_HEADING_LINE_HEIGHT;
     heading.attr("y", headingBaselineY);
 
-    subheading.text(chart.subheading);
-    subheading.attr("text-anchor", "middle");
-    subheading.attr("x", subheadingMiddleX);
+    subheadingBaselineY = headingBaselineY + CHART_SUBHEADING_LINE_HEIGHT;
     subheading.attr("y", subheadingBaselineY);
 
-    // TODO: increase width to ensure that the heading and subheading fit
-    // while offsetting the left of the chart accordingly to keep it centered
     svg.attr("width", width);
     svg.attr("height", height);
 
@@ -79,6 +100,7 @@ within("projetmedea.fr", function(publish, subscribe){
     background.attr("height", height);
     background.attr("fill", CHART_BACKGROUND_COLOR);
 
+    // TODO: keep the chart centered in the larger width
     forEach(chart.shapes, function(shape){
       drawShape(svg, shape);
     });
