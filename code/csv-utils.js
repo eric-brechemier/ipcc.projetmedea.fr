@@ -59,7 +59,7 @@ within("projetmedea.fr", function(){
   function getDataColumn(records, columnOffset) {
     var column = Array( countData(records) );
     forEachData(records, function(record, recordOffset) {
-      column[recordOffset - 1] = record[columnOffset];
+      column[recordOffset] = record[columnOffset];
     });
     return column;
   }

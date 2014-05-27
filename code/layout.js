@@ -3,11 +3,12 @@ within("projetmedea.fr", function(publish, subscribe, get){
     getExpectedCircleWidth = this.getExpectedCircleWidth,
     getBoxType = this.getBoxType,
     forEach = this.forEach,
+    map = this.map,
     max = this.max,
     warn = this.warn,
 
-    CATEGORY_NAME = 0,
-    CATEGORY_TOTAL_AUTHORS_SELECTED = 2,
+    FILTERED_CATEGORY_NAME = 0,
+    FILTERED_CATEGORY_TOTAL_AUTHORS_SELECTED = 2,
 
     TILE_CIRCLE_WIDTH = 0,
 
@@ -21,8 +22,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
       selectedAuthors = 0,
       selectedCategories = get("selected-categories");
     forEach(selectedCategories, function(selectedCategory){
-      if ( selectedCategory[CATEGORY_NAME] === groupName ){
-        selectedAuthors = selectedCategory[CATEGORY_TOTAL_AUTHORS_SELECTED];
+      if ( selectedCategory[FILTERED_CATEGORY_NAME] === groupName ){
+        selectedAuthors =
+          selectedCategory[FILTERED_CATEGORY_TOTAL_AUTHORS_SELECTED];
         return true;
       }
     });
@@ -44,9 +46,13 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return sequence[circle.tilesCount][TILE_CIRCLE_WIDTH];
   }
 
+  function setTotalAuthorsInCell( cell ) {
+    cell.totalAuthors = getTotalAuthorsSelectedInGroup(cell.name);
+  }
+
   function setCellDimensions(cell){
     var
-      tilesCount = getTotalAuthorsSelectedInGroup(cell.name);
+      tilesCount = cell.totalAuthors;
 
     switch (cell.shape) {
       case 'circle':
@@ -127,9 +133,12 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return max(header, size);
   }
 
-  function setTableLayoutDimensions(tableLayout){
+  // Set the dimensions in a table layout, recursively.
+  // Returns the total number of authors represented in this table layout.
+  function setTableLayoutDimensionsAndCountAuthors( tableLayout ){
     var
-      columnHeaders;
+      columnHeaders,
+      totalAuthors = 0;
 
     forEach(tableLayout, function(row, rowPosition){
       if ( rowPosition === 0 ){
@@ -147,11 +156,13 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
         // Check whether a cell contains a group
         if ( typeof cell.shape === 'string' ){
+          setTotalAuthorsInCell(cell);
+          totalAuthors += cell.totalAuthors;
           setCellDimensions(cell);
           cellWidth = cell.width;
           cellHeight = cell.height;
         } else { // the cell contains a nested table layout
-          setTableLayoutDimensions(cell);
+          totalAuthors += setTableLayoutDimensionsAndCountAuthors(cell);
           cellWidth = getTableWidth(cell);
           cellHeight = getTableHeight(cell);
         }
@@ -164,28 +175,50 @@ within("projetmedea.fr", function(publish, subscribe, get){
           getMaxDimension(row[ROW_HEADER], cellHeight);
       });
     });
-  }
 
-  function setLayoutDimensions(layout){
-    switch ( getBoxType(layout) ){
-      case 'charts':
-        // treat each chart as a table layout
-        forEach(layout[1], setTableLayoutDimensions);
-        break;
-      case 'chart':
-        // treat a single chart as a table layout
-        setTableLayoutDimensions(layout);
-        break;
-    }
+    return totalAuthors;
   }
 
   function updateLayout(selectedCategories){
     var
       category = get("group-by"),
-      layout = get("layout/"+category)();
+      layout = get("layout/"+category)(),
+      charts,
+      chartsAndTotalAuthors = [],
+      sortedCharts;
 
-    setLayoutDimensions(layout);
-    publish("layout", layout);
+    switch ( getBoxType(layout) ){
+      case 'charts':
+        charts = layout[1];
+        break;
+      case 'chart':
+        charts = [layout];
+        break;
+    }
+
+    forEach( charts, function( chart ) {
+      // treat each chart as a table layout
+      var totalAuthors =
+        setTableLayoutDimensionsAndCountAuthors( chart );
+
+      if ( totalAuthors > 0 ) {
+        chartsAndTotalAuthors.push({
+          chart: chart,
+          totalAuthors: totalAuthors
+        });
+      }
+    });
+
+    // sort charts in descending order of total authors
+    chartsAndTotalAuthors.sort(function( objectA, objectB ) {
+      return objectB.totalAuthors - objectA.totalAuthors;
+    });
+
+    sortedCharts = map( chartsAndTotalAuthors, function( object ) {
+      return object.chart;
+    });
+
+    publish( "layout",[ ["charts"], sortedCharts ] );
   }
 
   subscribe("selected-categories", updateLayout);
