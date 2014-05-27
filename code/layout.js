@@ -45,9 +45,13 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return sequence[circle.tilesCount][TILE_CIRCLE_WIDTH];
   }
 
+  function setTotalAuthorsInCell( cell ) {
+    cell.totalAuthors = getTotalAuthorsSelectedInGroup(cell.name);
+  }
+
   function setCellDimensions(cell){
     var
-      tilesCount = getTotalAuthorsSelectedInGroup(cell.name);
+      tilesCount = cell.totalAuthors;
 
     switch (cell.shape) {
       case 'circle':
@@ -148,6 +152,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
         // Check whether a cell contains a group
         if ( typeof cell.shape === 'string' ){
+          setTotalAuthorsInCell(cell);
           setCellDimensions(cell);
           cellWidth = cell.width;
           cellHeight = cell.height;
