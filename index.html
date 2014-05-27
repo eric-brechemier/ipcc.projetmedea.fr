@@ -22,23 +22,17 @@
   </head>
   <body>
     <div class="main-display-area">
-      <form id="display-selector">
-        <fieldset>
-          <select id="display-selection"
-            ><option
-              value="visualization-block"
-              selected="selected"
-            >
-              Visualization
-            </option
-            ><option
-              value="data-block"
-            >
-              Data
-            </option
-          ></select>
-        </fieldset>
-      </form>
+      <div id="authors-selected">
+        <span id="selected-records-count"></span>
+        /
+        <span id="total-records-count"></span>
+        Authors
+        (<span id="selected-records-percentage"></span>%)
+        <script src="code/count-total-authors.js"></script>
+        <script src="code/display-total-authors.js"></script>
+        <script src="code/count-total-authors-selected.js"></script>
+        <script src="code/display-total-authors-selected.js"></script>
+      </div>
       <div id="visualization-block">
         <div id="svg-charts"></div>
         <script src="code/d3.js"></script>
@@ -59,57 +53,15 @@
         <script src="code/show-hide-svg-code-block.js"></script>
       </div>
       <div id="data-block" class="hidden">
-        <h2>Authors</h2>
-        <div>Total: <span id="total-records-count"></span></div>
-        <script src="code/count-total-authors.js"></script>
-        <script src="code/display-total-authors.js"></script>
-        <div>
-          Selected: <span id="selected-records-count"></span>
-          (<span id="selected-records-percentage"></span>%)
-        </div>
-        <script src="code/count-total-authors-selected.js"></script>
-        <script src="code/display-total-authors-selected.js"></script>
+        <pre id="selected-authors-csv-output"></pre>
+        <script src="code/print-selected-authors.js"></script>
 
-        <h3>CSV Data</h3>
-        <div id="authors-csv-block" class="hidden">
-          <button id="hide-authors-csv-block">Hide Authors CSV ▼</button>
-          <pre id="selected-authors-csv-output"></pre>
-          <script src="code/print-selected-authors.js"></script>
-        </div>
-        <div id="authors-csv-block-presenter">
-          <button id="show-authors-csv-block">Show Authors CSV ▲</button>
-        </div>
-          <script src="code/show-hide-authors-csv-block.js"></script>
-
-        <!--h2>Data Table</h2>
+        <!--
         <table id="data-table"></table>
         <script src="code/list-selected-authors.js"></script-->
 
         <script src="data/authors.js"></script>
-
-        <h2>Categories</h2>
-        <div>Total: <span id="total-categories-count"></span></div>
-        <script src="code/count-categories.js"></script>
-        <div>
-          Selected: <span id="selected-categories-count"></span>
-          (<span id="selected-categories-percentage"></span>%)
-        </div>
-        <script src="code/filter-categories.js"></script>
-        <script src="code/count-selected-categories.js"></script>
-        <script src="code/count-selected-categories-percentage.js"></script>
-
-        <h3>CSV Data</h3>
-        <div id="categories-csv-block" class="hidden">
-          <button id="hide-categories-csv-block">Hide Categories CSV ▼</button>
-          <pre id="selected-categories-csv-output"></pre>
-          <script src="code/print-selected-categories.js"></script>
-        </div>
-        <div id="categories-csv-block-presenter">
-          <button id="show-categories-csv-block">Show Categories CSV ▲</button>
-        </div>
-        <script src="code/show-hide-categories-csv-block.js"></script>
       </div>
-      <script src="code/display-visualization-or-data.js"></script>
     </div>
     <div class="menu-area">
       <h1 id="visualization-title"></h1>
@@ -118,7 +70,9 @@
       <script src="code/layout.js"></script>
       <script src="code/plot.js"></script>
 
-      <h2>I wish to select authors:</h2>
+      <h2>I wish to select authors: <a id="reset-filters" class="hidden"
+        href="#reset-filters">reset</a></h2>
+      <script src="code/reset-filters.js"></script>
       <script src="code/collect-active-filters.js"></script>
       <script src="code/combine-active-filters.js"></script>
       <script src="code/prepare-predictive-filters.js"></script>
@@ -309,9 +263,25 @@
           <!--script src="data/institution-type-categories.js"></script-->
           <script src="data/cumulated-working-group-in-institution-type-categories.js"></script>
           <script src="layout/cumulated-working-group-in-institution-type-categories.js"></script>
+
+          <select id="display-selection"
+            ><option
+              value="visualization-block"
+              selected="selected"
+            >
+              in a Visualization
+            </option
+            ><option
+              value="data-block"
+            >
+              as Raw Data
+            </option
+          ></select>
         </fieldset>
       </form>
       <script src="code/group-by-category.js"></script>
+      <script src="code/filter-categories.js"></script>
+      <script src="code/display-visualization-or-data.js"></script>
     </div>
   </body>
 </html>

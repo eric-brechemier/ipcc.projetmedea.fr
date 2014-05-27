@@ -6,16 +6,14 @@ within("projetmedea.fr", function(publish, subscribe, get, set) {
 
     // map of filter name -> filter object for active filters
     // (filters which accept all authors are considered inactive)
-    activeFilterSet = {},
-
-    // total number of authors,
-    // initially null until author records are loaded
-    totalAuthors = null;
+    activeFilterSet = {};
 
   // Check whether a filter is active
   // (filters which accept all authors are considered inactive)
   function isFilterActive(filter) {
-    var filterAuthors = filter.authors;
+    var
+      totalAuthors = get('total-authors'),
+      filterAuthors = filter.authors;
     if (
       no(filterAuthors) ||
       filterAuthors.length === totalAuthors
@@ -78,14 +76,18 @@ within("projetmedea.fr", function(publish, subscribe, get, set) {
     publishFilters();
   }
 
-  function countTotalAuthors(authorsData) {
-    totalAuthors = countData(authorsData);
+  function whenAllFiltersAreReset() {
+    forEachProperty( activeFilterSet, function( activeFilter ) {
+      deleteFilter( activeFilter );
+    });
+
+    publishFilters();
   }
 
-  subscribe("authors", function(authorsData){
-    countTotalAuthors(authorsData);
+  subscribe("total-authors", function(){
     // select all authors initially
     publishFilters();
     subscribe("filter-selected", whenNewFilterSelected);
+    subscribe("reset-filters", whenAllFiltersAreReset);
   });
 });
