@@ -6,11 +6,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
     forEachData = this.forEachData,
     percentage = this.percentage,
 
-    // fields position in category records
-    // (fixed in all categories)
-    CATEGORY_NAME = 0,
-    CATEGORY_AUTHORS = 1,
-    CATEGORY_TOTAL_AUTHORS = 2;
+    CATEGORY_NAME = this.CATEGORY_NAME,
+    CATEGORY_AUTHORS = this.CATEGORY_AUTHORS,
+    CATEGORY_TOTAL_AUTHORS = this.CATEGORY_TOTAL_AUTHORS;
 
   function createFilteredCategoryHeaders(){
     return [
