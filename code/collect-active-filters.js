@@ -76,9 +76,18 @@ within("projetmedea.fr", function(publish, subscribe, get, set) {
     publishFilters();
   }
 
+  function whenAllFiltersAreReset() {
+    forEachProperty( activeFilterSet, function( activeFilter ) {
+      deleteFilter( activeFilter );
+    });
+
+    publishFilters();
+  }
+
   subscribe("total-authors", function(){
     // select all authors initially
     publishFilters();
     subscribe("filter-selected", whenNewFilterSelected);
+    subscribe("reset-filters", whenAllFiltersAreReset);
   });
 });

@@ -313,7 +313,13 @@ within("projetmedea.fr", function(publish, subscribe, get){
       }
     }
 
+    function resetSelection() {
+      select.value = LIST_ITEM_DEFAULT_VALUE;
+      // Do not publish an event for each list in case of global reset
+    }
+
     subscribe("selected-author-check", initOrUpdateFilterLists);
+    subscribe("reset-filters", resetSelection);
   }
 
   this.getTotalAuthorsInCategory = getTotalAuthorsInCategory;
