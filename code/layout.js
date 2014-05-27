@@ -181,18 +181,22 @@ within("projetmedea.fr", function(publish, subscribe, get){
   function updateLayout(selectedCategories){
     var
       category = get("group-by"),
-      layout = get("layout/"+category)();
+      layout = get("layout/"+category)(),
+      charts;
 
     switch ( getBoxType(layout) ){
       case 'charts':
-        // treat each chart as a table layout
-        forEach(layout[1], setTableLayoutDimensionsAndCountAuthors);
+        charts = layout[1];
         break;
       case 'chart':
-        // treat a single chart as a table layout
-        setTableLayoutDimensionsAndCountAuthors(layout);
+        charts = [layout];
         break;
     }
+
+    forEach( charts, function( chart ) {
+      // treat each chart as a table layout
+      setTableLayoutDimensionsAndCountAuthors( chart );
+    });
 
     publish("layout", layout);
   }
