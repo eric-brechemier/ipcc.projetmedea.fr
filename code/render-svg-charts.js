@@ -35,8 +35,8 @@ within("projetmedea.fr", function(publish, subscribe){
     forEach(shape.tiles, function(tile){
       var
         circle = g.append("circle"),
-        centerTop = ( TOP_MARGIN + tile[0] + 0.5 ) * TILE_HEIGHT,
-        centerLeft = ( LEFT_MARGIN + tile[1] + 0.5 ) * TILE_WIDTH;
+        centerTop = ( tile[0] + 0.5 ) * TILE_HEIGHT,
+        centerLeft = ( tile[1] + 0.5 ) * TILE_WIDTH;
       circle.attr("r", CIRCLE_RADIUS);
       circle.attr("cx", centerLeft);
       circle.attr("cy", centerTop);
@@ -47,6 +47,7 @@ within("projetmedea.fr", function(publish, subscribe){
     var
       svg = d3.select(chartsBox).append("svg"),
       background = svg.append("rect"),
+      chartGroup = svg.append("g"),
       heading = svg.append("text"),
       subheading = svg.append("text"),
       width,
@@ -80,8 +81,16 @@ within("projetmedea.fr", function(publish, subscribe){
     // increase chart width to ensure that the heading and subheading fit
     width = max( width, heading.node().getComputedTextLength() );
     width = max( width, subheading.node().getComputedTextLength() );
-
     halfWidth = width / 2;
+
+    chartGroup.attr("transform",
+      "translate(" +
+      ( halfWidth - chart.width * TILE_WIDTH / 2 ) +
+      "," +
+      TOP_MARGIN +
+      ")"
+    );
+
     heading.attr("text-anchor", "middle");
     heading.attr("x", halfWidth);
     subheading.attr("text-anchor", "middle");
@@ -102,7 +111,7 @@ within("projetmedea.fr", function(publish, subscribe){
 
     // TODO: keep the chart centered in the larger width
     forEach(chart.shapes, function(shape){
-      drawShape(svg, shape);
+      drawShape(chartGroup, shape);
     });
   }
 
