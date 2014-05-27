@@ -6,8 +6,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
     max = this.max,
     warn = this.warn,
 
-    CATEGORY_NAME = 0,
-    CATEGORY_TOTAL_AUTHORS_SELECTED = 2,
+    FILTERED_CATEGORY_NAME = 0,
+    FILTERED_CATEGORY_TOTAL_AUTHORS_SELECTED = 2,
 
     TILE_CIRCLE_WIDTH = 0,
 
@@ -21,8 +21,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
       selectedAuthors = 0,
       selectedCategories = get("selected-categories");
     forEach(selectedCategories, function(selectedCategory){
-      if ( selectedCategory[CATEGORY_NAME] === groupName ){
-        selectedAuthors = selectedCategory[CATEGORY_TOTAL_AUTHORS_SELECTED];
+      if ( selectedCategory[FILTERED_CATEGORY_NAME] === groupName ){
+        selectedAuthors =
+          selectedCategory[FILTERED_CATEGORY_TOTAL_AUTHORS_SELECTED];
         return true;
       }
     });
