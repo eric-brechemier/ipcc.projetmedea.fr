@@ -3,6 +3,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     getExpectedCircleWidth = this.getExpectedCircleWidth,
     getBoxType = this.getBoxType,
     forEach = this.forEach,
+    map = this.map,
     max = this.max,
     warn = this.warn,
 
@@ -182,9 +183,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
     var
       category = get("group-by"),
       layout = get("layout/"+category)(),
-      filteredLayout,
       charts,
-      totalAuthors;
+      chartsAndTotalAuthors = [],
+      sortedCharts;
 
     switch ( getBoxType(layout) ){
       case 'charts':
@@ -195,14 +196,29 @@ within("projetmedea.fr", function(publish, subscribe, get){
         break;
     }
 
-    totalAuthors = Array( charts.length );
-    forEach( charts, function( chart, chartPosition ) {
+    forEach( charts, function( chart ) {
       // treat each chart as a table layout
-      totalAuthors[ chartPosition ] =
+      var totalAuthors =
         setTableLayoutDimensionsAndCountAuthors( chart );
+
+      if ( totalAuthors > 0 ) {
+        chartsAndTotalAuthors.push({
+          chart: chart,
+          totalAuthors: totalAuthors
+        });
+      }
     });
 
-    publish( "layout",[ ["charts"], charts ] );
+    // sort charts in descending order of total authors
+    chartsAndTotalAuthors.sort(function( objectA, objectB ) {
+      return objectB.totalAuthors - objectA.totalAuthors;
+    });
+
+    sortedCharts = map( chartsAndTotalAuthors, function( object ) {
+      return object.chart;
+    });
+
+    publish( "layout",[ ["charts"], sortedCharts ] );
   }
 
   subscribe("selected-categories", updateLayout);
