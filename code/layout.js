@@ -132,8 +132,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return max(header, size);
   }
 
-  // Returns the total number of authors selected
-  function setTableLayoutDimensions(tableLayout){
+  // Set the dimensions in a table layout, recursively.
+  // Returns the total number of authors represented in this table layout.
+  function setTableLayoutDimensionsAndCountAuthors( tableLayout ){
     var
       columnHeaders,
       totalAuthors = 0;
@@ -160,7 +161,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
           cellWidth = cell.width;
           cellHeight = cell.height;
         } else { // the cell contains a nested table layout
-          setTableLayoutDimensions(cell);
+          totalAuthors += setTableLayoutDimensionsAndCountAuthors(cell);
           cellWidth = getTableWidth(cell);
           cellHeight = getTableHeight(cell);
         }
@@ -177,25 +178,22 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return totalAuthors;
   }
 
-  function setLayoutDimensions(layout){
-    switch ( getBoxType(layout) ){
-      case 'charts':
-        // treat each chart as a table layout
-        forEach(layout[1], setTableLayoutDimensions);
-        break;
-      case 'chart':
-        // treat a single chart as a table layout
-        setTableLayoutDimensions(layout);
-        break;
-    }
-  }
-
   function updateLayout(selectedCategories){
     var
       category = get("group-by"),
       layout = get("layout/"+category)();
 
-    setLayoutDimensions(layout);
+    switch ( getBoxType(layout) ){
+      case 'charts':
+        // treat each chart as a table layout
+        forEach(layout[1], setTableLayoutDimensionsAndCountAuthors);
+        break;
+      case 'chart':
+        // treat a single chart as a table layout
+        setTableLayoutDimensionsAndCountAuthors(layout);
+        break;
+    }
+
     publish("layout", layout);
   }
 
