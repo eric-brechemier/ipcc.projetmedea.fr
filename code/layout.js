@@ -132,9 +132,11 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return max(header, size);
   }
 
+  // Returns the total number of authors selected
   function setTableLayoutDimensions(tableLayout){
     var
-      columnHeaders;
+      columnHeaders,
+      totalAuthors = 0;
 
     forEach(tableLayout, function(row, rowPosition){
       if ( rowPosition === 0 ){
@@ -153,6 +155,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
         // Check whether a cell contains a group
         if ( typeof cell.shape === 'string' ){
           setTotalAuthorsInCell(cell);
+          totalAuthors += cell.totalAuthors;
           setCellDimensions(cell);
           cellWidth = cell.width;
           cellHeight = cell.height;
@@ -170,6 +173,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
           getMaxDimension(row[ROW_HEADER], cellHeight);
       });
     });
+
+    return totalAuthors;
   }
 
   function setLayoutDimensions(layout){
