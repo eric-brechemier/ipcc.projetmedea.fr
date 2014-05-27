@@ -1,5 +1,9 @@
 within("projetmedea.fr", function() {
   var
+    // value to return in DOM0 event handlers to prevent default action
+    PREVENT_DEFAULT = false,
+
+    // CSS class defined to apply display:none to DOM elements
     CSS_CLASS_HIDDEN = "hidden";
 
   // Note:
