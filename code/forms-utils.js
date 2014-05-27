@@ -3,11 +3,13 @@ within("projetmedea.fr", function() {
     no = this.no,
     forEach = this.forEach,
     hideElement = this.hideElement,
-    showElement = this.showElement;
+    showElement = this.showElement,
+    PREVENT_DEFAULT = this.PREVENT_DEFAULT;
 
   function preventFormSubmission(form) {
     form.onsubmit = function(){
-      return false; // prevent submission to server (reloads the page)
+      // prevent submission to server (reloads the page)
+      return PREVENT_DEFAULT;
     };
   }
 

@@ -81,10 +81,12 @@ within("projetmedea.fr", function(publish, subscribe, get) {
   function combineActiveFilters(activeFilterList) {
     if ( activeFilterList.length === 0 ) {
       // shortcut
+      publish("are-all-authors-selected", true);
       publish("active-filter-selector", alwaysTrue);
       return;
     }
 
+    publish("are-all-authors-selected", false);
     publish("active-filter-selector", getActiveSelectorFunction() );
   }
 
