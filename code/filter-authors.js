@@ -8,7 +8,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     incrementProperty = this.incrementProperty,
     alwaysTrue = this.alwaysTrue,
     preventFormSubmission = this.preventFormSubmission,
-    getTotalAuthorsInCategory = this.getTotalAuthorsInCategory;
+    getTotalAuthorsInCategory = this.getTotalAuthorsInCategory,
 
     AUTHOR_ID = this.AUTHOR_ID,
     ANY_VALUE = this.LIST_ITEM_DEFAULT_VALUE,
