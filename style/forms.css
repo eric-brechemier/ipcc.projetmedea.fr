@@ -5,11 +5,11 @@ fieldset {
   margin-bottom: 2em;
 }
 
-.selected-category-name {
+.selected-text {
   color: red;
 }
 
-.category-filter {
+select {
   background-color: red;
   color: white;
   font-size: 10px;

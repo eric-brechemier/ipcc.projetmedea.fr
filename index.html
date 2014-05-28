@@ -93,7 +93,7 @@
       <form id="filters">
         <fieldset>
           <label class="hidden-to-measure-select">
-            <select class="category-filter">
+            <select>
               <option id="hidden-filter-option"
                 selected="selected"
               >Text Node</option>
@@ -103,12 +103,11 @@
             who contributed to
             <span
               id="assessment-report-filter-text"
-              class="selected-category-name"
+              class="selected-text"
             >Any AR</span>
             <select
               id="assessment-report-filter"
               name="assessment-report-categories"
-              class="category-filter"
             ></select
             ><span
               id="assessment-report-filter-total"
@@ -123,12 +122,11 @@
             in
             <span
               id="working-group-filter-text"
-              class="selected-category-name"
+              class="selected-text"
             >Any WG</span>
             <select
               id="working-group-filter"
               name="working-group-categories"
-              class="category-filter"
             ></select
             ><span
               id="working-group-filter-total"
@@ -143,12 +141,11 @@
             as
             <span
               id="role-filter-text"
-              class="selected-category-name"
+              class="selected-text"
             >Any Role</span>
             <select
               id="role-filter"
               name="role-categories"
-              class="category-filter"
             ></select
             ><span
               id="role-filter-total"
@@ -163,12 +160,11 @@
             while working in
             <span
               id="country-filter-text"
-              class="selected-category-name"
+              class="selected-text"
             >Any Country</span>
             <select
               id="country-filter"
               name="country-categories"
-              class="category-filter"
             ></select
             ><span
               id="country-filter-total"
@@ -183,12 +179,11 @@
             in
             <span
               id="institution-type-filter-text"
-              class="selected-category-name"
+              class="selected-text"
             >Any Institution Type</span>
             <select
               id="institution-type-filter"
               name="institution-type-categories"
-              class="category-filter"
             ></select
             ><span
               id="institution-type-filter-total"
@@ -203,12 +198,11 @@
             the
             <span
               id="institution-filter-text"
-              class="selected-category-name"
+              class="selected-text"
             >Any Institution</span>
             <select
               id="institution-filter"
               name="institution-categories"
-              class="category-filter"
             ></select
             ><span
               id="institution-filter-total"
@@ -223,12 +217,11 @@
             writing
             <span
               id="total-contributions-filter-text"
-              class="selected-category-name"
+              class="selected-text"
             >1 contribution</span>
             <select
               id="total-contributions-filter"
               name="total-contributions-categories"
-              class="category-filter"
             ></select> or more.
           </label>
           <script src="data/total-contributions-list.js"></script>
@@ -241,7 +234,14 @@
       <h2>I wish to group authors:</h2>
       <form id="groups">
         <fieldset>
-          <select id="group-selection" name="group-by">
+          <span
+            id="group-selection-text"
+            class="selected-text"
+          >by Working Group (WG)</span>
+          <select
+            id="group-selection"
+            name="group-by"
+          >
             <option
               value="cumulated-working-group-categories"
               data-title="Working Groups"
