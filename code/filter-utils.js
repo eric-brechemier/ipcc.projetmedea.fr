@@ -57,20 +57,19 @@ within("projetmedea.fr", function(publish, subscribe, get){
       fullText;
 
     shortText =
-      "(" +
       totalCategoryAuthorsSelected +
       "/" +
       totalCategoryAuthors +
-      ")";
+      NBSP;
 
     fullText =
       baseText +
       NBSP +
-      "(" +
       padLeft( String(totalCategoryAuthorsSelected), maxLength, NBSP) +
+      NBSP +
       "/" +
-      padLeft( String(totalCategoryAuthors), maxLength, NBSP) +
-      ")";
+      NBSP +
+      padLeft( String(totalCategoryAuthors), maxLength, NBSP);
 
     if ( option.selected ) {
       // check whether short text is currently displayed

@@ -1,16 +1,16 @@
 body {
-  margin: 2em;
+  margin: 1em 1em;
 }
 
 .main-display-area {
-  margin-left: 21em;
+  margin-left: 32em;
 }
 
 .menu-area {
   position: fixed;
-  top: 10%;
-  left: 2em;
-  width: 20em;
+  top: 7em;
+  left: 1em;
+  width: 30em;
   height: 90%;
   overflow-y: scroll;
 }
