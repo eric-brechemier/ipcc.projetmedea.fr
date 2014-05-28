@@ -328,12 +328,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
     }
 
     function resetSelection() {
-      var defaultCategoryName =
-        listItems[LIST_ITEM_DEFAULT_VALUE][LIST_ITEM_NAME];
-
-      select.value = LIST_ITEM_DEFAULT_VALUE;
+      var firstItem = listData[1];
+      select.value = firstItem[LIST_ITEM_VALUE];
+      updateSelectedCategoryName( select, firstItem[LIST_ITEM_NAME] );
       reduceSelectedOption(select);
-      updateSelectedCategoryName( select, defaultCategoryName );
       // Do not publish an event for each list in case of global reset
     }
 
