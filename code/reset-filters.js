@@ -4,7 +4,8 @@ within("projetmedea.fr", function(publish, subscribe) {
     showElement = this.showElement,
     PREVENT_DEFAULT = this.PREVENT_DEFAULT,
 
-    resetButton = document.getElementById( 'reset-filters' );
+    resetButton = document.getElementById( 'reset-filters' ),
+    resetButtonBlock = document.getElementById( 'reset-filters-block' );
 
   resetButton.onclick = function() {
     publish( "reset-filters" );
@@ -13,9 +14,9 @@ within("projetmedea.fr", function(publish, subscribe) {
 
   subscribe("are-all-authors-selected", function( areAllAuthorsSelected ) {
     if ( areAllAuthorsSelected ) {
-      hideElement( resetButton );
+      hideElement( resetButtonBlock );
     } else {
-      showElement( resetButton );
+      showElement( resetButtonBlock );
     }
   });
 });
