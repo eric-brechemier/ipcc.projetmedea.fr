@@ -22,6 +22,21 @@
   </head>
   <body>
     <div class="main-display-area">
+      <div>
+        <select id="display-selection"
+          ><option
+            value="visualization-block"
+            selected="selected"
+          >
+            Visualization
+          </option
+          ><option
+            value="data-block"
+          >
+            Raw Data
+          </option
+        ></select>
+      </div>
       <div id="visualization-block">
         <div id="svg-charts"></div>
         <script src="code/d3.js"></script>
@@ -297,20 +312,6 @@
           <!--script src="data/institution-type-categories.js"></script-->
           <script src="data/cumulated-working-group-in-institution-type-categories.js"></script>
           <script src="layout/cumulated-working-group-in-institution-type-categories.js"></script>
-          <br />
-          <select id="display-selection"
-            ><option
-              value="visualization-block"
-              selected="selected"
-            >
-              in a Visualization
-            </option
-            ><option
-              value="data-block"
-            >
-              as Raw Data
-            </option
-          ></select>
         </fieldset>
       </form>
       <script src="code/group-by-category.js"></script>
