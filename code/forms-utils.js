@@ -28,6 +28,9 @@ within("projetmedea.fr", function() {
 
   function getOptionText( option ) {
     var textNode = option.firstChild;
+    if ( no( textNode ) ) {
+      return "";
+    }
     return textNode.nodeValue;
   }
 
