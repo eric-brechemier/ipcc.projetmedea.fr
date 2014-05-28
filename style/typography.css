@@ -37,6 +37,11 @@ select {
   font-family: "Menlo", "Monaco", "Lucida Console", "Fira Mono";
 }
 
+h2 {
+  margin-top: 1em;
+  text-decoration: underline;
+}
+
 #selected-records-count {
   font-weight: bold;
 }
