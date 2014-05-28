@@ -72,9 +72,22 @@ within("projetmedea.fr", function(publish, subscribe, get){
       padLeft( String(totalCategoryAuthors), maxLength, NBSP) +
       ")";
 
+    if ( option.selected ) {
+      // check whether short text is currently displayed
+      if (
+        getOptionText( option ) ===
+        option.getAttribute('data-short-text')
+      ) {
+        setOptionText(option, shortText);
+      } else {
+        setOptionText(option, fullText);
+      }
+    } else {
+      setOptionText(option, fullText);
+    }
+
     option.setAttribute("data-short-text", shortText);
     option.setAttribute("data-full-text", fullText);
-    setOptionText(option, fullText);
   }
 
   function hideOptionWithNoAuthorSelected(
