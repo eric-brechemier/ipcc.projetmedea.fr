@@ -6,7 +6,6 @@ fieldset {
 }
 
 .selected-category-name {
-  font-weight: normal;
   color: red;
 }
 
