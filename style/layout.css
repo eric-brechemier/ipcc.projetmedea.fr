@@ -15,6 +15,13 @@ body {
   overflow-y: scroll;
 }
 
+#display-selection {
+  position: fixed;
+  font-size: inherit;
+  top: 7em;
+  right: 1em;
+}
+
 .column1of2, .column2of2 {
   display: inline-block;
   width: 50%;
