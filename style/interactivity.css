@@ -2,9 +2,6 @@
   display: none;
 }
 
-/* TODO: replace with CSS class .action
-   (requires to refine use of hidden in JavaScript)
-*/
 #reset-filters {
   font-weight: bold;
 }
