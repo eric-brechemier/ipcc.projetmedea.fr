@@ -3,14 +3,14 @@ body {
 }
 
 .main-display-area {
-  margin-left: 32em;
+  margin-left: 25em;
 }
 
 .menu-area {
   position: fixed;
   top: 7em;
   left: 1em;
-  width: 30em;
+  width: 24em;
   height: 70%;
   overflow-y: scroll;
 }
