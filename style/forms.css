@@ -5,6 +5,19 @@ fieldset {
   margin-bottom: 2em;
 }
 
+.selected-text {
+  color: red;
+}
+
+select {
+  background-color: red;
+  color: white;
+  font-size: 10px;
+  vertical-align: top;
+  position: relative;
+  top: -2px;
+}
+
 select {
   -webkit-appearance: none;
   border-color: transparent;

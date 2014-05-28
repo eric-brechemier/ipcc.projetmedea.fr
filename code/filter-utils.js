@@ -11,6 +11,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     padLeft = this.padLeft,
     padRight = this.padRight,
     getSelectedOption = this.getSelectedOption,
+    getOptionText = this.getOptionText,
     setOptionText = this.setOptionText,
     showOption = this.showOption,
     hideOption = this.hideOption,
@@ -43,38 +44,50 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return categoryAuthors.length;
   }
 
-  function getFullText(
+  function setShortAndFullText(
+    option,
     baseText,
     totalCategoryAuthorsSelected,
     totalCategoryAuthors
   ) {
     var
       totalAuthors = get("total-authors"),
-      maxLength = String(totalAuthors).length;
-    return (
+      maxLength = String(totalAuthors).length,
+      shortText,
+      fullText;
+
+    shortText =
+      "(" +
+      totalCategoryAuthorsSelected +
+      "/" +
+      totalCategoryAuthors +
+      ")";
+
+    fullText =
       baseText +
       NBSP +
       "(" +
       padLeft( String(totalCategoryAuthorsSelected), maxLength, NBSP) +
       "/" +
       padLeft( String(totalCategoryAuthors), maxLength, NBSP) +
-      ")"
-    );
-  }
+      ")";
 
-  function setFullText(
-    option,
-    baseText,
-    totalCategoryAuthorsSelected,
-    totalCategoryAuthors
-  ) {
-    var fullText = getFullText(
-      baseText,
-      totalCategoryAuthorsSelected,
-      totalCategoryAuthors
-    );
+    if ( option.selected ) {
+      // check whether short text is currently displayed
+      if (
+        getOptionText( option ) ===
+        option.getAttribute('data-short-text')
+      ) {
+        setOptionText(option, shortText);
+      } else {
+        setOptionText(option, fullText);
+      }
+    } else {
+      setOptionText(option, fullText);
+    }
+
+    option.setAttribute("data-short-text", shortText);
     option.setAttribute("data-full-text", fullText);
-    setOptionText(option, fullText);
   }
 
   function hideOptionWithNoAuthorSelected(
@@ -85,6 +98,17 @@ within("projetmedea.fr", function(publish, subscribe, get){
     } else {
       hideOption(option);
     }
+  }
+
+  function updateSelectedCategoryName( select, selectedCategoryName ) {
+    var
+      selectedCategoryNameDisplay =
+        document.getElementById( select.id + '-text' );
+
+    if ( no( selectedCategoryNameDisplay ) ) {
+      return;
+    }
+    selectedCategoryNameDisplay.innerHTML = selectedCategoryName;
   }
 
   function displayTotalCategoriesSelected(
@@ -129,6 +153,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
       if ( isFirstOption ) {
         option.setAttribute("selected", "selected");
+        updateSelectedCategoryName( select, categoryName );
       }
 
       if ( !isFirstOption && totalCategoryAuthorsSelected > 0 ) {
@@ -141,10 +166,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
       // pad category name on the left to align extra text on the right
       baseText = padRight(categoryName, maxCategoryNameLength, NBSP);
-      option.setAttribute("data-short-text", categoryName);
       option.setAttribute("data-base-text", baseText);
       option.setAttribute("value", listItem[LIST_ITEM_VALUE]);
-      setFullText(
+      setShortAndFullText(
         option,
         baseText,
         totalCategoryAuthorsSelected,
@@ -178,12 +202,15 @@ within("projetmedea.fr", function(publish, subscribe, get){
       if ( !isFirstOption && totalCategoryAuthorsSelected > 0 ) {
         totalCategoriesSelected++;
       }
+      if ( option.selected ) {
+        updateSelectedCategoryName( select, categoryName );
+      }
       hideOptionWithNoAuthorSelected(
         option,
         totalCategoryAuthorsSelected
       );
 
-      setFullText(
+      setShortAndFullText(
         option,
         baseText,
         totalCategoryAuthorsSelected,
@@ -314,7 +341,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
     }
 
     function resetSelection() {
-      select.value = LIST_ITEM_DEFAULT_VALUE;
+      var firstItem = listData[1];
+      select.value = firstItem[LIST_ITEM_VALUE];
+      updateSelectedCategoryName( select, firstItem[LIST_ITEM_NAME] );
+      reduceSelectedOption(select);
       // Do not publish an event for each list in case of global reset
     }
 

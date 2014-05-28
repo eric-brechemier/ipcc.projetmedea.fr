@@ -22,16 +22,20 @@
   </head>
   <body>
     <div class="main-display-area">
-      <div id="authors-selected">
-        <span id="selected-records-count"></span>
-        /
-        <span id="total-records-count"></span>
-        Authors
-        (<span id="selected-records-percentage"></span>%)
-        <script src="code/count-total-authors.js"></script>
-        <script src="code/display-total-authors.js"></script>
-        <script src="code/count-total-authors-selected.js"></script>
-        <script src="code/display-total-authors-selected.js"></script>
+      <div>
+        <select id="display-selection"
+          ><option
+            value="visualization-block"
+            selected="selected"
+          >
+            Visualization
+          </option
+          ><option
+            value="data-block"
+          >
+            Raw Data
+          </option
+        ></select>
       </div>
       <div id="visualization-block">
         <div id="svg-charts"></div>
@@ -64,11 +68,21 @@
       </div>
     </div>
     <div class="menu-area">
-      <h1 id="visualization-title"></h1>
-      <script src="code/update-visualization-title.js"></script>
       <script src="code/underplot.js"></script>
       <script src="code/layout.js"></script>
       <script src="code/plot.js"></script>
+
+      <div id="authors-selected">
+        <span id="selected-records-count"></span>
+        /
+        <span id="total-records-count"></span>
+        Authors
+        (<span id="selected-records-percentage"></span>%)
+        <script src="code/count-total-authors.js"></script>
+        <script src="code/display-total-authors.js"></script>
+        <script src="code/count-total-authors-selected.js"></script>
+        <script src="code/display-total-authors-selected.js"></script>
+      </div>
 
       <h2>I wish to select authors: <a id="reset-filters" class="hidden"
         href="#reset-filters">reset</a></h2>
@@ -87,6 +101,10 @@
           </label>
           <label>
             who contributed to
+            <span
+              id="assessment-report-filter-text"
+              class="selected-text"
+            >Any AR</span>
             <select
               id="assessment-report-filter"
               name="assessment-report-categories"
@@ -102,6 +120,10 @@
           <br />
           <label>
             in
+            <span
+              id="working-group-filter-text"
+              class="selected-text"
+            >Any WG</span>
             <select
               id="working-group-filter"
               name="working-group-categories"
@@ -117,6 +139,10 @@
           <br />
           <label>
             as
+            <span
+              id="role-filter-text"
+              class="selected-text"
+            >Any Role</span>
             <select
               id="role-filter"
               name="role-categories"
@@ -132,6 +158,10 @@
           <br />
           <label>
             while working in
+            <span
+              id="country-filter-text"
+              class="selected-text"
+            >Any Country</span>
             <select
               id="country-filter"
               name="country-categories"
@@ -147,6 +177,10 @@
           <br />
           <label>
             in
+            <span
+              id="institution-type-filter-text"
+              class="selected-text"
+            >Any Institution Type</span>
             <select
               id="institution-type-filter"
               name="institution-type-categories"
@@ -162,6 +196,10 @@
           <br />
           <label>
             the
+            <span
+              id="institution-filter-text"
+              class="selected-text"
+            >Any Institution</span>
             <select
               id="institution-filter"
               name="institution-categories"
@@ -177,6 +215,10 @@
           <br />
           <label>
             writing
+            <span
+              id="total-contributions-filter-text"
+              class="selected-text"
+            >1 contribution</span>
             <select
               id="total-contributions-filter"
               name="total-contributions-categories"
@@ -192,7 +234,14 @@
       <h2>I wish to group authors:</h2>
       <form id="groups">
         <fieldset>
-          <select id="group-selection" name="group-by">
+          <span
+            id="group-selection-text"
+            class="selected-text"
+          >by Working Group (WG)</span>
+          <select
+            id="group-selection"
+            name="group-by"
+          >
             <option
               value="cumulated-working-group-categories"
               data-title="Working Groups"
@@ -263,20 +312,6 @@
           <!--script src="data/institution-type-categories.js"></script-->
           <script src="data/cumulated-working-group-in-institution-type-categories.js"></script>
           <script src="layout/cumulated-working-group-in-institution-type-categories.js"></script>
-          <br />
-          <select id="display-selection"
-            ><option
-              value="visualization-block"
-              selected="selected"
-            >
-              in a Visualization
-            </option
-            ><option
-              value="data-block"
-            >
-              as Raw Data
-            </option
-          ></select>
         </fieldset>
       </form>
       <script src="code/group-by-category.js"></script>
