@@ -11,6 +11,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     padLeft = this.padLeft,
     padRight = this.padRight,
     getSelectedOption = this.getSelectedOption,
+    getOptionText = this.getOptionText,
     setOptionText = this.setOptionText,
     showOption = this.showOption,
     hideOption = this.hideOption,
@@ -87,6 +88,17 @@ within("projetmedea.fr", function(publish, subscribe, get){
     }
   }
 
+  function updateSelectedCategoryName( select, selectedCategoryName ) {
+    var
+      selectedCategoryNameDisplay =
+        document.getElementById( select.id + '-text' );
+
+    if ( no( selectedCategoryNameDisplay ) ) {
+      return;
+    }
+    selectedCategoryNameDisplay.innerHTML = selectedCategoryName;
+  }
+
   function displayTotalCategoriesSelected(
     select, totalCategoriesSelected
   ) {
@@ -129,6 +141,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
       if ( isFirstOption ) {
         option.setAttribute("selected", "selected");
+        updateSelectedCategoryName( select, categoryName );
       }
 
       if ( !isFirstOption && totalCategoryAuthorsSelected > 0 ) {
@@ -177,6 +190,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
       if ( !isFirstOption && totalCategoryAuthorsSelected > 0 ) {
         totalCategoriesSelected++;
+      }
+      if ( option.selected ) {
+        updateSelectedCategoryName( select, categoryName );
       }
       hideOptionWithNoAuthorSelected(
         option,
@@ -314,8 +330,12 @@ within("projetmedea.fr", function(publish, subscribe, get){
     }
 
     function resetSelection() {
+      var defaultCategoryName =
+        listItems[LIST_ITEM_DEFAULT_VALUE][LIST_ITEM_NAME];
+
       select.value = LIST_ITEM_DEFAULT_VALUE;
       reduceSelectedOption(select);
+      updateSelectedCategoryName( select, defaultCategoryName );
       // Do not publish an event for each list in case of global reset
     }
 
