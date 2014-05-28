@@ -315,6 +315,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
     function resetSelection() {
       select.value = LIST_ITEM_DEFAULT_VALUE;
+      reduceSelectedOption(select);
       // Do not publish an event for each list in case of global reset
     }
 
