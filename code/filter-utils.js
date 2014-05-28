@@ -44,36 +44,35 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return categoryAuthors.length;
   }
 
-  function getFullText(
+  function setShortAndFullText(
+    option,
     baseText,
     totalCategoryAuthorsSelected,
     totalCategoryAuthors
   ) {
     var
       totalAuthors = get("total-authors"),
-      maxLength = String(totalAuthors).length;
-    return (
+      maxLength = String(totalAuthors).length,
+      shortText,
+      fullText;
+
+    shortText =
+      "(" +
+      totalCategoryAuthorsSelected +
+      "/" +
+      totalCategoryAuthors +
+      ")";
+
+    fullText =
       baseText +
       NBSP +
       "(" +
       padLeft( String(totalCategoryAuthorsSelected), maxLength, NBSP) +
       "/" +
       padLeft( String(totalCategoryAuthors), maxLength, NBSP) +
-      ")"
-    );
-  }
+      ")";
 
-  function setFullText(
-    option,
-    baseText,
-    totalCategoryAuthorsSelected,
-    totalCategoryAuthors
-  ) {
-    var fullText = getFullText(
-      baseText,
-      totalCategoryAuthorsSelected,
-      totalCategoryAuthors
-    );
+    option.setAttribute("data-short-text", shortText);
     option.setAttribute("data-full-text", fullText);
     setOptionText(option, fullText);
   }
@@ -154,10 +153,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
       // pad category name on the left to align extra text on the right
       baseText = padRight(categoryName, maxCategoryNameLength, NBSP);
-      option.setAttribute("data-short-text", categoryName);
       option.setAttribute("data-base-text", baseText);
       option.setAttribute("value", listItem[LIST_ITEM_VALUE]);
-      setFullText(
+      setShortAndFullText(
         option,
         baseText,
         totalCategoryAuthorsSelected,
@@ -199,7 +197,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
         totalCategoryAuthorsSelected
       );
 
-      setFullText(
+      setShortAndFullText(
         option,
         baseText,
         totalCategoryAuthorsSelected,
