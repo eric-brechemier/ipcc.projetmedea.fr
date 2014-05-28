@@ -40,3 +40,7 @@ select {
 h1 {
   margin-bottom: 3em;
 }
+
+#selected-records-count {
+  font-weight: bold;
+}
