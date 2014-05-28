@@ -1,0 +1,3 @@
+[submodule "style/webfonts/Fira"]
+	path = style/webfonts/Fira
+	url = https://github.com/mozilla/Fira.git

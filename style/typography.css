@@ -1,9 +1,13 @@
 body {
-  font-family: "Source Code Pro";
-  font-size: 10px;
-  line-height: 1;
+  font-family: "Fira Sans";
+  font-size: 16px;
+  line-height: 1.4;
   font-weight: normal;
   font-style: normal;
+}
+
+pre, code, data {
+  font-family: "Fira Mono";
 }
 
 h1, h2, h3, h4, h5, h6, input, select, button {
@@ -24,9 +28,9 @@ select {
     fall back: half of browsers (2014: IE, Safari)
     only support system fonts in select lists;
     on a system without these system fonts (Linux...),
-    it is probably safe to use the web font (Firefox, Chrome).
+    it is probably safe to use a web font (Firefox, Chrome).
   */
-  font-family: "Menlo", "Monaco", "Lucida Console", "Source Code Pro";
+  font-family: "Menlo", "Monaco", "Lucida Console", "Fira Mono";
 }
 
 h1 {
