@@ -8,6 +8,7 @@ body {
 
 pre, code, data {
   font-family: "Fira Mono";
+  font-size: 12px;
 }
 
 svg {
