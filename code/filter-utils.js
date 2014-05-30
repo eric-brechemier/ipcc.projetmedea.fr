@@ -22,8 +22,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     LIST_ITEM_DEFAULT_VALUE = this.LIST_ITEM_DEFAULT_VALUE,
     CATEGORY_AUTHORS = this.CATEGORY_AUTHORS,
 
-    // non-breaking space, used in padding
-    NBSP = "\u00A0";
+    NBSP = this.NBSP;
 
   // Get the total number of authors in a category
   // Note: this function's signature must match the signature
