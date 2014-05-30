@@ -1,11 +1,13 @@
 within("projetmedea.fr", function(publish, subscribe, get){
 
   var
+    or = this.or,
     getSelectedOption = this.getSelectedOption,
+    getOptionText = this.getOptionText,
+    adjustSelectWidth = this.adjustSelectWidth,
     groupSelection = document.getElementById('group-selection');
 
-  function updateGroupingCategory(){
-    var selectedOption = getSelectedOption(groupSelection);
+  function updateGroupingCategory( selectedOption ){
     publish('group-by', selectedOption.value);
     publish('visualization-title',
       selectedOption.getAttribute('data-title')
@@ -13,11 +15,13 @@ within("projetmedea.fr", function(publish, subscribe, get){
   }
 
   function whenNewGroupIsSelected() {
-    updateGroupingCategory();
+    var selectedOption = getSelectedOption( groupSelection );
+    adjustSelectWidth( groupSelection, getOptionText( selectedOption ) );
+    updateGroupingCategory( groupSelection );
   }
 
   groupSelection.onchange = whenNewGroupIsSelected;
-  whenNewGroupIsSelected();
+  whenNewGroupIsSelected( getSelectedOption(groupSelection) );
 
   subscribe("group-by", function(groupName){
     publish("categories", get(groupName));
