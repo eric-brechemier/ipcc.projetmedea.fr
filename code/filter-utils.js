@@ -322,9 +322,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
     function resetSelection() {
       var firstItem = listData[1];
+      expandSelectedOption( select );
       select.value = firstItem[LIST_ITEM_VALUE];
+      reduceSelectedOption( select );
       updateSelectedCategoryName( select, firstItem[LIST_ITEM_NAME] );
-      reduceSelectedOption(select);
       // Do not publish an event for each list in case of global reset
     }
 
