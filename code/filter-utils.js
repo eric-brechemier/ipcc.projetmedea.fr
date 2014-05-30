@@ -138,13 +138,13 @@ within("projetmedea.fr", function(publish, subscribe, get){
         updateSelectedCategoryName( select, categoryName );
       }
 
-      if ( !isFirstOption && totalCategoryAuthorsSelected > 0 ) {
-        totalCategoriesSelected++;
-      }
-      if ( totalCategoryAuthorsSelected > 0 ) {
-        showOption(option);
-      } else {
-        hideOption(option);
+      if ( !isFirstOption ) {
+        if ( totalCategoryAuthorsSelected > 0 ) {
+          totalCategoriesSelected++;
+          showOption(option);
+        } else {
+          hideOption(option);
+        }
       }
 
       // pad category name on the left to align extra text on the right
@@ -182,13 +182,13 @@ within("projetmedea.fr", function(publish, subscribe, get){
         totalCategoryAuthors =
           getTotalAuthorsInCategory(category, filterName, filterValue);
 
-      if ( !isFirstOption && totalCategoryAuthorsSelected > 0 ) {
-        totalCategoriesSelected++;
-      }
-      if ( totalCategoryAuthorsSelected > 0 ) {
-        showOption(option);
-      } else {
-        hideOption(option);
+      if ( !isFirstOption ) {
+        if ( totalCategoryAuthorsSelected > 0 ) {
+          totalCategoriesSelected++;
+          showOption(option);
+        } else {
+          hideOption(option);
+        }
       }
 
       if ( option.selected ) {
