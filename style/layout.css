@@ -33,7 +33,7 @@ body {
   overflow-y: auto;
 }
 
-#display-selection {
+.display-selection {
   position: fixed;
   font-size: inherit;
   top: 7em;

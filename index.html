@@ -23,20 +23,18 @@
   </head>
   <body>
     <div class="main-display-area">
-      <div>
-        <select id="display-selection"
-          ><option
-            value="visualization-block"
-            selected="selected"
-          >
-            Visualization
-          </option
-          ><option
-            value="data-block"
-          >
-            Raw Data
-          </option
-        ></select>
+      <div class="display-selection">
+        <button
+          id="show-visualization-hide-data"
+          type="button"
+          class="selected-text"
+          disabled="disabled"
+        >Visualization</button>
+        <br />
+        <button
+          id="show-data-hide-visualization"
+          type="button"
+        >Raw Data</button>
       </div>
       <div id="visualization-block">
         <div id="svg-charts"></div>
@@ -56,6 +54,7 @@
 
         <script src="data/authors.js"></script>
       </div>
+      <script src="code/display-visualization-or-data.js"></script>
     </div>
     <div class="menu-area">
       <script src="code/underplot.js"></script>
@@ -309,7 +308,6 @@
       </form>
       <script src="code/group-by-category.js"></script>
       <script src="code/filter-categories.js"></script>
-      <script src="code/display-visualization-or-data.js"></script>
     </div>
   </body>
 </html>
