@@ -11,7 +11,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
     getTotalAuthorsInCategory = this.getTotalAuthorsInCategory,
 
     AUTHOR_ID = this.AUTHOR_ID,
-    ANY_VALUE = this.LIST_ITEM_DEFAULT_VALUE,
     CATEGORY_NAME = this.CATEGORY_NAME,
     CATEGORY_AUTHORS = this.CATEGORY_AUTHORS;
 
@@ -54,9 +53,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
         forEach(filterValues, function(filterValue) {
           incrementProperty( totalAuthorsByValue, filterValue );
         });
-        if ( filterValues.length > 0 ) {
-          incrementProperty( totalAuthorsByValue, ANY_VALUE );
-        }
       });
     });
 
