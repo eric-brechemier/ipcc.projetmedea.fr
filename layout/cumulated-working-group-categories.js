@@ -32,7 +32,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
                   shape: 'circle',
                   valign: 'bottom',
                   align: 'center',
-                  color: '#FF00FF'
+                  color: '#FF00FF',
+                  ring: true
                 }
               ],
               ["row2",
@@ -41,14 +42,16 @@ within("projetmedea.fr", function(publish, subscribe, get){
                   shape: 'circle',
                   valign: 'middle',
                   align: 'center',
-                  color: '#CCCC00'
+                  color: '#CCCC00',
+                  ring: true
                 },
                 {
                   name: getGroupName('WG1+2+3'),
                   shape: 'circle',
                   valign: 'middle',
                   align: 'center',
-                  color: '#000000'
+                  color: '#000000',
+                  ring: true
                 }
               ],
               ["row3",
@@ -64,7 +67,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
                   shape: 'circle',
                   valign: 'top',
                   align: 'center',
-                  color: '#00FFFF'
+                  color: '#00FFFF',
+                  ring: true
                 }
               ]
             ],
