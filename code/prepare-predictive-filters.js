@@ -8,6 +8,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     getActiveMultiplier = this.getActiveMultiplier,
     getTotalMatchingContributions = this.getTotalMatchingContributions,
 
+    ANY_VALUE = this.LIST_ITEM_DEFAULT_VALUE,
     AUTHOR_CONTRIBUTIONS = this.AUTHOR_CONTRIBUTIONS,
     CONTRIBUTION_CODE_FILTERS = this.CONTRIBUTION_CODE_FILTERS,
     TOTAL_CONTRIBUTIONS_FILTER = this.TOTAL_CONTRIBUTIONS_FILTER,
@@ -50,6 +51,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
       multiplier = Number( match[CAPTURED_MULTIPLIER] );
 
       incrementProperty( filterValuesSet, value, multiplier );
+      incrementProperty( filterValuesSet, ANY_VALUE, multiplier );
     });
 
     forEachProperty(filterValuesSet, function(multiplier, filterValue) {
