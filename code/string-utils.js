@@ -1,6 +1,10 @@
 within("projetmedea.fr", function() {
   var
-    no = this.no;
+    no = this.no,
+    or = this.or,
+
+    // non-breaking space, used in padding
+    NBSP = "\u00A0";
 
   // Repeat a string to reach the given length to produce padding
   // Note 1: an empty string is returned if the given string is empty,
@@ -37,15 +41,18 @@ within("projetmedea.fr", function() {
   // the total number of characters used to define it, not the length
   // or characters which they represent.
   function padLeft( string, length, padding ) {
+    padding = or( padding, NBSP );
     return fillStringLength(padding, length - string.length) + string;
   }
 
   // Pad a string on the right to reach a given length
   // See notes in padLeft, equally relevant but not repeated here.
   function padRight( string, length, padding ) {
+    padding = or( padding, NBSP );
     return string + fillStringLength(padding, length - string.length);
   }
 
+  this.NBSP = NBSP;
   this.padLeft = padLeft;
   this.padRight = padRight;
 });

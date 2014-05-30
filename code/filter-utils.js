@@ -15,20 +15,14 @@ within("projetmedea.fr", function(publish, subscribe, get){
     setOptionText = this.setOptionText,
     showOption = this.showOption,
     hideOption = this.hideOption,
+    adjustSelectWidth = this.adjustSelectWidth,
 
     LIST_ITEM_NAME = this.LIST_ITEM_NAME,
     LIST_ITEM_VALUE = this.LIST_ITEM_VALUE,
     LIST_ITEM_DEFAULT_VALUE = this.LIST_ITEM_DEFAULT_VALUE,
     CATEGORY_AUTHORS = this.CATEGORY_AUTHORS,
 
-    // non-breaking space, used in padding
-    NBSP = "\u00A0",
-
-    // hidden option used to measure the size of an option
-    // with a given text in the same style.
-    // The option shall be alone in a select, within a label
-    // hidden using CSS visibility hidden, not display none.
-    HIDDEN_OPTION_ID = "hidden-filter-option";
+    NBSP = this.NBSP;
 
   // Get the total number of authors in a category
   // Note: this function's signature must match the signature
@@ -59,8 +53,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     shortText =
       totalCategoryAuthorsSelected +
       "/" +
-      totalCategoryAuthors +
-      NBSP;
+      totalCategoryAuthors;
 
     fullText =
       baseText +
@@ -87,16 +80,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
     option.setAttribute("data-short-text", shortText);
     option.setAttribute("data-full-text", fullText);
-  }
-
-  function hideOptionWithNoAuthorSelected(
-    option, totalCategoryAuthorsSelected
-  ) {
-    if ( totalCategoryAuthorsSelected > 0 ) {
-      showOption(option);
-    } else {
-      hideOption(option);
-    }
   }
 
   function updateSelectedCategoryName( select, selectedCategoryName ) {
@@ -155,13 +138,14 @@ within("projetmedea.fr", function(publish, subscribe, get){
         updateSelectedCategoryName( select, categoryName );
       }
 
-      if ( !isFirstOption && totalCategoryAuthorsSelected > 0 ) {
-        totalCategoriesSelected++;
+      if ( !isFirstOption ) {
+        if ( totalCategoryAuthorsSelected > 0 ) {
+          totalCategoriesSelected++;
+          showOption(option);
+        } else {
+          hideOption(option);
+        }
       }
-      hideOptionWithNoAuthorSelected(
-        option,
-        totalCategoryAuthorsSelected
-      );
 
       // pad category name on the left to align extra text on the right
       baseText = padRight(categoryName, maxCategoryNameLength, NBSP);
@@ -198,16 +182,18 @@ within("projetmedea.fr", function(publish, subscribe, get){
         totalCategoryAuthors =
           getTotalAuthorsInCategory(category, filterName, filterValue);
 
-      if ( !isFirstOption && totalCategoryAuthorsSelected > 0 ) {
-        totalCategoriesSelected++;
+      if ( !isFirstOption ) {
+        if ( totalCategoryAuthorsSelected > 0 ) {
+          totalCategoriesSelected++;
+          showOption(option);
+        } else {
+          hideOption(option);
+        }
       }
+
       if ( option.selected ) {
         updateSelectedCategoryName( select, categoryName );
       }
-      hideOptionWithNoAuthorSelected(
-        option,
-        totalCategoryAuthorsSelected
-      );
 
       setShortAndFullText(
         option,
@@ -251,20 +237,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
     publish("filter-selected", filter);
   }
 
-  // measure the clientWidth of a hidden select created for this purpose
-  function getSelectWidth( optionText ) {
-    var hiddenOption = document.getElementById(HIDDEN_OPTION_ID);
-    setOptionText(hiddenOption, optionText);
-    return hiddenOption.parentNode.clientWidth;
-  }
-
   function getSelectedOptionText( selectedOption, size ) {
     return selectedOption.getAttribute("data-"+size+"-text");
-  }
-
-  // adjust the width of the select to match the width of selected option
-  function adjustSelectWidth( select, selectedOptionText ) {
-    select.style.width = getSelectWidth( selectedOptionText ) + "px";
   }
 
   function adjustSelectSize( select, size ) {
@@ -341,9 +315,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
     function resetSelection() {
       var firstItem = listData[1];
+      expandSelectedOption( select );
       select.value = firstItem[LIST_ITEM_VALUE];
+      reduceSelectedOption( select );
       updateSelectedCategoryName( select, firstItem[LIST_ITEM_NAME] );
-      reduceSelectedOption(select);
       // Do not publish an event for each list in case of global reset
     }
 

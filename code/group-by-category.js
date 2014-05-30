@@ -1,19 +1,31 @@
 within("projetmedea.fr", function(publish, subscribe, get){
 
   var
+    or = this.or,
     getSelectedOption = this.getSelectedOption,
-    groupSelection = document.getElementById('group-selection');
+    getOptionText = this.getOptionText,
+    adjustSelectWidth = this.adjustSelectWidth,
+    groupSelection = document.getElementById('group-selection'),
+    groupSelectionDisplay = document.getElementById('group-selection-text');
 
-  function updateGroupingCategory(){
-    var selectedOption = getSelectedOption(groupSelection);
+  function updateGroupingCategory( selectedOption ){
     publish('group-by', selectedOption.value);
     publish('visualization-title',
       selectedOption.getAttribute('data-title')
     );
   }
 
-  groupSelection.onchange = updateGroupingCategory;
-  updateGroupingCategory();
+  function whenNewGroupIsSelected() {
+    var
+      selectedOption = getSelectedOption( groupSelection ),
+      selectedText = getOptionText( selectedOption );
+    adjustSelectWidth( groupSelection, selectedText );
+    groupSelectionDisplay.innerHTML = selectedText;
+    updateGroupingCategory( groupSelection );
+  }
+
+  groupSelection.onchange = whenNewGroupIsSelected;
+  whenNewGroupIsSelected( getSelectedOption(groupSelection) );
 
   subscribe("group-by", function(groupName){
     publish("categories", get(groupName));
