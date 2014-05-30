@@ -13,7 +13,24 @@ body {
   width: 24em;
   height: 70%;
   white-space: nowrap;
-  overflow-y: scroll;
+  /*
+    Warning:
+    overflow-x 'visible' becomes 'auto' when overflow-y is 'scroll'
+
+    Reference:
+
+       "The computed values of ‘overflow-x’ and ‘overflow-y’
+        are the same as their specified values, except that
+        some combinations with ‘visible’ are not possible:
+        if one is specified as ‘visible’ and the other is ‘scroll’
+        or ‘auto’, then ‘visible’ is set to ‘auto’. The computed value
+        of ‘overflow’ is equal to the computed value of ‘overflow-x’
+        if ‘overflow-y’ is the same; otherwise it is the pair of
+        computed values of ‘overflow-x’ and ‘overflow-y’."
+        -- http://www.w3.org/TR/css3-box/#overflow-x
+  */
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 #display-selection {
