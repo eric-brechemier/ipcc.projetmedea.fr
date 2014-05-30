@@ -5,7 +5,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
     getSelectedOption = this.getSelectedOption,
     getOptionText = this.getOptionText,
     adjustSelectWidth = this.adjustSelectWidth,
-    groupSelection = document.getElementById('group-selection');
+    groupSelection = document.getElementById('group-selection'),
+    groupSelectionDisplay = document.getElementById('group-selection-text');
 
   function updateGroupingCategory( selectedOption ){
     publish('group-by', selectedOption.value);
@@ -15,8 +16,11 @@ within("projetmedea.fr", function(publish, subscribe, get){
   }
 
   function whenNewGroupIsSelected() {
-    var selectedOption = getSelectedOption( groupSelection );
-    adjustSelectWidth( groupSelection, getOptionText( selectedOption ) );
+    var
+      selectedOption = getSelectedOption( groupSelection ),
+      selectedText = getOptionText( selectedOption );
+    adjustSelectWidth( groupSelection, selectedText );
+    groupSelectionDisplay.innerHTML = selectedText;
     updateGroupingCategory( groupSelection );
   }
 
