@@ -1,13 +1,18 @@
 body {
   font-family: "Fira Sans";
-  font-size: 16px;
-  line-height: 1.4;
-  font-weight: normal;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 300;
   font-style: normal;
 }
 
 pre, code, data {
   font-family: "Fira Mono";
+  font-size: 12px;
+}
+
+svg {
+  font-size: 12px;
 }
 
 h1, h2, h3, h4, h5, h6, input, select, button {
@@ -33,6 +38,11 @@ select {
   font-family: "Menlo", "Monaco", "Lucida Console", "Fira Mono";
 }
 
-h1 {
-  margin-bottom: 3em;
+h2 {
+  margin-top: 1em;
+  text-decoration: underline;
+}
+
+#selected-records-count {
+  font-weight: bold;
 }

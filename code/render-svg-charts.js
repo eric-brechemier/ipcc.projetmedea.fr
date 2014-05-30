@@ -30,7 +30,12 @@ within("projetmedea.fr", function(publish, subscribe){
 
   function drawShape(svg, shape){
     var g = svg.append("g");
-    g.attr("fill", shape.color);
+    if ( shape.ring ) {
+      g.attr("stroke", shape.color);
+      g.attr("fill", "transparent");
+    } else {
+      g.attr("fill", shape.color);
+    }
     g.append("title").text(shape.name);
     forEach(shape.tiles, function(tile){
       var

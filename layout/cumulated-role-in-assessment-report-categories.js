@@ -19,7 +19,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
                   shape: 'circle',
                   valign: 'middle',
                   align: 'center',
-                  color: '#FF0000'
+                  color: '#B40097'
                 }
               ]
             ]
@@ -33,21 +33,22 @@ within("projetmedea.fr", function(publish, subscribe, get){
                   shape: 'circle',
                   valign: 'middle',
                   align: 'center',
-                  color: '#FF00FF'
+                  color: '#C0F400'
                 },
                 {
                   name: getGroupName('Multiple Roles'),
                   shape: 'circle',
                   valign: 'middle',
                   align: 'center',
-                  color: '#000000'
+                  color: '#FF0000',
+                  ring: true
                 },
                 {
                   name: getGroupName('Review Editor'),
                   shape: 'circle',
                   valign: 'middle',
                   align: 'center',
-                  color: '#00FF00'
+                  color: '#0D58A6'
                 }
               ]
             ]
@@ -61,7 +62,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
                   shape: 'circle',
                   valign: 'middle',
                   align: 'center',
-                  color: '#0000FF'
+                  color: '#FF9900'
                 }
               ]
             ]

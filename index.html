@@ -13,25 +13,28 @@
     <script src="code/utils.js"></script>
     <script src="code/string-utils.js"></script>
     <script src="code/dom-utils.js"></script>
+    <script src="code/forms-utils.js"></script>
+    <script src="code/select-utils.js"></script>
     <script src="code/csv-utils.js"></script>
     <script src="code/layout-utils.js"></script>
-    <script src="code/forms-utils.js"></script>
     <script src="code/interactivity-utils.js"></script>
     <script src="code/filter-constants.js"></script>
     <script src="code/filter-utils.js"></script>
   </head>
   <body>
     <div class="main-display-area">
-      <div id="authors-selected">
-        <span id="selected-records-count"></span>
-        /
-        <span id="total-records-count"></span>
-        Authors
-        (<span id="selected-records-percentage"></span>%)
-        <script src="code/count-total-authors.js"></script>
-        <script src="code/display-total-authors.js"></script>
-        <script src="code/count-total-authors-selected.js"></script>
-        <script src="code/display-total-authors-selected.js"></script>
+      <div class="display-selection">
+        <button
+          id="show-visualization-hide-data"
+          type="button"
+          class="selected-text"
+          disabled="disabled"
+        >Visualization</button>
+        <br />
+        <button
+          id="show-data-hide-visualization"
+          type="button"
+        >Raw Data</button>
       </div>
       <div id="visualization-block">
         <div id="svg-charts"></div>
@@ -40,17 +43,6 @@
         <script src="data/assessment-report-years.js"></script>
         <script src="code/publish-assessment-report-names.js"></script>
         <script src="code/publish-assessment-report-years.js"></script>
-
-        <h3>SVG Export</h3>
-        <div id="svg-code-block" class="hidden">
-          <button id="hide-svg-code-block">Hide SVG Code ▼</button>
-          <pre id="svg-output"></pre>
-          <script src="code/export-svg.js"></script>
-        </div>
-        <div id="svg-code-block-presenter">
-          <button id="show-svg-code-block">Show SVG Code ▲</button>
-        </div>
-        <script src="code/show-hide-svg-code-block.js"></script>
       </div>
       <div id="data-block" class="hidden">
         <pre id="selected-authors-csv-output"></pre>
@@ -62,16 +54,30 @@
 
         <script src="data/authors.js"></script>
       </div>
+      <script src="code/display-visualization-or-data.js"></script>
     </div>
     <div class="menu-area">
-      <h1 id="visualization-title"></h1>
-      <script src="code/update-visualization-title.js"></script>
       <script src="code/underplot.js"></script>
       <script src="code/layout.js"></script>
       <script src="code/plot.js"></script>
 
-      <h2>I wish to select authors: <a id="reset-filters" class="hidden"
-        href="#reset-filters">reset</a></h2>
+      <div id="authors-selected">
+        <span id="selected-records-count"></span>
+        /
+        <span id="total-records-count"></span>
+        Authors
+        (<span id="selected-records-percentage"></span>%)
+        <script src="code/count-total-authors.js"></script>
+        <script src="code/display-total-authors.js"></script>
+        <script src="code/count-total-authors-selected.js"></script>
+        <script src="code/display-total-authors-selected.js"></script>
+        <span id="reset-filters-block" class="hidden">
+          |
+          <a id="reset-filters" href="#reset-filters">reset</a>
+        </span>
+      </div>
+
+      <h2>I wish to select authors:</h2>
       <script src="code/reset-filters.js"></script>
       <script src="code/collect-active-filters.js"></script>
       <script src="code/combine-active-filters.js"></script>
@@ -87,6 +93,10 @@
           </label>
           <label>
             who contributed to
+            <span
+              id="assessment-report-filter-text"
+              class="selected-text"
+            >Any AR</span>
             <select
               id="assessment-report-filter"
               name="assessment-report-categories"
@@ -102,6 +112,10 @@
           <br />
           <label>
             in
+            <span
+              id="working-group-filter-text"
+              class="selected-text"
+            >Any WG</span>
             <select
               id="working-group-filter"
               name="working-group-categories"
@@ -117,6 +131,10 @@
           <br />
           <label>
             as
+            <span
+              id="role-filter-text"
+              class="selected-text"
+            >Any Role</span>
             <select
               id="role-filter"
               name="role-categories"
@@ -132,6 +150,10 @@
           <br />
           <label>
             while working in
+            <span
+              id="country-filter-text"
+              class="selected-text"
+            >Any Country</span>
             <select
               id="country-filter"
               name="country-categories"
@@ -147,6 +169,10 @@
           <br />
           <label>
             in
+            <span
+              id="institution-type-filter-text"
+              class="selected-text"
+            >Any Institution Type</span>
             <select
               id="institution-type-filter"
               name="institution-type-categories"
@@ -154,7 +180,7 @@
             ><span
               id="institution-type-filter-total"
               class="total-categories"
-            ></span>,
+            ></span>
           </label>
           <script src="data/institution-type-list.js"></script>
           <script src="data/institution-type-categories.js"></script>
@@ -162,6 +188,10 @@
           <br />
           <label>
             the
+            <span
+              id="institution-filter-text"
+              class="selected-text"
+            >Any Institution</span>
             <select
               id="institution-filter"
               name="institution-categories"
@@ -169,7 +199,7 @@
             ><span
               id="institution-filter-total"
               class="total-categories"
-            ></span>,
+            ></span>
           </label>
           <script src="data/institution-list.js"></script>
           <script src="data/institution-categories.js"></script>
@@ -177,6 +207,10 @@
           <br />
           <label>
             writing
+            <span
+              id="total-contributions-filter-text"
+              class="selected-text"
+            >1 contribution</span>
             <select
               id="total-contributions-filter"
               name="total-contributions-categories"
@@ -192,7 +226,14 @@
       <h2>I wish to group authors:</h2>
       <form id="groups">
         <fieldset>
-          <select id="group-selection" name="group-by">
+          <span
+            id="group-selection-text"
+            class="selected-text"
+          >by Working Group (WG)</span>
+          <select
+            id="group-selection"
+            name="group-by"
+          >
             <option
               value="cumulated-working-group-categories"
               data-title="Working Groups"
@@ -263,25 +304,10 @@
           <!--script src="data/institution-type-categories.js"></script-->
           <script src="data/cumulated-working-group-in-institution-type-categories.js"></script>
           <script src="layout/cumulated-working-group-in-institution-type-categories.js"></script>
-          <br />
-          <select id="display-selection"
-            ><option
-              value="visualization-block"
-              selected="selected"
-            >
-              in a Visualization
-            </option
-            ><option
-              value="data-block"
-            >
-              as Raw Data
-            </option
-          ></select>
         </fieldset>
       </form>
       <script src="code/group-by-category.js"></script>
       <script src="code/filter-categories.js"></script>
-      <script src="code/display-visualization-or-data.js"></script>
     </div>
   </body>
 </html>

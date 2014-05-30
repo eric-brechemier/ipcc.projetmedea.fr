@@ -26,6 +26,14 @@ within("projetmedea.fr", function() {
     return selectedOption;
   }
 
+  function getOptionText( option ) {
+    var textNode = option.firstChild;
+    if ( no( textNode ) ) {
+      return "";
+    }
+    return textNode.nodeValue;
+  }
+
   function setOptionText( option, text ) {
     var textNode = option.firstChild;
     if ( no(textNode) ) {
@@ -51,6 +59,7 @@ within("projetmedea.fr", function() {
 
   this.preventFormSubmission = preventFormSubmission;
   this.getSelectedOption = getSelectedOption;
+  this.getOptionText = getOptionText;
   this.setOptionText = setOptionText;
   this.hideOption = hideOption;
   this.showOption = showOption;

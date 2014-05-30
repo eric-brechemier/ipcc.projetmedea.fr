@@ -11,23 +11,18 @@ within("projetmedea.fr", function(publish, subscribe, get){
     padLeft = this.padLeft,
     padRight = this.padRight,
     getSelectedOption = this.getSelectedOption,
+    getOptionText = this.getOptionText,
     setOptionText = this.setOptionText,
     showOption = this.showOption,
     hideOption = this.hideOption,
+    adjustSelectWidth = this.adjustSelectWidth,
 
     LIST_ITEM_NAME = this.LIST_ITEM_NAME,
     LIST_ITEM_VALUE = this.LIST_ITEM_VALUE,
     LIST_ITEM_DEFAULT_VALUE = this.LIST_ITEM_DEFAULT_VALUE,
     CATEGORY_AUTHORS = this.CATEGORY_AUTHORS,
 
-    // non-breaking space, used in padding
-    NBSP = "\u00A0",
-
-    // hidden option used to measure the size of an option
-    // with a given text in the same style.
-    // The option shall be alone in a select, within a label
-    // hidden using CSS visibility hidden, not display none.
-    HIDDEN_OPTION_ID = "hidden-filter-option";
+    NBSP = this.NBSP;
 
   // Get the total number of authors in a category
   // Note: this function's signature must match the signature
@@ -43,48 +38,59 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return categoryAuthors.length;
   }
 
-  function getFullText(
+  function setShortAndFullText(
+    option,
     baseText,
     totalCategoryAuthorsSelected,
     totalCategoryAuthors
   ) {
     var
       totalAuthors = get("total-authors"),
-      maxLength = String(totalAuthors).length;
-    return (
+      maxLength = String(totalAuthors).length,
+      shortText,
+      fullText;
+
+    shortText =
+      totalCategoryAuthorsSelected +
+      "/" +
+      totalCategoryAuthors;
+
+    fullText =
       baseText +
       NBSP +
-      "(" +
       padLeft( String(totalCategoryAuthorsSelected), maxLength, NBSP) +
+      NBSP +
       "/" +
-      padLeft( String(totalCategoryAuthors), maxLength, NBSP) +
-      ")"
-    );
-  }
+      NBSP +
+      padLeft( String(totalCategoryAuthors), maxLength, NBSP);
 
-  function setFullText(
-    option,
-    baseText,
-    totalCategoryAuthorsSelected,
-    totalCategoryAuthors
-  ) {
-    var fullText = getFullText(
-      baseText,
-      totalCategoryAuthorsSelected,
-      totalCategoryAuthors
-    );
-    option.setAttribute("data-full-text", fullText);
-    setOptionText(option, fullText);
-  }
-
-  function hideOptionWithNoAuthorSelected(
-    option, totalCategoryAuthorsSelected
-  ) {
-    if ( totalCategoryAuthorsSelected > 0 ) {
-      showOption(option);
+    if ( option.selected ) {
+      // check whether short text is currently displayed
+      if (
+        getOptionText( option ) ===
+        option.getAttribute('data-short-text')
+      ) {
+        setOptionText(option, shortText);
+      } else {
+        setOptionText(option, fullText);
+      }
     } else {
-      hideOption(option);
+      setOptionText(option, fullText);
     }
+
+    option.setAttribute("data-short-text", shortText);
+    option.setAttribute("data-full-text", fullText);
+  }
+
+  function updateSelectedCategoryName( select, selectedCategoryName ) {
+    var
+      selectedCategoryNameDisplay =
+        document.getElementById( select.id + '-text' );
+
+    if ( no( selectedCategoryNameDisplay ) ) {
+      return;
+    }
+    selectedCategoryNameDisplay.innerHTML = selectedCategoryName;
   }
 
   function displayTotalCategoriesSelected(
@@ -129,22 +135,23 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
       if ( isFirstOption ) {
         option.setAttribute("selected", "selected");
+        updateSelectedCategoryName( select, categoryName );
       }
 
-      if ( !isFirstOption && totalCategoryAuthorsSelected > 0 ) {
-        totalCategoriesSelected++;
+      if ( !isFirstOption ) {
+        if ( totalCategoryAuthorsSelected > 0 ) {
+          totalCategoriesSelected++;
+          showOption(option);
+        } else {
+          hideOption(option);
+        }
       }
-      hideOptionWithNoAuthorSelected(
-        option,
-        totalCategoryAuthorsSelected
-      );
 
       // pad category name on the left to align extra text on the right
       baseText = padRight(categoryName, maxCategoryNameLength, NBSP);
-      option.setAttribute("data-short-text", categoryName);
       option.setAttribute("data-base-text", baseText);
       option.setAttribute("value", listItem[LIST_ITEM_VALUE]);
-      setFullText(
+      setShortAndFullText(
         option,
         baseText,
         totalCategoryAuthorsSelected,
@@ -175,15 +182,20 @@ within("projetmedea.fr", function(publish, subscribe, get){
         totalCategoryAuthors =
           getTotalAuthorsInCategory(category, filterName, filterValue);
 
-      if ( !isFirstOption && totalCategoryAuthorsSelected > 0 ) {
-        totalCategoriesSelected++;
+      if ( !isFirstOption ) {
+        if ( totalCategoryAuthorsSelected > 0 ) {
+          totalCategoriesSelected++;
+          showOption(option);
+        } else {
+          hideOption(option);
+        }
       }
-      hideOptionWithNoAuthorSelected(
-        option,
-        totalCategoryAuthorsSelected
-      );
 
-      setFullText(
+      if ( option.selected ) {
+        updateSelectedCategoryName( select, categoryName );
+      }
+
+      setShortAndFullText(
         option,
         baseText,
         totalCategoryAuthorsSelected,
@@ -225,20 +237,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
     publish("filter-selected", filter);
   }
 
-  // measure the clientWidth of a hidden select created for this purpose
-  function getSelectWidth( optionText ) {
-    var hiddenOption = document.getElementById(HIDDEN_OPTION_ID);
-    setOptionText(hiddenOption, optionText);
-    return hiddenOption.parentNode.clientWidth;
-  }
-
   function getSelectedOptionText( selectedOption, size ) {
     return selectedOption.getAttribute("data-"+size+"-text");
-  }
-
-  // adjust the width of the select to match the width of selected option
-  function adjustSelectWidth( select, selectedOptionText ) {
-    select.style.width = getSelectWidth( selectedOptionText ) + "px";
   }
 
   function adjustSelectSize( select, size ) {
@@ -314,7 +314,11 @@ within("projetmedea.fr", function(publish, subscribe, get){
     }
 
     function resetSelection() {
-      select.value = LIST_ITEM_DEFAULT_VALUE;
+      var firstItem = listData[1];
+      expandSelectedOption( select );
+      select.value = firstItem[LIST_ITEM_VALUE];
+      reduceSelectedOption( select );
+      updateSelectedCategoryName( select, firstItem[LIST_ITEM_NAME] );
       // Do not publish an event for each list in case of global reset
     }
 
