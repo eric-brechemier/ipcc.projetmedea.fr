@@ -1,9 +1,6 @@
 within("projetmedea.fr", function() {
   var
-    or = this.or,
-    getOptionText = this.getOptionText,
     setOptionText = this.setOptionText,
-    getSelectedOption = this.getSelectedOption,
 
     // hidden option used to measure the size of an option
     // with a given text in the same style.
@@ -20,10 +17,6 @@ within("projetmedea.fr", function() {
 
   // adjust the width of the select to match the width of selected option
   function adjustSelectWidth( select, selectedOptionText ) {
-    selectedOptionText = or(
-      selectedOptionText,
-      getOptionText( getSelectedOption( select ) )
-    );
     select.style.width = getSelectWidth( selectedOptionText ) + "px";
   }
 
