@@ -12,8 +12,12 @@ within("projetmedea.fr", function(publish, subscribe, get){
     );
   }
 
-  groupSelection.onchange = updateGroupingCategory;
-  updateGroupingCategory();
+  function whenNewGroupIsSelected() {
+    updateGroupingCategory();
+  }
+
+  groupSelection.onchange = whenNewGroupIsSelected;
+  whenNewGroupIsSelected();
 
   subscribe("group-by", function(groupName){
     publish("categories", get(groupName));
