@@ -25,14 +25,14 @@ within("projetmedea.fr", function(publish, subscribe, get){
                   shape: 'circle',
                   valign: 'bottom',
                   align: 'right',
-                  color: '#FF0000'
+                  color: '#3CC'
                 },
                 {
                   name: getGroupName('WG1+3'),
                   shape: 'circle',
                   valign: 'bottom',
                   align: 'center',
-                  color: '#FF00FF',
+                  color: '#3C3',
                   ring: true
                 }
               ],
@@ -42,7 +42,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
                   shape: 'circle',
                   valign: 'middle',
                   align: 'center',
-                  color: '#CCCC00',
+                  color: '#33C',
                   ring: true
                 },
                 {
@@ -50,7 +50,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
                   shape: 'circle',
                   valign: 'middle',
                   align: 'center',
-                  color: '#000000',
+                  color: '#FF0000',
                   ring: true
                 }
               ],
@@ -60,14 +60,14 @@ within("projetmedea.fr", function(publish, subscribe, get){
                   shape: 'circle',
                   valign: 'top',
                   align: 'right',
-                  color: '#00FF00'
+                  color: '#C3C'
                 },
                 {
                   name: getGroupName('WG2+3'),
                   shape: 'circle',
                   valign: 'top',
                   align: 'center',
-                  color: '#00FFFF',
+                  color: '#C33',
                   ring: true
                 }
               ]
@@ -80,7 +80,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
                   shape: 'circle',
                   valign: 'middle',
                   align: 'left',
-                  color: '#0000FF'
+                  color: '#CC3'
                 }
               ]
             ]
