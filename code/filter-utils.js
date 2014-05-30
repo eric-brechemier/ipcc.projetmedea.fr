@@ -53,8 +53,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     shortText =
       totalCategoryAuthorsSelected +
       "/" +
-      totalCategoryAuthors +
-      NBSP;
+      totalCategoryAuthors;
 
     fullText =
       baseText +

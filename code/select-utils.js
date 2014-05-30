@@ -2,6 +2,8 @@ within("projetmedea.fr", function() {
   var
     setOptionText = this.setOptionText,
 
+    NBSP = this.NBSP,
+
     // hidden option used to measure the size of an option
     // with a given text in the same style.
     // The option shall be alone in a select, within a label
@@ -11,7 +13,9 @@ within("projetmedea.fr", function() {
   // measure the clientWidth of a hidden select created for this purpose
   function getSelectWidth( optionText ) {
     var hiddenOption = document.getElementById(HIDDEN_OPTION_ID);
-    setOptionText(hiddenOption, optionText);
+    // add an extra NBSP after the text to measure
+    // to leave one space of padding before the arrow
+    setOptionText(hiddenOption, optionText + NBSP);
     return hiddenOption.parentNode.clientWidth;
   }
 
