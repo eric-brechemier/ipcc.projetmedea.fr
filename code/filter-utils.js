@@ -82,16 +82,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
     option.setAttribute("data-full-text", fullText);
   }
 
-  function hideOptionWithNoAuthorSelected(
-    option, totalCategoryAuthorsSelected
-  ) {
-    if ( totalCategoryAuthorsSelected > 0 ) {
-      showOption(option);
-    } else {
-      hideOption(option);
-    }
-  }
-
   function updateSelectedCategoryName( select, selectedCategoryName ) {
     var
       selectedCategoryNameDisplay =
@@ -151,10 +141,11 @@ within("projetmedea.fr", function(publish, subscribe, get){
       if ( !isFirstOption && totalCategoryAuthorsSelected > 0 ) {
         totalCategoriesSelected++;
       }
-      hideOptionWithNoAuthorSelected(
-        option,
-        totalCategoryAuthorsSelected
-      );
+      if ( totalCategoryAuthorsSelected > 0 ) {
+        showOption(option);
+      } else {
+        hideOption(option);
+      }
 
       // pad category name on the left to align extra text on the right
       baseText = padRight(categoryName, maxCategoryNameLength, NBSP);
@@ -194,13 +185,15 @@ within("projetmedea.fr", function(publish, subscribe, get){
       if ( !isFirstOption && totalCategoryAuthorsSelected > 0 ) {
         totalCategoriesSelected++;
       }
+      if ( totalCategoryAuthorsSelected > 0 ) {
+        showOption(option);
+      } else {
+        hideOption(option);
+      }
+
       if ( option.selected ) {
         updateSelectedCategoryName( select, categoryName );
       }
-      hideOptionWithNoAuthorSelected(
-        option,
-        totalCategoryAuthorsSelected
-      );
 
       setShortAndFullText(
         option,
