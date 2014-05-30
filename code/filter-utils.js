@@ -7,7 +7,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
     reduce = this.reduce,
     alwaysTrue = this.alwaysTrue,
     no = this.no,
-    or = this.or,
     max = this.max,
     padLeft = this.padLeft,
     padRight = this.padRight,
@@ -16,6 +15,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     setOptionText = this.setOptionText,
     showOption = this.showOption,
     hideOption = this.hideOption,
+    adjustSelectWidth = this.adjustSelectWidth,
 
     LIST_ITEM_NAME = this.LIST_ITEM_NAME,
     LIST_ITEM_VALUE = this.LIST_ITEM_VALUE,
@@ -23,13 +23,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     CATEGORY_AUTHORS = this.CATEGORY_AUTHORS,
 
     // non-breaking space, used in padding
-    NBSP = "\u00A0",
-
-    // hidden option used to measure the size of an option
-    // with a given text in the same style.
-    // The option shall be alone in a select, within a label
-    // hidden using CSS visibility hidden, not display none.
-    HIDDEN_OPTION_ID = "hidden-filter-option";
+    NBSP = "\u00A0";
 
   // Get the total number of authors in a category
   // Note: this function's signature must match the signature
@@ -252,24 +246,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
     publish("filter-selected", filter);
   }
 
-  // measure the clientWidth of a hidden select created for this purpose
-  function getSelectWidth( optionText ) {
-    var hiddenOption = document.getElementById(HIDDEN_OPTION_ID);
-    setOptionText(hiddenOption, optionText);
-    return hiddenOption.parentNode.clientWidth;
-  }
-
   function getSelectedOptionText( selectedOption, size ) {
     return selectedOption.getAttribute("data-"+size+"-text");
-  }
-
-  // adjust the width of the select to match the width of selected option
-  function adjustSelectWidth( select, selectedOptionText ) {
-    selectedOptionText = or(
-      selectedOptionText,
-      getOptionText( getSelectedOption( select ) )
-    );
-    select.style.width = getSelectWidth( selectedOptionText ) + "px";
   }
 
   function adjustSelectSize( select, size ) {
