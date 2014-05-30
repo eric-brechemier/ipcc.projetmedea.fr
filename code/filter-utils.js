@@ -7,6 +7,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     reduce = this.reduce,
     alwaysTrue = this.alwaysTrue,
     no = this.no,
+    or = this.or,
     max = this.max,
     padLeft = this.padLeft,
     padRight = this.padRight,
@@ -264,6 +265,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
   // adjust the width of the select to match the width of selected option
   function adjustSelectWidth( select, selectedOptionText ) {
+    selectedOptionText = or(
+      selectedOptionText,
+      getOptionText( getSelectedOption( select ) )
+    );
     select.style.width = getSelectWidth( selectedOptionText ) + "px";
   }
 
