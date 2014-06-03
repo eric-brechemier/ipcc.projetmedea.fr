@@ -5,8 +5,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
   publish("layout/cumulated-working-group-in-country-group-categories",function(){
     var
-      countryGroups = get("country-group-categories"),
-      subtitle = "";
+      countryGroups = get("country-group-categories");
 
     return [
       ["charts"],
@@ -18,7 +17,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
         return getWorkingGroupLayout(
           countryGroupName,
-          subtitle,
           getGroupName
         );
       })
