@@ -5,6 +5,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     forEach = this.forEach,
     map = this.map,
     max = this.max,
+    percentage = this.percentage,
     warn = this.warn,
 
     FILTERED_CATEGORY_NAME = 0,
@@ -190,6 +191,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     var
       category = get("group-by"),
       layout = get("layout/"+category)(),
+      totalAuthors = get("total-authors"),
       charts,
       chartsAndTotalAuthors = [],
       sortedCharts;
@@ -210,8 +212,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
       if ( totalAuthorsInChart > 0 ) {
         chart[ CHART_HEADER ][ CHART_HEADER_SUBHEADING ] =
-          // TODO: replace with totalAuthorsInChart / totalAuthors (percentageAuthors%)
-          totalAuthorsInChart + ' Authors';
+          totalAuthorsInChart + ' / ' + totalAuthors +
+          ' (' + percentage( totalAuthorsInChart, totalAuthors ) + '%)';
         chartsAndTotalAuthors.push({
           chart: chart,
           totalAuthors: totalAuthorsInChart
