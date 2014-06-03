@@ -2,3 +2,13 @@ svg {
   margin-right: 2em;
   margin-bottom: 2em;
 }
+
+/* Display only one chart per line for the following types of charts */
+.country-group-chart,
+.cumulated-working-group-in-assessment-report-chart,
+.cumulated-role-in-assessment-report-chart,
+.cumulated-working-group-in-country-group-chart,
+.cumulated-role-in-country-group-chart,
+.cumulated-working-group-in-institution-type-chart {
+  display: block;
+}
