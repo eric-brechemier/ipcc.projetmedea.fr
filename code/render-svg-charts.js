@@ -1,4 +1,4 @@
-within("projetmedea.fr", function(publish, subscribe){
+within("projetmedea.fr", function(publish, subscribe, get){
 
   var
     forEach = this.forEach,
@@ -46,6 +46,12 @@ within("projetmedea.fr", function(publish, subscribe){
       circle.attr("cx", centerLeft);
       circle.attr("cy", centerTop);
     });
+  }
+
+  function getChartCssClasses() {
+    var groupName = get( 'group-by' );
+    // replace '-categories' suffix with '-chart'
+    return groupName.replace( /-categories$/, '-chart' );
   }
 
   function renderChart(chart){
@@ -107,6 +113,7 @@ within("projetmedea.fr", function(publish, subscribe){
     subheadingBaselineY = headingBaselineY + CHART_SUBHEADING_LINE_HEIGHT;
     subheading.attr("y", subheadingBaselineY);
 
+    svg.attr("class", getChartCssClasses( chart ) );
     svg.attr("width", width);
     svg.attr("height", height);
 
@@ -114,7 +121,6 @@ within("projetmedea.fr", function(publish, subscribe){
     background.attr("height", height);
     background.attr("fill", CHART_BACKGROUND_COLOR);
 
-    // TODO: keep the chart centered in the larger width
     forEach(chart.shapes, function(shape){
       drawShape(chartGroup, shape);
     });
