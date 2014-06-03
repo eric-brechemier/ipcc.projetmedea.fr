@@ -94,7 +94,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     var
       years = or(get("assessment-reports/years"), []),
       allYears = years.join(YEAR_SEPARATOR),
-      title = 'All AR (' + allYears + ')';
+      title = 'Any of All AR (' + allYears + ')';
     return getWorkingGroupLayout( title );
   });
 
