@@ -6,10 +6,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
     // separator between years in subheading of the chart
     YEAR_SEPARATOR = " - ";
 
-  function getWorkingGroupLayout(title, subtitle, getGroupName) {
+  function getWorkingGroupLayout(title, getGroupName) {
     getGroupName = or( getGroupName, identity );
     return [
-      ["chart","width",title,subtitle],
+      ["chart","width",title,"subheading"],
       ["height",
         [
           ["table-layout","column1+2","column3"],
@@ -93,8 +93,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
   publish("layout/cumulated-working-group-categories",function(){
     var
       years = or(get("assessment-reports/years"), []),
-      allYears = years.join(YEAR_SEPARATOR);
-    return getWorkingGroupLayout("All AR",allYears);
+      allYears = years.join(YEAR_SEPARATOR),
+      title = 'All AR (' + allYears + ')';
+    return getWorkingGroupLayout( title );
   });
 
   this.getWorkingGroupLayout = getWorkingGroupLayout;

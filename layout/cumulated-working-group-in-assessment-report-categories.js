@@ -12,13 +12,14 @@ within("projetmedea.fr", function(publish, subscribe, get){
       ["charts"],
       map(assessmentReports, function(ar,arPosition){
         var
-          year = assessmentReportYears[arPosition];
+          year = assessmentReportYears[arPosition],
+          title = ar + ' (' + year + ')';
 
         function getGroupName( workingGroupName ) {
           return ar + ' ' + workingGroupName;
         }
 
-        return getWorkingGroupLayout(ar, year, getGroupName);
+        return getWorkingGroupLayout(title, getGroupName);
       })
     ];
   });

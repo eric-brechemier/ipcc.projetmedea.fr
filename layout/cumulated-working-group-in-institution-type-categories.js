@@ -7,8 +7,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
   publish("layout/cumulated-working-group-in-institution-type-categories",function(){
     var
-      institutionTypes = get("institution-type-categories"),
-      subtitle = "";
+      institutionTypes = get("institution-type-categories");
 
     return [
       ["charts"],
@@ -20,7 +19,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
         return getWorkingGroupLayout(
           institutionTypeName,
-          subtitle,
           getGroupName
         );
       })

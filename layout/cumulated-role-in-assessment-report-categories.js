@@ -3,10 +3,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
     map = this.map,
     or = this.or;
 
-  function getRoleLayout(getGroupName, title, subtitle) {
-    subtitle = or( subtitle, "" );
+  function getRoleLayout(getGroupName, title) {
     return [
-      ["chart","width",title,subtitle],
+      ["chart","width",title,"subheading"],
       ["height",
         [
           ["table-layout","column1+2+3"],
@@ -81,13 +80,14 @@ within("projetmedea.fr", function(publish, subscribe, get){
       ["charts"],
       map(assessmentReports, function(ar,arPosition){
         var
-          year = assessmentReportYears[arPosition];
+          year = assessmentReportYears[arPosition],
+          title = ar + ' (' + year + ')';
 
         function getGroupName( roleName ) {
           return ar + ' - ' + roleName;
         }
 
-        return getRoleLayout(getGroupName, ar, year);
+        return getRoleLayout(getGroupName, title);
       })
     ];
   });
