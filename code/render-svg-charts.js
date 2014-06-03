@@ -70,13 +70,15 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
   function getChartCssClasses() {
     var groupName = get( 'group-by' );
-    // replace '-categories' suffix with '-chart'
-    return groupName.replace( /-categories$/, '-chart' );
+    return "chart-box " +
+      // replace '-categories' suffix with '-chart'
+      groupName.replace( /-categories$/, '-chart' );
   }
 
   function renderChart(chart){
     var
-      svg = d3.select(chartsBox).append("svg"),
+      chartBox = d3.select(chartsBox).append("div"),
+      svg = chartBox.append("svg"),
       background = svg.append("rect"),
       chartGroup = svg.append("g"),
       heading = svg.append("text"),
@@ -133,7 +135,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
     subheadingBaselineY = headingBaselineY + CHART_SUBHEADING_LINE_HEIGHT;
     subheading.attr("y", subheadingBaselineY);
 
-    svg.attr("class", getChartCssClasses( chart ) );
+    chartBox.attr("class", getChartCssClasses( chart ) );
+
     svg.attr("width", width);
     svg.attr("height", height);
 
