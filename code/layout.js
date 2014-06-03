@@ -205,16 +205,16 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
     forEach( charts, function( chart ) {
       // treat each chart as a table layout
-      var totalAuthors =
+      var totalAuthorsInChart =
         setTableLayoutDimensionsAndCountAuthors( chart );
 
-      if ( totalAuthors > 0 ) {
+      if ( totalAuthorsInChart > 0 ) {
         chart[ CHART_HEADER ][ CHART_HEADER_SUBHEADING ] =
           // TODO: replace with totalAuthorsInChart / totalAuthors (percentageAuthors%)
-          totalAuthors + ' Authors';
+          totalAuthorsInChart + ' Authors';
         chartsAndTotalAuthors.push({
           chart: chart,
-          totalAuthors: totalAuthors
+          totalAuthors: totalAuthorsInChart
         });
       }
     });
