@@ -46,9 +46,21 @@ within("projetmedea.fr", function(publish, subscribe, get){
       var
         tileTop = tile[TILE_TOP],
         tileLeft = tile[TILE_LEFT],
+
+        boundingBox = g.append("rect"),
+        boundingBoxTop = tileTop * TILE_HEIGHT,
+        boundingBoxLeft = tileLeft * TILE_WIDTH,
+
         circle = g.append("circle"),
         centerTop = ( tileTop + 0.5 ) * TILE_HEIGHT,
         centerLeft = ( tileLeft + 0.5 ) * TILE_WIDTH;
+
+      boundingBox.attr("x", boundingBoxLeft);
+      boundingBox.attr("y", boundingBoxTop);
+      boundingBox.attr("width", TILE_WIDTH);
+      boundingBox.attr("height", TILE_HEIGHT);
+      boundingBox.attr("stroke", "transparent");
+      boundingBox.attr("fill", "transparent");
 
       circle.attr("r", CIRCLE_RADIUS);
       circle.attr("cx", centerLeft);
