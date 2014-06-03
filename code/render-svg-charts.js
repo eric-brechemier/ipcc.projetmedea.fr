@@ -21,6 +21,11 @@ within("projetmedea.fr", function(publish, subscribe, get){
     CHART_HEADING_LINE_HEIGHT = 20,
     CHART_SUBHEADING_LINE_HEIGHT = 20,
 
+    // offset of the top position of a tile, in tiles, in a tile record
+    TILE_TOP = 0,
+    // offset of the left position of a tile, in tiles, in a tile record
+    TILE_LEFT = 1,
+
     // size of a tile in pixels
     TILE_WIDTH = 6,
     TILE_HEIGHT = 6,
@@ -39,9 +44,11 @@ within("projetmedea.fr", function(publish, subscribe, get){
     g.append("title").text(shape.name);
     forEach(shape.tiles, function(tile){
       var
+        tileTop = tile[TILE_TOP],
+        tileLeft = tile[TILE_LEFT],
         circle = g.append("circle"),
-        centerTop = ( tile[0] + 0.5 ) * TILE_HEIGHT,
-        centerLeft = ( tile[1] + 0.5 ) * TILE_WIDTH;
+        centerTop = ( tileTop + 0.5 ) * TILE_HEIGHT,
+        centerLeft = ( tileLeft + 0.5 ) * TILE_WIDTH;
       circle.attr("r", CIRCLE_RADIUS);
       circle.attr("cx", centerLeft);
       circle.attr("cy", centerTop);
