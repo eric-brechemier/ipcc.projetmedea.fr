@@ -2,12 +2,11 @@ within("projetmedea.fr", function() {
   var
     or = this.or;
 
-  function getSingleGroupLayout(groupName, heading, subheading) {
+  function getSingleGroupLayout(groupName, heading) {
     heading = or(heading, groupName);
-    subheading = or(subheading, "");
 
     return [
-      ["chart","width",heading,subheading],
+      ["chart","width",heading,"subheading"],
       ["height",
         {
           name: groupName,

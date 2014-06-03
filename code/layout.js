@@ -5,6 +5,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     forEach = this.forEach,
     map = this.map,
     max = this.max,
+    percentage = this.percentage,
     warn = this.warn,
 
     FILTERED_CATEGORY_NAME = 0,
@@ -12,6 +13,13 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
     TILE_CIRCLE_WIDTH = 0,
 
+    // offset of the header row in the chart structure
+    CHART_HEADER = 0,
+
+    // offset of the subheading in the chart header row record
+    CHART_HEADER_SUBHEADING = 3,
+
+    // offset of the header for the row height in each chart row record
     ROW_HEADER = 0,
 
     GUTTER_WIDTH = 1,
@@ -141,7 +149,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
       totalAuthors = 0;
 
     forEach(tableLayout, function(row, rowPosition){
-      if ( rowPosition === 0 ){
+      if ( rowPosition === CHART_HEADER ){
         columnHeaders = row;
         return;
       }
@@ -183,6 +191,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     var
       category = get("group-by"),
       layout = get("layout/"+category)(),
+      totalAuthors = get("total-authors"),
       charts,
       chartsAndTotalAuthors = [],
       sortedCharts;
@@ -198,13 +207,16 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
     forEach( charts, function( chart ) {
       // treat each chart as a table layout
-      var totalAuthors =
+      var totalAuthorsInChart =
         setTableLayoutDimensionsAndCountAuthors( chart );
 
-      if ( totalAuthors > 0 ) {
+      if ( totalAuthorsInChart > 0 ) {
+        chart[ CHART_HEADER ][ CHART_HEADER_SUBHEADING ] =
+          totalAuthorsInChart + ' / ' + totalAuthors +
+          ' (' + percentage( totalAuthorsInChart, totalAuthors ) + '%)';
         chartsAndTotalAuthors.push({
           chart: chart,
-          totalAuthors: totalAuthors
+          totalAuthors: totalAuthorsInChart
         });
       }
     });
