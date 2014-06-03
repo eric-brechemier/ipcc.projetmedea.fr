@@ -114,7 +114,6 @@ within("projetmedea.fr", function(publish, subscribe){
     background.attr("height", height);
     background.attr("fill", CHART_BACKGROUND_COLOR);
 
-    // TODO: keep the chart centered in the larger width
     forEach(chart.shapes, function(shape){
       drawShape(chartGroup, shape);
     });
