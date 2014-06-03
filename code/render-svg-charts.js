@@ -21,6 +21,11 @@ within("projetmedea.fr", function(publish, subscribe, get){
     CHART_HEADING_LINE_HEIGHT = 20,
     CHART_SUBHEADING_LINE_HEIGHT = 20,
 
+    // offset of the top position of a tile, in tiles, in a tile record
+    TILE_TOP = 0,
+    // offset of the left position of a tile, in tiles, in a tile record
+    TILE_LEFT = 1,
+
     // size of a tile in pixels
     TILE_WIDTH = 6,
     TILE_HEIGHT = 6,
@@ -39,9 +44,24 @@ within("projetmedea.fr", function(publish, subscribe, get){
     g.append("title").text(shape.name);
     forEach(shape.tiles, function(tile){
       var
+        tileTop = tile[TILE_TOP],
+        tileLeft = tile[TILE_LEFT],
+
+        boundingBox = g.append("rect"),
+        boundingBoxTop = tileTop * TILE_HEIGHT,
+        boundingBoxLeft = tileLeft * TILE_WIDTH,
+
         circle = g.append("circle"),
-        centerTop = ( tile[0] + 0.5 ) * TILE_HEIGHT,
-        centerLeft = ( tile[1] + 0.5 ) * TILE_WIDTH;
+        centerTop = ( tileTop + 0.5 ) * TILE_HEIGHT,
+        centerLeft = ( tileLeft + 0.5 ) * TILE_WIDTH;
+
+      boundingBox.attr("x", boundingBoxLeft);
+      boundingBox.attr("y", boundingBoxTop);
+      boundingBox.attr("width", TILE_WIDTH);
+      boundingBox.attr("height", TILE_HEIGHT);
+      boundingBox.attr("stroke", "transparent");
+      boundingBox.attr("fill", "transparent");
+
       circle.attr("r", CIRCLE_RADIUS);
       circle.attr("cx", centerLeft);
       circle.attr("cy", centerTop);
@@ -50,13 +70,15 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
   function getChartCssClasses() {
     var groupName = get( 'group-by' );
-    // replace '-categories' suffix with '-chart'
-    return groupName.replace( /-categories$/, '-chart' );
+    return "chart-box " +
+      // replace '-categories' suffix with '-chart'
+      groupName.replace( /-categories$/, '-chart' );
   }
 
   function renderChart(chart){
     var
-      svg = d3.select(chartsBox).append("svg"),
+      chartBox = d3.select(chartsBox).append("div"),
+      svg = chartBox.append("svg"),
       background = svg.append("rect"),
       chartGroup = svg.append("g"),
       heading = svg.append("text"),
@@ -113,7 +135,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
     subheadingBaselineY = headingBaselineY + CHART_SUBHEADING_LINE_HEIGHT;
     subheading.attr("y", subheadingBaselineY);
 
-    svg.attr("class", getChartCssClasses( chart ) );
+    chartBox.attr("class", getChartCssClasses( chart ) );
+
     svg.attr("width", width);
     svg.attr("height", height);
 

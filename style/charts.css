@@ -3,6 +3,10 @@ svg {
   margin-bottom: 2em;
 }
 
+.chart-box {
+  display: inline-block;
+}
+
 /* Display only one chart per line for the following types of charts */
 .country-group-chart,
 .cumulated-working-group-in-assessment-report-chart,
@@ -11,4 +15,6 @@ svg {
 .cumulated-role-in-country-group-chart,
 .cumulated-working-group-in-institution-type-chart {
   display: block;
+  margin-top: 7em;
+  min-height: 500px;
 }
