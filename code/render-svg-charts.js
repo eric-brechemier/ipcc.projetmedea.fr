@@ -49,6 +49,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
         circle = g.append("circle"),
         centerTop = ( tileTop + 0.5 ) * TILE_HEIGHT,
         centerLeft = ( tileLeft + 0.5 ) * TILE_WIDTH;
+
       circle.attr("r", CIRCLE_RADIUS);
       circle.attr("cx", centerLeft);
       circle.attr("cy", centerTop);
