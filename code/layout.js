@@ -22,8 +22,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
     // offset of the header for the row height in each chart row record
     ROW_HEADER = 0,
 
-    GUTTER_WIDTH = 1,
-    GUTTER_HEIGHT = 1;
+    GUTTER_WIDTH = this.GUTTER_WIDTH,
+    GUTTER_HEIGHT = this.GUTTER_HEIGHT;
 
   function getTotalAuthorsSelectedInGroup(groupName){
     var
