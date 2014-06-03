@@ -12,6 +12,13 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
     TILE_CIRCLE_WIDTH = 0,
 
+    // offset of the header row in the chart structure
+    CHART_HEADER = 0,
+
+    // offset of the subheading in the chart header row record
+    CHART_HEADER_SUBHEADING = 3,
+
+    // offset of the header for the row height in each chart row record
     ROW_HEADER = 0,
 
     GUTTER_WIDTH = 1,
@@ -141,7 +148,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
       totalAuthors = 0;
 
     forEach(tableLayout, function(row, rowPosition){
-      if ( rowPosition === 0 ){
+      if ( rowPosition === CHART_HEADER ){
         columnHeaders = row;
         return;
       }
@@ -202,6 +209,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
         setTableLayoutDimensionsAndCountAuthors( chart );
 
       if ( totalAuthors > 0 ) {
+        chart[ CHART_HEADER ][ CHART_HEADER_SUBHEADING ] =
+          // TODO: replace with totalAuthorsInChart / totalAuthors (percentageAuthors%)
+          totalAuthors + ' Authors';
         chartsAndTotalAuthors.push({
           chart: chart,
           totalAuthors: totalAuthors
