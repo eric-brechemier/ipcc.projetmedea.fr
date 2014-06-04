@@ -71,7 +71,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
       boundingBox.attr("fill", "transparent");
       boundingBox.attr("class", getTileBoxCssClasses( shape ) );
 
-      boundingBox.append("title").text(shape.name);
+      tile.append("title").text(shape.name);
 
       circle.attr("r", CIRCLE_RADIUS);
       circle.attr("cx", centerLeft);
