@@ -24,19 +24,6 @@
   </head>
   <body>
     <div class="main-display-area">
-      <div class="display-selection">
-        <button
-          id="show-visualization-hide-data"
-          type="button"
-          class="selected-text"
-          disabled="disabled"
-        >Visualization</button>
-        <br />
-        <button
-          id="show-data-hide-visualization"
-          type="button"
-        >Raw Data</button>
-      </div>
       <div id="visualization-block">
         <div id="svg-charts"></div>
         <script src="code/d3.js"></script>
@@ -54,6 +41,19 @@
         <script src="code/list-selected-authors.js"></script-->
 
         <script src="data/authors.js"></script>
+      </div>
+      <div class="display-selection">
+        <button
+          id="show-visualization-hide-data"
+          type="button"
+          class="selected-text"
+          disabled="disabled"
+        >Visualization</button>
+        <br />
+        <button
+          id="show-data-hide-visualization"
+          type="button"
+        >Raw Data</button>
       </div>
       <script src="code/display-visualization-or-data.js"></script>
     </div>
