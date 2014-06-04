@@ -33,18 +33,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
     // radius of the circle drawn in a tile
     CIRCLE_RADIUS = 1.5;
 
-  function getTileCssClasses() {
-    return 'tile';
-  }
-
-  function getTileBoxCssClasses() {
-    return 'tile-box';
-  }
-
-  function getTileCircleCssClasses() {
-    return 'tile-circle';
-  }
-
   function drawShape(group, shape){
     forEach(shape.tiles, function(tile){
       var
@@ -61,7 +49,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
         centerTop = ( tileTop + 0.5 ) * TILE_HEIGHT,
         centerLeft = ( tileLeft + 0.5 ) * TILE_WIDTH;
 
-      tile.attr("class", getTileCssClasses( shape ) );
+      tile.attr("class", "tile");
 
       boundingBox.attr("x", boundingBoxLeft);
       boundingBox.attr("y", boundingBoxTop);
@@ -69,7 +57,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
       boundingBox.attr("height", TILE_HEIGHT);
       boundingBox.attr("stroke", "transparent");
       boundingBox.attr("fill", "transparent");
-      boundingBox.attr("class", getTileBoxCssClasses( shape ) );
+      boundingBox.attr("class", "tile-box");
 
       tile.append("title").text(shape.name);
 
@@ -78,7 +66,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
       circle.attr("cy", centerTop);
       circle.attr("stroke", shape.color);
       circle.attr("fill", shape.color);
-      circle.attr("class", getTileCircleCssClasses( shape ) );
+      circle.attr("class", "tile-circle");
 
       if ( shape.ring ) {
         circle.attr("fill-opacity", 0);
