@@ -42,6 +42,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
         tile = group.append("g"),
 
         boundingBox = tile.append("rect"),
+        boundingBoxNode = boundingBox.node(),
         boundingBoxTop = tileTop * TILE_HEIGHT,
         boundingBoxLeft = tileLeft * TILE_WIDTH,
 
@@ -72,6 +73,13 @@ within("projetmedea.fr", function(publish, subscribe, get){
       } else {
         circle.attr("stroke-width", 0);
       }
+
+      boundingBoxNode.onmouseover = function() {
+        publish( "over-tile", shape );
+      };
+      boundingBoxNode.onmouseout = function() {
+        publish( "out-of-tile", shape );
+      };
     });
   }
 
