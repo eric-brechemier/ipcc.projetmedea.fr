@@ -1,0 +1,21 @@
+.card-layer {
+  position: absolute;
+  top: 3em;
+  right: 3em;
+}
+
+.card-box {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid #333;
+  border-radius: 6px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+.card-header {
+  border-bottom: 1px solid #333;
+}
+
+.card-header,
+.card-body {
+  padding: 1em;
+}

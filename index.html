@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="style/layout.css" />
     <link rel="stylesheet" type="text/css" href="style/forms.css" />
     <link rel="stylesheet" type="text/css" href="style/charts.css" />
+    <link rel="stylesheet" type="text/css" href="style/card.css" />
     <link rel="stylesheet" type="text/css" href="style/interactivity.css" />
     <script src="code/within.js"></script>
     <script src="code/utils.js"></script>
@@ -26,59 +27,96 @@
     <div class="main-display-area">
       <div id="visualization-block">
         <div id="svg-charts"></div>
-        <script src="code/d3.js"></script>
-        <script src="code/render-svg-charts.js"></script>
-        <script src="data/assessment-report-years.js"></script>
-        <script src="code/publish-assessment-report-names.js"></script>
-        <script src="code/publish-assessment-report-years.js"></script>
+        <div id="author-card" class="card-layer card-box">
+          <div class="card-header">
+            <h4 class="author-name">Author Name</h4>
+            <ul class="author-institutions">
+              <li>Institution 1 (Country)</li>
+              <li>Institution 2 (Country)</li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <table class="author-contributions">
+              <tbody>
+                <tr>
+                  <td>1990</td>
+                  <td>WG I</td>
+                  <td>Chapter 11</td>
+                  <td>Lead Author</td>
+                </tr>
+                <tr>
+                  <td>1990</td>
+                  <td>WG I</td>
+                  <td>Chapter 12</td>
+                  <td>Lead Author</td>
+                </tr>
+                <tr>
+                  <td colspan="4">...</td>
+                </tr>
+                <tr>
+                  <td>2014</td>
+                  <td>WG III</td>
+                  <td>Chapter 2</td>
+                  <td>Coordinating Lead Author</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-      <div id="data-block" class="hidden">
-        <pre id="selected-authors-csv-output"></pre>
-        <script src="code/print-selected-authors.js"></script>
-
-        <!--
-        <table id="data-table"></table>
-        <script src="code/list-selected-authors.js"></script-->
-
-        <script src="data/authors.js"></script>
-      </div>
-      <div class="display-selection">
-        <button
-          id="show-visualization-hide-data"
-          type="button"
-          class="selected-text"
-          disabled="disabled"
-        >Visualization</button>
-        <br />
-        <button
-          id="show-data-hide-visualization"
-          type="button"
-        >Raw Data</button>
-      </div>
-      <script src="code/display-visualization-or-data.js"></script>
+      <script src="code/d3.js"></script>
+      <script src="code/render-svg-charts.js"></script>
+      <script src="data/assessment-report-years.js"></script>
+      <script src="code/publish-assessment-report-names.js"></script>
+      <script src="code/publish-assessment-report-years.js"></script>
     </div>
-    <div class="menu-area">
-      <script src="code/underplot.js"></script>
-      <script src="code/layout.js"></script>
-      <script src="code/plot.js"></script>
+    <div id="data-block" class="hidden">
+      <pre id="selected-authors-csv-output"></pre>
+      <script src="code/print-selected-authors.js"></script>
 
-      <div id="authors-selected">
-        <span id="selected-records-count"></span>
-        /
-        <span id="total-records-count"></span>
-        Authors
-        (<span id="selected-records-percentage"></span>%)
-        <script src="code/count-total-authors.js"></script>
-        <script src="code/display-total-authors.js"></script>
-        <script src="code/count-total-authors-selected.js"></script>
-        <script src="code/display-total-authors-selected.js"></script>
-        <span id="reset-filters-block" class="hidden">
-          |
-          <a id="reset-filters" href="#reset-filters">reset</a>
-        </span>
-      </div>
+      <!--
+      <table id="data-table"></table>
+      <script src="code/list-selected-authors.js"></script-->
 
-      <h2>I wish to select authors:</h2>
+      <script src="data/authors.js"></script>
+    </div>
+    <div class="display-selection">
+      <button
+        id="show-visualization-hide-data"
+        type="button"
+        class="selected-text"
+        disabled="disabled"
+      >Visualization</button>
+      <br />
+      <button
+        id="show-data-hide-visualization"
+        type="button"
+      >Raw Data</button>
+    </div>
+    <script src="code/display-visualization-or-data.js"></script>
+  </div>
+  <div class="menu-area">
+    <script src="code/underplot.js"></script>
+    <script src="code/layout.js"></script>
+    <script src="code/plot.js"></script>
+
+    <div id="authors-selected">
+      <span id="selected-records-count"></span>
+      /
+      <span id="total-records-count"></span>
+      Authors
+      (<span id="selected-records-percentage"></span>%)
+      <script src="code/count-total-authors.js"></script>
+      <script src="code/display-total-authors.js"></script>
+      <script src="code/count-total-authors-selected.js"></script>
+      <script src="code/display-total-authors-selected.js"></script>
+      <span id="reset-filters-block" class="hidden">
+        |
+        <a id="reset-filters" href="#reset-filters">reset</a>
+      </span>
+    </div>
+
+    <h2>I wish to select authors:</h2>
       <script src="code/reset-filters.js"></script>
       <script src="code/collect-active-filters.js"></script>
       <script src="code/combine-active-filters.js"></script>
