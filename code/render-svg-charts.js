@@ -57,7 +57,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
       boundingBox.attr("height", TILE_HEIGHT);
       boundingBox.attr("stroke", "transparent");
       boundingBox.attr("fill", "transparent");
-      boundingBox.attr("class", "tile-box");
 
       tile.append("title").text(shape.name);
 
