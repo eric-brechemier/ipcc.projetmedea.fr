@@ -18,3 +18,9 @@ svg {
   margin-top: 7em;
   min-height: 500px;
 }
+
+.tile-box:hover + .tile-circle,
+.tile-circle:hover {
+  stroke-width: 12px;
+}
+

@@ -33,6 +33,14 @@ within("projetmedea.fr", function(publish, subscribe, get){
     // radius of the circle drawn in a tile
     CIRCLE_RADIUS = 1.5;
 
+  function getTileBoxCssClasses() {
+    return 'tile-box';
+  }
+
+  function getTileCircleCssClasses() {
+    return 'tile-circle';
+  }
+
   function drawShape(group, shape){
     forEach(shape.tiles, function(tile){
       var
@@ -53,18 +61,21 @@ within("projetmedea.fr", function(publish, subscribe, get){
       boundingBox.attr("height", TILE_HEIGHT);
       boundingBox.attr("stroke", "transparent");
       boundingBox.attr("fill", "transparent");
+      boundingBox.attr("class", getTileBoxCssClasses( shape ) );
 
       boundingBox.append("title").text(shape.name);
 
       circle.attr("r", CIRCLE_RADIUS);
       circle.attr("cx", centerLeft);
       circle.attr("cy", centerTop);
+      circle.attr("stroke", shape.color);
+      circle.attr("fill", shape.color);
+      circle.attr("class", getTileCircleCssClasses( shape ) );
 
       if ( shape.ring ) {
-        circle.attr("stroke", shape.color);
-        circle.attr("fill", "transparent");
+        circle.attr("fill-opacity", 0);
       } else {
-        circle.attr("fill", shape.color);
+        circle.attr("stroke-width", 0);
       }
     });
   }
