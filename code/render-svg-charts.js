@@ -33,6 +33,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
     // radius of the circle drawn in a tile
     CIRCLE_RADIUS = 1.5;
 
+  function getTileCssClasses() {
+    return 'tile';
+  }
+
   function getTileBoxCssClasses() {
     return 'tile-box';
   }
@@ -47,13 +51,17 @@ within("projetmedea.fr", function(publish, subscribe, get){
         tileTop = tile[TILE_TOP],
         tileLeft = tile[TILE_LEFT],
 
-        boundingBox = group.append("rect"),
+        tile = group.append("g"),
+
+        boundingBox = tile.append("rect"),
         boundingBoxTop = tileTop * TILE_HEIGHT,
         boundingBoxLeft = tileLeft * TILE_WIDTH,
 
-        circle = group.append("circle"),
+        circle = tile.append("circle"),
         centerTop = ( tileTop + 0.5 ) * TILE_HEIGHT,
         centerLeft = ( tileLeft + 0.5 ) * TILE_WIDTH;
+
+      tile.attr("class", getTileCssClasses( shape ) );
 
       boundingBox.attr("x", boundingBoxLeft);
       boundingBox.attr("y", boundingBoxTop);
