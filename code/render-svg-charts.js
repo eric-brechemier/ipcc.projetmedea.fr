@@ -33,8 +33,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
     // radius of the circle drawn in a tile
     CIRCLE_RADIUS = 1.5;
 
-  function drawShape(svg, shape){
-    var g = svg.append("g");
+  function drawShape(group, shape){
+    var g = group.append("g");
     if ( shape.ring ) {
       g.attr("stroke", shape.color);
       g.attr("fill", "transparent");
