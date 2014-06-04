@@ -34,24 +34,16 @@ within("projetmedea.fr", function(publish, subscribe, get){
     CIRCLE_RADIUS = 1.5;
 
   function drawShape(group, shape){
-    var g = group.append("g");
-    if ( shape.ring ) {
-      g.attr("stroke", shape.color);
-      g.attr("fill", "transparent");
-    } else {
-      g.attr("fill", shape.color);
-    }
-    g.append("title").text(shape.name);
     forEach(shape.tiles, function(tile){
       var
         tileTop = tile[TILE_TOP],
         tileLeft = tile[TILE_LEFT],
 
-        boundingBox = g.append("rect"),
+        boundingBox = group.append("rect"),
         boundingBoxTop = tileTop * TILE_HEIGHT,
         boundingBoxLeft = tileLeft * TILE_WIDTH,
 
-        circle = g.append("circle"),
+        circle = group.append("circle"),
         centerTop = ( tileTop + 0.5 ) * TILE_HEIGHT,
         centerLeft = ( tileLeft + 0.5 ) * TILE_WIDTH;
 
@@ -62,9 +54,18 @@ within("projetmedea.fr", function(publish, subscribe, get){
       boundingBox.attr("stroke", "transparent");
       boundingBox.attr("fill", "transparent");
 
+      boundingBox.append("title").text(shape.name);
+
       circle.attr("r", CIRCLE_RADIUS);
       circle.attr("cx", centerLeft);
       circle.attr("cy", centerTop);
+
+      if ( shape.ring ) {
+        circle.attr("stroke", shape.color);
+        circle.attr("fill", "transparent");
+      } else {
+        circle.attr("fill", shape.color);
+      }
     });
   }
 
