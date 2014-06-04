@@ -16,7 +16,7 @@ button:hover {
 
 button.selected-text:hover {
   cursor: default;
-  background-color: white;
+  background-color: transparent;
   color: red;
 }
 
