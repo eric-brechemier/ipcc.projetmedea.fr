@@ -40,9 +40,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
         tileLeft = tile[TILE_LEFT],
 
         tile = group.append("g"),
+        tileNode = tile.node(),
 
         boundingBox = tile.append("rect"),
-        boundingBoxNode = boundingBox.node(),
         boundingBoxTop = tileTop * TILE_HEIGHT,
         boundingBoxLeft = tileLeft * TILE_WIDTH,
 
@@ -50,16 +50,12 @@ within("projetmedea.fr", function(publish, subscribe, get){
         centerTop = ( tileTop + 0.5 ) * TILE_HEIGHT,
         centerLeft = ( tileLeft + 0.5 ) * TILE_WIDTH;
 
-      tile.attr("class", "tile");
-
       boundingBox.attr("x", boundingBoxLeft);
       boundingBox.attr("y", boundingBoxTop);
       boundingBox.attr("width", TILE_WIDTH);
       boundingBox.attr("height", TILE_HEIGHT);
       boundingBox.attr("stroke", "transparent");
       boundingBox.attr("fill", "transparent");
-
-      tile.append("title").text(shape.name);
 
       circle.attr("r", CIRCLE_RADIUS);
       circle.attr("cx", centerLeft);
@@ -74,10 +70,12 @@ within("projetmedea.fr", function(publish, subscribe, get){
         circle.attr("stroke-width", 0);
       }
 
-      boundingBoxNode.onmouseover = function() {
+      tile.attr("class", "tile");
+      tile.append("title").text(shape.name);
+      tileNode.onmouseover = function() {
         publish( "over-tile", shape );
       };
-      boundingBoxNode.onmouseout = function() {
+      tileNode.onmouseout = function() {
         publish( "out-of-tile", shape );
       };
     });
