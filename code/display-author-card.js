@@ -36,7 +36,11 @@ within("projetmedea.fr", function(publish, subscribe) {
 
   function showAuthorCard( tileNode ) {
     var
-      position = getAbsolutePosition( tileNode );
+      position = getAbsolutePosition( tileNode ),
+      authorId = tileNode.getAttribute( "data-author-id" );
+
+    // TODO: find author record (start at given offset, and look up/down)
+    // TODO: write author details in author card
 
     // TODO: define CSS3 fadeIn transition
     // addClass( authorCard, 'fade-in' );

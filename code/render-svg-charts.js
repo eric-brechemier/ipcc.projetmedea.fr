@@ -34,7 +34,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
     CIRCLE_RADIUS = 1.5;
 
   function drawShape(group, shape){
-    forEach(shape.tiles, function( tilePosition ){
+    var authors = shape.authors;
+
+    forEach(shape.tiles, function( tilePosition, offset ){
       var
         tileTop = tilePosition[TILE_TOP],
         tileLeft = tilePosition[TILE_LEFT],
@@ -71,6 +73,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
       }
 
       tile.attr("class", "tile");
+      tile.attr("data-author-id", authors[ offset ] );
       tileNode.onmouseover = function() {
         publish( "over-tile", tileNode );
       };
