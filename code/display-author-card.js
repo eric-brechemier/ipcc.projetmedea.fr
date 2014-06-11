@@ -11,25 +11,40 @@ within("projetmedea.fr", function(publish, subscribe) {
     // margin between a tile and the top of the card, in pixels
     CARD_TOP_MARGIN = 20;
 
-  function getTopPosition( node ) {
-    var boundingBox = node.getBoundingClientRect();
-    // the bounding box is relative to the viewport, not the page
-    return window.pageYOffset + boundingBox.top;
+  // Note: the width of nodes hidden with display:none is 0
+  function getWidth( node ) {
+    return node.clientWidth;
   }
 
-  function setTopPosition( node, topPosition ) {
-    node.style.top = topPosition + "px";
+  function getAbsolutePosition( node ) {
+    var boundingBox = node.getBoundingClientRect();
+    return {
+      // the bounding box is relative to the viewport, not the page
+      top: window.pageYOffset + boundingBox.top,
+      left: window.pageXOffset + boundingBox.left
+    };
+  }
+
+  function setAbsolutePosition( node, position ) {
+    var
+      style = node.style,
+      PIXELS = "px";
+
+    style.top = position.top + PIXELS;
+    style.left = position.left + PIXELS;
   }
 
   function showAuthorCard( tileNode ) {
-    setTopPosition(
-      authorCard,
-      getTopPosition( tileNode ) + CARD_TOP_MARGIN
-    );
+    var
+      position = getAbsolutePosition( tileNode );
 
     // TODO: define CSS3 fadeIn transition
     // addClass( authorCard, 'fade-in' );
     showElement( authorCard );
+
+    position.top += CARD_TOP_MARGIN;
+    position.left -= getWidth( authorCard ) / 2;
+    setAbsolutePosition( authorCard, position );
   }
 
   function hideAuthorCard() {
