@@ -3,12 +3,14 @@ within("projetmedea.fr", function(publish, subscribe, get){
     getExpectedCircleWidth = this.getExpectedCircleWidth,
     getBoxType = this.getBoxType,
     forEach = this.forEach,
+    find = this.find,
     map = this.map,
     max = this.max,
     percentage = this.percentage,
     warn = this.warn,
 
     FILTERED_CATEGORY_NAME = 0,
+    FILTERED_CATEGORY_SELECTED_AUTHORS = 1,
     FILTERED_CATEGORY_TOTAL_AUTHORS_SELECTED = 2,
 
     TILE_CIRCLE_WIDTH = 0,
@@ -25,18 +27,14 @@ within("projetmedea.fr", function(publish, subscribe, get){
     GUTTER_WIDTH = this.GUTTER_WIDTH,
     GUTTER_HEIGHT = this.GUTTER_HEIGHT;
 
-  function getTotalAuthorsSelectedInGroup(groupName){
+  function getAuthorsSelectedInGroup( groupName ){
     var
-      selectedAuthors = 0,
-      selectedCategories = get("selected-categories");
-    forEach(selectedCategories, function(selectedCategory){
-      if ( selectedCategory[FILTERED_CATEGORY_NAME] === groupName ){
-        selectedAuthors =
-          selectedCategory[FILTERED_CATEGORY_TOTAL_AUTHORS_SELECTED];
-        return true;
-      }
-    });
-    return selectedAuthors;
+      selectedCategories = get( "selected-categories" ),
+      group = find( selectedCategories, function( selectedCategory ) {
+        return selectedCategory[ FILTERED_CATEGORY_NAME ] === groupName;
+      });
+
+    return group[ FILTERED_CATEGORY_SELECTED_AUTHORS ];
   }
 
   function getCircleSequenceName(tilesCount){
@@ -54,17 +52,18 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return sequence[circle.tilesCount][TILE_CIRCLE_WIDTH];
   }
 
-  function setTotalAuthorsInCell( cell ) {
-    cell.totalAuthors = getTotalAuthorsSelectedInGroup(cell.name);
+  function setTilesCountAndAuthorsInCell( cell ) {
+    var authors = getAuthorsSelectedInGroup( cell.name );
+    cell.authors = authors;
+    cell.tilesCount = authors.length;
   }
 
   function setCellDimensions(cell){
     var
-      tilesCount = cell.totalAuthors;
+      tilesCount = cell.tilesCount;
 
     switch (cell.shape) {
       case 'circle':
-        cell.tilesCount = tilesCount;
         cell.sequenceName = getCircleSequenceName(tilesCount);
         cell.width = getActualCircleWidth(cell);
         cell.height = cell.width;
@@ -164,8 +163,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
         // Check whether a cell contains a group
         if ( typeof cell.shape === 'string' ){
-          setTotalAuthorsInCell(cell);
-          totalAuthors += cell.totalAuthors;
+          setTilesCountAndAuthorsInCell(cell);
+          totalAuthors += cell.tilesCount;
           setCellDimensions(cell);
           cellWidth = cell.width;
           cellHeight = cell.height;
