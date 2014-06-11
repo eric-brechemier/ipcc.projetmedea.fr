@@ -118,17 +118,6 @@ within("projetmedea.fr", function() {
     return bind( func.call, func );
   }
 
-  // Compute the percentage that the part represents in the whole
-  function percentage(part, whole){
-    var percents = part / whole * 100;
-    if ( percents < 1 ){
-      // round to .01%
-      return Math.round(percents * 100) / 100;
-    } else {
-      return Math.round(percents);
-    }
-  }
-
   // Log warnings to the console
   function warn(){
     console.warn.apply(console,arguments);
@@ -143,9 +132,7 @@ within("projetmedea.fr", function() {
   this.identity = identity;
   this.no = no;
   this.or = or;
-  this.percentage = percentage;
   this.bind = bind;
   this.alias = alias;
-  this.max = bind( Math.max, Math );
   this.alwaysTrue = always( true );
 });
