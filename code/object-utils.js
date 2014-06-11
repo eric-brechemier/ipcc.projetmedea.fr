@@ -46,6 +46,7 @@ within("projetmedea.fr", function() {
     }
   }
 
+  this.hasOwnProperty = hasOwnProperty;
   this.forEachProperty = forEachProperty;
   this.incrementProperty = incrementProperty;
 });
