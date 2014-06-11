@@ -71,7 +71,5 @@ within("projetmedea.fr", function(publish, subscribe, get){
     document.getElementById("filters")
   );
 
-  subscribe("authors", function(){
-    subscribe("active-and-predictive-filters-ready", applyFilters);
-  });
+  subscribe("active-and-predictive-filters-ready", applyFilters);
 });
