@@ -11,9 +11,9 @@ within("projetmedea.fr", function(publish, subscribe) {
     // margin between a tile and the top of the card, in pixels
     CARD_TOP_MARGIN = 20;
 
-  // Note: the width of nodes hidden with display:none is 0
-  function getWidth( node ) {
-    return node.clientWidth;
+  // Note: the width of elements hidden with display:none is 0
+  function getElementWidth( element ) {
+    return element.clientWidth;
   }
 
   function getAbsolutePosition( node ) {
@@ -47,7 +47,7 @@ within("projetmedea.fr", function(publish, subscribe) {
     showElement( authorCard );
 
     position.top += CARD_TOP_MARGIN;
-    position.left -= getWidth( authorCard ) / 2;
+    position.left -= getElementWidth( authorCard ) / 2;
     setAbsolutePosition( authorCard, position );
   }
 
