@@ -38,9 +38,35 @@ within("projetmedea.fr", function() {
     removeClass(element, CSS_CLASS_HIDDEN);
   }
 
+  // Note: the width of elements hidden with display:none is 0
+  function getElementWidth( element ) {
+    return element.clientWidth;
+  }
+
+  function getAbsolutePosition( node ) {
+    var boundingBox = node.getBoundingClientRect();
+    return {
+      // the bounding box is relative to the viewport, not the page
+      top: window.pageYOffset + boundingBox.top,
+      left: window.pageXOffset + boundingBox.left
+    };
+  }
+
+  function setAbsolutePosition( node, position ) {
+    var
+      style = node.style,
+      PIXELS = "px";
+
+    style.top = position.top + PIXELS;
+    style.left = position.left + PIXELS;
+  }
+
   this.PREVENT_DEFAULT = PREVENT_DEFAULT;
   this.addClass = addClass;
   this.removeClass = removeClass;
   this.hideElement = hideElement;
   this.showElement = showElement;
+  this.getElementWidth = getElementWidth;
+  this.getAbsolutePosition = getAbsolutePosition;
+  this.setAbsolutePosition = setAbsolutePosition;
 });

@@ -5,6 +5,9 @@ within("projetmedea.fr", function(publish, subscribe) {
 
     showElement = this.showElement,
     hideElement = this.hideElement,
+    getElementWidth = this.getElementWidth,
+    getAbsolutePosition = this.getAbsolutePosition,
+    setAbsolutePosition = this.setAbsolutePosition,
 
     authorCard = document.getElementById( 'author-card' ),
 
