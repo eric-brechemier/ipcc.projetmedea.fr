@@ -9,9 +9,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
     percentage = this.percentage,
     warn = this.warn,
 
-    FILTERED_CATEGORY_NAME = 0,
-    FILTERED_CATEGORY_SELECTED_AUTHORS = 1,
-    FILTERED_CATEGORY_TOTAL_AUTHORS_SELECTED = 2,
+    FILTERED_CATEGORY_NAME = this.FILTERED_CATEGORY_NAME,
+    FILTERED_CATEGORY_SELECTED_AUTHORS =
+      this.FILTERED_CATEGORY_SELECTED_AUTHORS,
 
     TILE_CIRCLE_WIDTH = 0,
 
