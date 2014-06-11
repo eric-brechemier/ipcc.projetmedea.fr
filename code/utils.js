@@ -118,134 +118,6 @@ within("projetmedea.fr", function() {
     return bind( func.call, func );
   }
 
-  // CC0 - https://raw.github.com/eric-brechemier/nadasurf/master/hasOwnProperty.js
-  var hasOwnProperty = alias( Object.prototype.hasOwnProperty );
-
-  // CC0 - https://raw.github.com/eric-brechemier/nadasurf/master/forEachProperty.js
-  /*
-    Run given function for each property of given object matching the filter,
-    skipping inherited properties
-
-    Parameters:
-      object - object, the object to iterate
-      callback - function( value, name ): boolean, the callback called for each
-                 property owned by the object (not inherited), with property
-                 value and name provided as arguments.
-
-    Notes:
-      * properties are iterated in no particular order
-      * whether properties deleted or added during the iteration are iterated
-        or not is unspecified
-  */
-  function forEachProperty( object, callback ) {
-    var
-      name,
-      value;
-
-    for ( name in object ) {
-      if ( hasOwnProperty( object, name ) ) {
-        value = object[name];
-        callback( value, name );
-      }
-    }
-  }
-
-  // Set or increment the value  an object property
-  // by given quantity (optional, defaults to 1)
-  function incrementProperty( object, property, quantity ) {
-    quantity = or( quantity, 1 );
-    if ( !hasOwnProperty( object, property ) ) {
-      object[ property ] = quantity;
-    } else {
-      object[ property ] += quantity;
-    }
-  }
-
-  // CC0 - https://raw.github.com/eric-brechemier/nada/master/forEach.js
-  /*
-    Run given function for each item in given array,
-    including items with null and undefined values
-
-    Parameters:
-      array - array, the array to iterate
-      callback - function( item, offset ), the callback called at each offset,
-                 with the item value and current offset provided as arguments.
-                 If the callback returns true, the iteration is interrupted and
-                 following items will not be processed.
-
-    Returns:
-      boolean, true when the iteration has been interrupted by a callback,
-      false otherwise
-
-    Notes:
-    * items are processed in ascending order of offset, from 0 to the initial
-    length of the array at the time of the call to forEach()
-    * in case items are deleted, updated or inserted, the current value of each
-    item at the current offset at the time of the call to the callback will be
-    provided to the callback
-  */
-  function forEach( array, callback ) {
-    var
-      isBreak = false,
-      i,
-      length = array.length;
-
-    for ( i = 0; i < length && !isBreak ; i++ ){
-      isBreak = callback( array[ i ], i ) === true;
-    }
-
-    return isBreak;
-  }
-
-  // CC0 - https://raw.github.com/eric-brechemier/nadasurf/master/map.js
-  /*
-    Apply a function to all the elements in a list
-
-    Parameters:
-      array - array, the list of items to process
-      operation - function( value, offset ), the function to apply to each item,
-                  called with the value and offset of each item. The result of
-                  the operation is stored at the same offset in result array.
-
-    Returns:
-      array, the list of results of the operation applied to each item
-      of the given array.
-  */
-  function map( array, operation ) {
-    var result = Array( array.length );
-
-    forEach( array, function( item, i ) {
-      result[ i ] = operation( item, i );
-    });
-
-    return result;
-  }
-
-  // CC0 - https://raw.github.com/eric-brechemier/nadasurf/master/reduce.js
-  /*
-    Compute a value by processing a list of items, one at a time
-
-    Parameters:
-      accumulator - any, the initial value of the computation
-      array - array, the list of items to process
-      operation - function( accumulator, value, offset ), a function called
-                  on each item in turn to compute step by step an aggregate
-                  value from the list. The accumulator is the previous result
-                  of the operation, or the value provided to reduce() initially.
-                  Both the value and offset of the current item are provided.
-
-    Returns:
-      any, the value of the accumulator after the last item has been processed,
-      or the initial value of the accumulator when the list is empty.
-  */
-  function reduce( accumulator, array, operation ) {
-    forEach( array, function( item, i ) {
-      accumulator = operation( accumulator, item, i );
-    });
-
-    return accumulator;
-  }
-
   // Compute the percentage that the part represents in the whole
   function percentage(part, whole){
     var percents = part / whole * 100;
@@ -271,12 +143,9 @@ within("projetmedea.fr", function() {
   this.identity = identity;
   this.no = no;
   this.or = or;
-  this.forEach = forEach;
-  this.forEachProperty = forEachProperty;
-  this.incrementProperty = incrementProperty;
-  this.map = map;
-  this.reduce = reduce;
   this.percentage = percentage;
+  this.bind = bind;
+  this.alias = alias;
   this.max = bind( Math.max, Math );
   this.alwaysTrue = always( true );
 });
