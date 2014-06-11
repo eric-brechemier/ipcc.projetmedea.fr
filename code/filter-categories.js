@@ -6,6 +6,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
     forEachData = this.forEachData,
     percentage = this.percentage,
 
+    isAuthorSelected,
+    categories,
+
     CATEGORY_NAME = this.CATEGORY_NAME,
     CATEGORY_AUTHORS = this.CATEGORY_AUTHORS,
     CATEGORY_TOTAL_AUTHORS = this.CATEGORY_TOTAL_AUTHORS;
@@ -43,13 +46,23 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
   function filterCategories(){
     var
-      isAuthorSelected = get("selected-author-check"),
-      categories = get("categories"),
+      newIsAuthorSelected = get("selected-author-check"),
+      newCategories = get("categories"),
       filteredCategories = [];
 
-    if ( no(isAuthorSelected) || no(categories) ){
+    if (
+      no(newIsAuthorSelected) ||
+      no(newCategories) ||
+      (
+        newIsAuthorSelected === isAuthorSelected &&
+        newCategories === categories
+      )
+    ){
       return;
     }
+
+    isAuthorSelected = get("selected-author-check");
+    categories = get("categories");
 
     filteredCategories.push( createFilteredCategoryHeaders() );
     forEachData(categories, function(category){
