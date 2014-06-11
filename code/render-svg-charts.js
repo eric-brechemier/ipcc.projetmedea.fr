@@ -34,10 +34,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
     CIRCLE_RADIUS = 1.5;
 
   function drawShape(group, shape){
-    forEach(shape.tiles, function(tile){
+    forEach(shape.tiles, function( tilePosition ){
       var
-        tileTop = tile[TILE_TOP],
-        tileLeft = tile[TILE_LEFT],
+        tileTop = tilePosition[TILE_TOP],
+        tileLeft = tilePosition[TILE_LEFT],
 
         tile = group.append("g"),
         tileNode = tile.node(),
