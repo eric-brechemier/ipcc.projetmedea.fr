@@ -41,6 +41,20 @@ within("projetmedea.fr", function() {
     return isBreak;
   }
 
+  // nadasurf/find.js (CC0)
+  function find( array, criterion ) {
+    var result = null;
+
+    forEach( array, function( item ) {
+      if ( criterion( item ) ) {
+        result = item;
+        return true;
+      }
+    });
+
+    return result;
+  }
+
   // CC0 - https://raw.github.com/eric-brechemier/nadasurf/master/map.js
   /*
     Apply a function to all the elements in a list
@@ -92,6 +106,7 @@ within("projetmedea.fr", function() {
 
   this.copy = copy;
   this.forEach = forEach;
+  this.find = find;
   this.map = map;
   this.reduce = reduce;
 });
