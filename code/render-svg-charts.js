@@ -73,10 +73,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
       tile.attr("class", "tile");
       tile.append("title").text(shape.name);
       tileNode.onmouseover = function() {
-        publish( "over-tile", shape );
+        publish( "over-tile", tileNode );
       };
       tileNode.onmouseout = function() {
-        publish( "out-of-tile", shape );
+        publish( "out-of-tile", tileNode );
       };
     });
   }
