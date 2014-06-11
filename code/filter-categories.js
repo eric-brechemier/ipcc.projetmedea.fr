@@ -1,13 +1,10 @@
 within("projetmedea.fr", function(publish, subscribe, get){
 
   var
-    no = this.no,
     forEach = this.forEach,
     forEachData = this.forEachData,
     percentage = this.percentage,
-
-    isAuthorSelected,
-    categories,
+    joinEvents = this.joinEvents,
 
     CATEGORY_NAME = this.CATEGORY_NAME,
     CATEGORY_AUTHORS = this.CATEGORY_AUTHORS,
@@ -46,23 +43,9 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
   function filterCategories(){
     var
-      newIsAuthorSelected = get("selected-author-check"),
-      newCategories = get("categories"),
+      isAuthorSelected = get("selected-author-check"),
+      categories = get("categories"),
       filteredCategories = [];
-
-    if (
-      no(newIsAuthorSelected) ||
-      no(newCategories) ||
-      (
-        newIsAuthorSelected === isAuthorSelected &&
-        newCategories === categories
-      )
-    ){
-      return;
-    }
-
-    isAuthorSelected = get("selected-author-check");
-    categories = get("categories");
 
     filteredCategories.push( createFilteredCategoryHeaders() );
     forEachData(categories, function(category){
@@ -78,6 +61,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
     publish("selected-categories", filteredCategories);
   }
 
-  subscribe("categories", filterCategories);
-  subscribe("selected-author-check", filterCategories);
+  joinEvents([ "categories", "selected-author-check" ]);
+  subscribe("categories+selected-author-check", filterCategories);
 });
