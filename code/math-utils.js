@@ -14,5 +14,6 @@ within("projetmedea.fr", function() {
   }
 
   this.percentage = percentage;
+  this.min = bind( Math.min, Math );
   this.max = bind( Math.max, Math );
 });
