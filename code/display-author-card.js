@@ -1,4 +1,4 @@
-within("projetmedea.fr", function(publish, subscribe) {
+within("projetmedea.fr", function(publish, subscribe, get) {
   var
     // addClass = this.addClass,
     // removeClass = this.removeClass,
@@ -8,41 +8,58 @@ within("projetmedea.fr", function(publish, subscribe) {
     getElementWidth = this.getElementWidth,
     getAbsolutePosition = this.getAbsolutePosition,
     setAbsolutePosition = this.setAbsolutePosition,
+    min = this.min,
+    warn = this.warn,
 
     authorCard = document.getElementById( 'author-card' ),
+
+    AUTHOR_ID = this.AUTHOR_ID,
 
     // margin between a tile and the top of the card, in pixels
     CARD_TOP_MARGIN = 20;
 
-  // Note: the width of elements hidden with display:none is 0
-  function getElementWidth( element ) {
-    return element.clientWidth;
-  }
-
-  function getAbsolutePosition( node ) {
-    var boundingBox = node.getBoundingClientRect();
-    return {
-      // the bounding box is relative to the viewport, not the page
-      top: window.pageYOffset + boundingBox.top,
-      left: window.pageXOffset + boundingBox.left
-    };
-  }
-
-  function setAbsolutePosition( node, position ) {
+  function findAuthor( authorId ) {
     var
-      style = node.style,
-      PIXELS = "px";
+      authors = get( 'authors' ),
+      // start at the offset given by the id, but not past last author
+      last = authors.length - 1,
+      offset = min( Number( authorId ), last ),
+      currentAuthor = authors[ offset ],
+      currentAuthorId = currentAuthor[ AUTHOR_ID ],
+      increment,
+      last;
 
-    style.top = position.top + PIXELS;
-    style.left = position.left + PIXELS;
+    if ( currentAuthorId === authorId ) {
+      // shortcut
+      return currentAuthor;
+    }
+
+    // move up or down in the list of authors, which is sorted
+    if ( currentAuthorId > authorId ) {
+      // past expected author, look back
+      increment = -1;
+      limit = 0;
+    } else {
+      // before expected author, look forward
+      increment = 1;
+      limit = last;
+    }
+
+    while( currentAuthorId !== authorId && offset !== limit ) {
+      offset += increment;
+      currentAuthor = authors[ offset ];
+      currentAuthorId = currentAuthor[ AUTHOR_ID ];
+    }
+
+    return currentAuthor;
   }
 
   function showAuthorCard( tileNode ) {
     var
       position = getAbsolutePosition( tileNode ),
-      authorId = tileNode.getAttribute( "data-author-id" );
+      authorId = tileNode.getAttribute( "data-author-id" ),
+      author = findAuthor( authorId );
 
-    // TODO: find author record (start at given offset, and look up/down)
     // TODO: write author details in author card
 
     // TODO: define CSS3 fadeIn transition
