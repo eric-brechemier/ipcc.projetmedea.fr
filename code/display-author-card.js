@@ -12,8 +12,16 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     warn = this.warn,
 
     authorCard = document.getElementById( 'author-card' ),
+    authorName = document.getElementById( 'author-card-name' ),
+    authorInstitutions =
+      document.getElementById( 'author-card-institutions' ),
+    authorContributions =
+      document.getElementById( 'author-card-contributions' ),
 
+    NBSP = this.NBSP,
     AUTHOR_ID = this.AUTHOR_ID,
+    AUTHOR_FIRST_NAME = this.AUTHOR_FIRST_NAME,
+    AUTHOR_LAST_NAME = this.AUTHOR_LAST_NAME,
 
     // margin between a tile and the top of the card, in pixels
     CARD_TOP_MARGIN = 20;
@@ -54,6 +62,11 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     return currentAuthor;
   }
 
+  function getFullName( author ) {
+    // FIXME: order of first name and last name differs depending on culture
+    return author[ AUTHOR_FIRST_NAME ] + NBSP + author[ AUTHOR_LAST_NAME ];
+  }
+
   function showAuthorCard( tileNode ) {
     var
       position = getAbsolutePosition( tileNode ),
@@ -61,6 +74,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
       author = findAuthor( authorId );
 
     // TODO: write author details in author card
+    authorName.innerHTML = getFullName( author );
 
     // TODO: define CSS3 fadeIn transition
     // addClass( authorCard, 'fade-in' );

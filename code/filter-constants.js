@@ -3,6 +3,12 @@ within("projetmedea.fr", function() {
   // offset of the column with author identifier in each author record
   this.AUTHOR_ID = 0;
 
+  // offset of first and middle name in author record
+  this.AUTHOR_FIRST_NAME = 1;
+
+  // offset of last name in author record
+  this.AUTHOR_LAST_NAME = 2;
+
   // offset of the field with the list of author contribution codes
   // in each author record
   this.AUTHOR_CONTRIBUTIONS = 3;
