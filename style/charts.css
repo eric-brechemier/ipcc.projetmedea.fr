@@ -5,6 +5,7 @@ svg {
 
 .chart-box {
   display: inline-block;
+  margin-bottom: 7em;
 }
 
 /* Display only one chart per line for the following types of charts */
