@@ -150,10 +150,8 @@ within("projetmedea.fr", function(publish, subscribe, get) {
         item =
           '<li>' +
           getInstitutionName( contributionRecord ) +
-          NBSP +
-          '(' +
+          ', ' +
           getCountryName( contributionRecord ) +
-          ')' +
           '</li>';
 
       if ( items.hasOwnProperty( item ) ) {
