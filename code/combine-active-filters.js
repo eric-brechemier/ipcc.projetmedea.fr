@@ -15,18 +15,12 @@ within("projetmedea.fr", function(publish, subscribe, get) {
   function getTotalMatchingContributions(author, filterRegExp) {
     var
       totalMatchingContributions = 0,
-      contributions = author[AUTHOR_CONTRIBUTIONS],
-
-    // index of the group captured for the contribution multiplier
-    // in an active filter regular expression
-    CAPTURED_MULTIPLIER = 1;
+      contributions = author[AUTHOR_CONTRIBUTIONS];
 
     forEach(contributions, function(contribution) {
-      var match = filterRegExp.exec(contribution);
-      if ( no(match) ) {
-        return;
+      if ( filterRegExp.test(contribution) ) {
+        totalMatchingContributions++;
       }
-      totalMatchingContributions += Number(match[CAPTURED_MULTIPLIER]);
     });
 
     return totalMatchingContributions;
@@ -35,16 +29,18 @@ within("projetmedea.fr", function(publish, subscribe, get) {
   function getActiveFilterExpression() {
     var
       activeFilterSet = get("active-filter-set"),
-      activeFilterExpression = FILTER_START;
+      activeFilterExpression = FILTER_START,
+      separator = '';
 
     forEach(CONTRIBUTION_CODE_FILTERS, function(filterName) {
       var activeFilter = activeFilterSet[filterName];
+      activeFilterExpression += separator;
       if ( no(activeFilter) ) {
         activeFilterExpression += WILDCARD_FILTER;
       } else {
         activeFilterExpression += activeFilter.value;
       }
-      activeFilterExpression += FILTER_SEPARATOR;
+      separator = FILTER_SEPARATOR;
     });
 
     activeFilterExpression += FILTER_END;

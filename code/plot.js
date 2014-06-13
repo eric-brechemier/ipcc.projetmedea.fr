@@ -9,8 +9,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
     TILE_X = 1,
     TILE_Y = 2,
 
-    GUTTER_WIDTH = 1,
-    GUTTER_HEIGHT = 1;
+    GUTTER_WIDTH = this.GUTTER_WIDTH,
+    GUTTER_HEIGHT = this.GUTTER_HEIGHT;
 
   function increaseChildLeft(parentBox, width){
     if ( no(width) ){

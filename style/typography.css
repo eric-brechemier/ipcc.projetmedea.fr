@@ -43,6 +43,29 @@ h2 {
   text-decoration: underline;
 }
 
+.author-name {
+  font-weight: bold;
+}
+
 #selected-records-count {
   font-weight: bold;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td {
+  padding: 0 1em;
+}
+
+td + td {
+  border-left: 1px solid #333;
 }
