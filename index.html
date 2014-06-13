@@ -32,47 +32,8 @@
     <div class="main-display-area">
       <div id="visualization-block">
         <div id="svg-charts"></div>
-        <div id="author-card" class="card-layer card-box hidden">
-          <div class="card-header">
-            <h4 id="author-card-name"
-              class="author-name">Author Name</h4>
-            <ul id="author-card-institutions"
-              class="author-institutions">
-              <li>Institution 1 (Country)</li>
-              <li>Institution 2 (Country)</li>
-            </ul>
-          </div>
-          <div class="card-body">
-            <table class="author-contributions">
-              <tbody id="author-card-contributions">
-                <tr>
-                  <td>1990</td>
-                  <td>WG I</td>
-                  <td>Chapter 11</td>
-                  <td>Lead Author</td>
-                </tr>
-                <tr>
-                  <td>1990</td>
-                  <td>WG I</td>
-                  <td>Chapter 12</td>
-                  <td>Lead Author</td>
-                </tr>
-                <tr>
-                  <td colspan="4">...</td>
-                </tr>
-                <tr>
-                  <td>2014</td>
-                  <td>WG III</td>
-                  <td>Chapter 2</td>
-                  <td>Coordinating Lead Author</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
         <script src="code/d3.js"></script>
         <script src="code/render-svg-charts.js"></script>
-        <script src="code/display-author-card.js"></script>
         <script src="data/assessment-report-years.js"></script>
         <script src="code/publish-assessment-report-names.js"></script>
         <script src="code/publish-assessment-report-years.js"></script>
@@ -355,5 +316,44 @@
       <script src="code/group-by-category.js"></script>
       <script src="code/filter-categories.js"></script>
     </div>
+    <div id="author-card" class="card-layer card-box hidden">
+      <div class="card-header">
+        <h4 id="author-card-name"
+          class="author-name">Author Name</h4>
+        <ul id="author-card-institutions"
+          class="author-institutions">
+          <li>Institution 1 (Country)</li>
+          <li>Institution 2 (Country)</li>
+        </ul>
+      </div>
+      <div class="card-body">
+        <table class="author-contributions">
+          <tbody id="author-card-contributions">
+            <tr>
+              <td>1990</td>
+              <td>WG I</td>
+              <td>Chapter 11</td>
+              <td>Lead Author</td>
+            </tr>
+            <tr>
+              <td>1990</td>
+              <td>WG I</td>
+              <td>Chapter 12</td>
+              <td>Lead Author</td>
+            </tr>
+            <tr>
+              <td colspan="4">...</td>
+            </tr>
+            <tr>
+              <td>2014</td>
+              <td>WG III</td>
+              <td>Chapter 2</td>
+              <td>Coordinating Lead Author</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script src="code/display-author-card.js"></script>
   </body>
 </html>
