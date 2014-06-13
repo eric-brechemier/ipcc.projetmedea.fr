@@ -49,7 +49,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
       currentAuthor = authors[ offset ],
       currentAuthorId = currentAuthor[ AUTHOR_ID ],
       increment,
-      last;
+      limit;
 
     if ( currentAuthorId === authorId ) {
       // shortcut
