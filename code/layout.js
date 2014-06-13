@@ -7,6 +7,7 @@ within("projetmedea.fr", function(publish, subscribe, get){
     map = this.map,
     max = this.max,
     percentage = this.percentage,
+    no = this.no,
     warn = this.warn,
 
     FILTERED_CATEGORY_NAME = this.FILTERED_CATEGORY_NAME,
@@ -33,6 +34,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
       group = find( selectedCategories, function( selectedCategory ) {
         return selectedCategory[ FILTERED_CATEGORY_NAME ] === groupName;
       });
+
+    if ( no( group ) ) {
+      return [];
+    }
 
     return group[ FILTERED_CATEGORY_SELECTED_AUTHORS ];
   }
