@@ -12,6 +12,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     reduce = this.reduce,
     min = this.min,
     warn = this.warn,
+    no = this.no,
 
     authorCard = document.getElementById( 'author-card' ),
     groupName = document.getElementById( 'author-card-group-name' ),
@@ -58,7 +59,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     }
 
     // move up or down in the list of authors, which is sorted
-    if ( currentAuthorId > authorId ) {
+    if ( Number(currentAuthorId) > Number(authorId) ) {
       // past expected author, look back
       increment = -1;
       limit = 0;
@@ -72,6 +73,11 @@ within("projetmedea.fr", function(publish, subscribe, get) {
       offset += increment;
       currentAuthor = authors[ offset ];
       currentAuthorId = currentAuthor[ AUTHOR_ID ];
+    }
+
+    if ( currentAuthorId !== authorId ) {
+      warn( "Author with id '" + authorId + "' not found" );
+      return null;
     }
 
     return currentAuthor;
@@ -186,6 +192,10 @@ within("projetmedea.fr", function(publish, subscribe, get) {
       position = getAbsolutePosition( tileNode ),
       authorId = tileNode.getAttribute( "data-author-id" ),
       author = findAuthor( authorId );
+
+    if ( no( author ) ) {
+      return;
+    }
 
     groupName.innerHTML =
       NBSP + tileNode.getAttribute( "data-group-name" );
