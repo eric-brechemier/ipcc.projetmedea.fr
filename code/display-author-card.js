@@ -14,6 +14,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     warn = this.warn,
 
     authorCard = document.getElementById( 'author-card' ),
+    groupName = document.getElementById( 'author-card-group-name' ),
     authorName = document.getElementById( 'author-card-name' ),
     authorInstitutions =
       document.getElementById( 'author-card-institutions' ),
@@ -183,7 +184,10 @@ within("projetmedea.fr", function(publish, subscribe, get) {
       authorId = tileNode.getAttribute( "data-author-id" ),
       author = findAuthor( authorId );
 
-    // TODO: write author details in author card
+    groupName.innerHTML =
+      NBSP + tileNode.getAttribute( "data-group-name" );
+    groupName.style.backgroundColor =
+      tileNode.getAttribute( "data-group-color" );
     authorName.innerHTML = getFullName( author );
     authorInstitutions.innerHTML = getInstitutions( author );
     authorContributions.innerHTML = getContributions( author );

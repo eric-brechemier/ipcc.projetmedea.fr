@@ -34,7 +34,10 @@ within("projetmedea.fr", function(publish, subscribe, get){
     CIRCLE_RADIUS = 1.5;
 
   function drawShape(group, shape){
-    var authors = shape.authors;
+    var
+      authors = shape.authors,
+      groupName = shape.name,
+      groupColor = shape.color;
 
     forEach(shape.tiles, function( tilePosition, offset ){
       var
@@ -62,8 +65,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
       circle.attr("r", CIRCLE_RADIUS);
       circle.attr("cx", centerLeft);
       circle.attr("cy", centerTop);
-      circle.attr("stroke", shape.color);
-      circle.attr("fill", shape.color);
+      circle.attr("stroke", groupColor);
+      circle.attr("fill", groupColor);
       circle.attr("class", "tile-circle");
 
       if ( shape.ring ) {
@@ -73,6 +76,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
       }
 
       tile.attr("class", "tile");
+      tile.attr("data-group-name", groupName);
+      tile.attr("data-group-color", groupColor);
       tile.attr("data-author-id", authors[ offset ] );
       tileNode.onmouseover = function() {
         publish( "over-tile", tileNode );

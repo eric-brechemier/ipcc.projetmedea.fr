@@ -11,8 +11,12 @@
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
 }
 
-.card-header {
+.card-title, .card-header {
   border-bottom: 1px solid #333;
+}
+
+.card-title {
+  color: white;
 }
 
 .card-header,
