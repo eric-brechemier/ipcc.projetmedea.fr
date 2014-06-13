@@ -40,6 +40,24 @@ within("projetmedea.fr", function() {
   // offset of the total number of authors selected in a filtered category record
   this.FILTERED_CATEGORY_TOTAL_AUTHORS_SELECTED = 2;
 
+  // offset of the assessment report id in a contribution record
+  this.CONTRIBUTION_ASSESSMENT_REPORT = 0;
+
+  // offset of the working group in a contribution record
+  this.CONTRIBUTION_WORKING_GROUP = 1;
+
+  // offset of the role id in a contribution record
+  this.CONTRIBUTION_ROLE = 2;
+
+  // offset of the country id in a contribution record
+  this.CONTRIBUTION_COUNTRY = 3;
+
+  // offset of the institution type id in a contribution record
+  this.CONTRIBUTION_INSTITUTION_TYPE = 4;
+
+  // offset of the institution id in a contribution record
+  this.CONTRIBUTION_INSTITUTION = 5;
+
   // sequence of the names of filters
   // that make up the contribution code
   this.CONTRIBUTION_CODE_FILTERS = [
@@ -62,6 +80,9 @@ within("projetmedea.fr", function() {
   // a wildcard filter which captures the value;
   // used in a relaxed filter expression to capture the filter value
   this.CAPTURE_WILDCARD_FILTER = "(" + this.WILDCARD_FILTER + ")";
+
+  // character used as separator in the contribution string
+  this.CONTRIBUTION_SEPARATOR = '.';
 
   // character used as separator between filters in the filter expression
   this.FILTER_SEPARATOR = "\\.";
