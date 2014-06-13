@@ -31,27 +31,21 @@ within("projetmedea.fr", function(publish, subscribe, get) {
 
       // index of the group captured for the filter value
       // in a relaxed filter regular expression
-      CAPTURED_FILTER_VALUE = 1,
-
-      // index of the group captured for the contribution multiplier
-      // in a relaxed filter regular expression
-      CAPTURED_MULTIPLIER = 2;
+      CAPTURED_FILTER_VALUE = 1;
 
     forEach(contributions, function(contribution) {
       var
         match = relaxedFilterRegExp.exec(contribution),
-        value,
-        count;
+        value;
 
       if ( no(match) ) {
         return;
       }
 
       value = Number( match[CAPTURED_FILTER_VALUE] );
-      multiplier = Number( match[CAPTURED_MULTIPLIER] );
 
-      incrementProperty( filterValuesSet, value, multiplier );
-      incrementProperty( filterValuesSet, ANY_VALUE, multiplier );
+      incrementProperty( filterValuesSet, value );
+      incrementProperty( filterValuesSet, ANY_VALUE );
     });
 
     forEachProperty(filterValuesSet, function(multiplier, filterValue) {
@@ -68,10 +62,12 @@ within("projetmedea.fr", function(publish, subscribe, get) {
   function getRelaxedFilterExpression(relaxedFilterName) {
     var
       activeFilterSet = get("active-filter-set"),
-      filterExpression = FILTER_START;
+      filterExpression = FILTER_START,
+      separator = '';
 
     forEach(CONTRIBUTION_CODE_FILTERS, function(filterName) {
       var activeFilter;
+      filterExpression += separator;
       if ( filterName === relaxedFilterName ) {
         filterExpression += CAPTURE_WILDCARD_FILTER;
       } else {
@@ -82,7 +78,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
           filterExpression += activeFilter.value;
         }
       }
-      filterExpression += FILTER_SEPARATOR;
+      separator = FILTER_SEPARATOR;
     });
 
     filterExpression += FILTER_END;

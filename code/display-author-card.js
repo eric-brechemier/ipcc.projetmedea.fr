@@ -30,6 +30,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
     CONTRIBUTION_SEPARATOR = this.CONTRIBUTION_SEPARATOR,
     CONTRIBUTION_ASSESSMENT_REPORT = this.CONTRIBUTION_ASSESSMENT_REPORT,
     CONTRIBUTION_WORKING_GROUP = this.CONTRIBUTION_WORKING_GROUP,
+    CONTRIBUTION_CHAPTER = this.CONTRIBUTION_CHAPTER,
     CONTRIBUTION_ROLE = this.CONTRIBUTION_ROLE,
     CONTRIBUTION_COUNTRY = this.CONTRIBUTION_COUNTRY,
     CONTRIBUTION_INSTITUTION = this.CONTRIBUTION_INSTITUTION,
@@ -125,7 +126,11 @@ within("projetmedea.fr", function(publish, subscribe, get) {
   }
 
   function getChapter( contributionRecord ) {
-    return 'CH';
+    var chapter = contributionRecord[ CONTRIBUTION_CHAPTER ];
+    if ( /^[0-9]+$/.test( chapter ) ) {
+      return 'CH' + chapter;
+    }
+    return chapter;
   }
 
   function getRole( contributionRecord ) {
@@ -171,7 +176,7 @@ within("projetmedea.fr", function(publish, subscribe, get) {
         '<tr>' +
           '<td>' + getYear( contributionRecord ) + '</td>' +
           '<td>' + getWorkingGroup( contributionRecord ) + '</td>' +
-          //'<td>' + getChapter( contributionRecord ) + '</td>' +
+          '<td>' + getChapter( contributionRecord ) + '</td>' +
           '<td>' + getRole( contributionRecord ) + '</td>' +
         '</tr>'
       );

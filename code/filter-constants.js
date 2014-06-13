@@ -46,23 +46,27 @@ within("projetmedea.fr", function() {
   // offset of the working group in a contribution record
   this.CONTRIBUTION_WORKING_GROUP = 1;
 
+  // offset of the chapter in a contribution record
+  this.CONTRIBUTION_CHAPTER = 2;
+
   // offset of the role id in a contribution record
-  this.CONTRIBUTION_ROLE = 2;
+  this.CONTRIBUTION_ROLE = 3;
 
   // offset of the country id in a contribution record
-  this.CONTRIBUTION_COUNTRY = 3;
+  this.CONTRIBUTION_COUNTRY = 4;
 
   // offset of the institution type id in a contribution record
-  this.CONTRIBUTION_INSTITUTION_TYPE = 4;
+  this.CONTRIBUTION_INSTITUTION_TYPE = 5;
 
   // offset of the institution id in a contribution record
-  this.CONTRIBUTION_INSTITUTION = 5;
+  this.CONTRIBUTION_INSTITUTION = 6;
 
   // sequence of the names of filters
   // that make up the contribution code
   this.CONTRIBUTION_CODE_FILTERS = [
     "assessment-report-categories",
     "working-group-categories",
+    "chapter-categories",
     "role-categories",
     "country-categories",
     "institution-type-categories",
@@ -92,8 +96,6 @@ within("projetmedea.fr", function() {
   this.FILTER_START = "^";
 
   // end of the filter expression:
-  // add the 'x' character before the multiplier,
-  // then capture the remaining characters in group CAPTURED_MULTIPLIER.
-  this.FILTER_END = "x(.+)$";
+  this.FILTER_END = "$";
 
 });
