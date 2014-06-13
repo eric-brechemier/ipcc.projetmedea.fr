@@ -3,13 +3,16 @@ within("projetmedea.fr", function(publish, subscribe, get){
     getExpectedCircleWidth = this.getExpectedCircleWidth,
     getBoxType = this.getBoxType,
     forEach = this.forEach,
+    find = this.find,
     map = this.map,
     max = this.max,
     percentage = this.percentage,
+    no = this.no,
     warn = this.warn,
 
-    FILTERED_CATEGORY_NAME = 0,
-    FILTERED_CATEGORY_TOTAL_AUTHORS_SELECTED = 2,
+    FILTERED_CATEGORY_NAME = this.FILTERED_CATEGORY_NAME,
+    FILTERED_CATEGORY_SELECTED_AUTHORS =
+      this.FILTERED_CATEGORY_SELECTED_AUTHORS,
 
     TILE_CIRCLE_WIDTH = 0,
 
@@ -22,21 +25,21 @@ within("projetmedea.fr", function(publish, subscribe, get){
     // offset of the header for the row height in each chart row record
     ROW_HEADER = 0,
 
-    GUTTER_WIDTH = 1,
-    GUTTER_HEIGHT = 1;
+    GUTTER_WIDTH = this.GUTTER_WIDTH,
+    GUTTER_HEIGHT = this.GUTTER_HEIGHT;
 
-  function getTotalAuthorsSelectedInGroup(groupName){
+  function getAuthorsSelectedInGroup( groupName ){
     var
-      selectedAuthors = 0,
-      selectedCategories = get("selected-categories");
-    forEach(selectedCategories, function(selectedCategory){
-      if ( selectedCategory[FILTERED_CATEGORY_NAME] === groupName ){
-        selectedAuthors =
-          selectedCategory[FILTERED_CATEGORY_TOTAL_AUTHORS_SELECTED];
-        return true;
-      }
-    });
-    return selectedAuthors;
+      selectedCategories = get( "selected-categories" ),
+      group = find( selectedCategories, function( selectedCategory ) {
+        return selectedCategory[ FILTERED_CATEGORY_NAME ] === groupName;
+      });
+
+    if ( no( group ) ) {
+      return [];
+    }
+
+    return group[ FILTERED_CATEGORY_SELECTED_AUTHORS ];
   }
 
   function getCircleSequenceName(tilesCount){
@@ -54,17 +57,18 @@ within("projetmedea.fr", function(publish, subscribe, get){
     return sequence[circle.tilesCount][TILE_CIRCLE_WIDTH];
   }
 
-  function setTotalAuthorsInCell( cell ) {
-    cell.totalAuthors = getTotalAuthorsSelectedInGroup(cell.name);
+  function setTilesCountAndAuthorsInCell( cell ) {
+    var authors = getAuthorsSelectedInGroup( cell.name );
+    cell.authors = authors;
+    cell.tilesCount = authors.length;
   }
 
   function setCellDimensions(cell){
     var
-      tilesCount = cell.totalAuthors;
+      tilesCount = cell.tilesCount;
 
     switch (cell.shape) {
       case 'circle':
-        cell.tilesCount = tilesCount;
         cell.sequenceName = getCircleSequenceName(tilesCount);
         cell.width = getActualCircleWidth(cell);
         cell.height = cell.width;
@@ -164,8 +168,8 @@ within("projetmedea.fr", function(publish, subscribe, get){
 
         // Check whether a cell contains a group
         if ( typeof cell.shape === 'string' ){
-          setTotalAuthorsInCell(cell);
-          totalAuthors += cell.totalAuthors;
+          setTilesCountAndAuthorsInCell(cell);
+          totalAuthors += cell.tilesCount;
           setCellDimensions(cell);
           cellWidth = cell.width;
           cellHeight = cell.height;

@@ -1,10 +1,10 @@
 within("projetmedea.fr", function(publish, subscribe, get){
 
   var
-    no = this.no,
     forEach = this.forEach,
     forEachData = this.forEachData,
     percentage = this.percentage,
+    joinEvents = this.joinEvents,
 
     CATEGORY_NAME = this.CATEGORY_NAME,
     CATEGORY_AUTHORS = this.CATEGORY_AUTHORS,
@@ -47,10 +47,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
       categories = get("categories"),
       filteredCategories = [];
 
-    if ( no(isAuthorSelected) || no(categories) ){
-      return;
-    }
-
     filteredCategories.push( createFilteredCategoryHeaders() );
     forEachData(categories, function(category){
       var
@@ -65,6 +61,6 @@ within("projetmedea.fr", function(publish, subscribe, get){
     publish("selected-categories", filteredCategories);
   }
 
-  subscribe("categories", filterCategories);
-  subscribe("selected-author-check", filterCategories);
+  joinEvents([ "categories", "selected-author-check" ]);
+  subscribe("categories+selected-author-check", filterCategories);
 });

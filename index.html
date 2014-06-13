@@ -8,14 +8,21 @@
     <link rel="stylesheet" type="text/css" href="style/layout.css" />
     <link rel="stylesheet" type="text/css" href="style/forms.css" />
     <link rel="stylesheet" type="text/css" href="style/charts.css" />
+    <link rel="stylesheet" type="text/css" href="style/card.css" />
     <link rel="stylesheet" type="text/css" href="style/interactivity.css" />
     <script src="code/within.js"></script>
     <script src="code/utils.js"></script>
+    <script src="code/function-utils.js"></script>
+    <script src="code/math-utils.js"></script>
+    <script src="code/array-utils.js"></script>
+    <script src="code/object-utils.js"></script>
+    <script src="code/event-utils.js"></script>
     <script src="code/string-utils.js"></script>
     <script src="code/dom-utils.js"></script>
     <script src="code/forms-utils.js"></script>
     <script src="code/select-utils.js"></script>
     <script src="code/csv-utils.js"></script>
+    <script src="code/layout-constants.js"></script>
     <script src="code/layout-utils.js"></script>
     <script src="code/interactivity-utils.js"></script>
     <script src="code/filter-constants.js"></script>
@@ -23,19 +30,6 @@
   </head>
   <body>
     <div class="main-display-area">
-      <div class="display-selection">
-        <button
-          id="show-visualization-hide-data"
-          type="button"
-          class="selected-text"
-          disabled="disabled"
-        >Visualization</button>
-        <br />
-        <button
-          id="show-data-hide-visualization"
-          type="button"
-        >Raw Data</button>
-      </div>
       <div id="visualization-block">
         <div id="svg-charts"></div>
         <script src="code/d3.js"></script>
@@ -53,6 +47,19 @@
         <script src="code/list-selected-authors.js"></script-->
 
         <script src="data/authors.js"></script>
+      </div>
+      <div class="display-selection">
+        <button
+          id="show-visualization-hide-data"
+          type="button"
+          class="selected-text"
+          disabled="disabled"
+        >Visualization</button>
+        <br />
+        <button
+          id="show-data-hide-visualization"
+          type="button"
+        >Raw Data</button>
       </div>
       <script src="code/display-visualization-or-data.js"></script>
     </div>
@@ -168,7 +175,7 @@
           <script src="code/filter-by-country.js"></script>
           <br />
           <label>
-            in
+            for
             <span
               id="institution-type-filter-text"
               class="selected-text"
@@ -309,5 +316,49 @@
       <script src="code/group-by-category.js"></script>
       <script src="code/filter-categories.js"></script>
     </div>
+    <div id="author-card" class="card-layer card-box hidden">
+      <div class="card-title">
+        <h3 id="author-card-group-name"
+          class="group-name">
+          Group Name</h3>
+      </div>
+      <div class="card-header">
+        <h4 id="author-card-name"
+          class="author-name">Author Name</h4>
+        <ul id="author-card-institutions"
+          class="author-institutions">
+          <li>Institution 1 (Country)</li>
+          <li>Institution 2 (Country)</li>
+        </ul>
+      </div>
+      <div class="card-body">
+        <table class="author-contributions">
+          <tbody id="author-card-contributions">
+            <tr>
+              <td>1990</td>
+              <td>WG I</td>
+              <td>Chapter 11</td>
+              <td>Lead Author</td>
+            </tr>
+            <tr>
+              <td>1990</td>
+              <td>WG I</td>
+              <td>Chapter 12</td>
+              <td>Lead Author</td>
+            </tr>
+            <tr>
+              <td colspan="4">...</td>
+            </tr>
+            <tr>
+              <td>2014</td>
+              <td>WG III</td>
+              <td>Chapter 2</td>
+              <td>Coordinating Lead Author</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script src="code/display-author-card.js"></script>
   </body>
 </html>

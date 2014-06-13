@@ -33,25 +33,25 @@ within("projetmedea.fr", function(publish, subscribe, get){
     // radius of the circle drawn in a tile
     CIRCLE_RADIUS = 1.5;
 
-  function drawShape(svg, shape){
-    var g = svg.append("g");
-    if ( shape.ring ) {
-      g.attr("stroke", shape.color);
-      g.attr("fill", "transparent");
-    } else {
-      g.attr("fill", shape.color);
-    }
-    g.append("title").text(shape.name);
-    forEach(shape.tiles, function(tile){
-      var
-        tileTop = tile[TILE_TOP],
-        tileLeft = tile[TILE_LEFT],
+  function drawShape(group, shape){
+    var
+      authors = shape.authors,
+      groupName = shape.name,
+      groupColor = shape.color;
 
-        boundingBox = g.append("rect"),
+    forEach(shape.tiles, function( tilePosition, offset ){
+      var
+        tileTop = tilePosition[TILE_TOP],
+        tileLeft = tilePosition[TILE_LEFT],
+
+        tile = group.append("g"),
+        tileNode = tile.node(),
+
+        boundingBox = tile.append("rect"),
         boundingBoxTop = tileTop * TILE_HEIGHT,
         boundingBoxLeft = tileLeft * TILE_WIDTH,
 
-        circle = g.append("circle"),
+        circle = tile.append("circle"),
         centerTop = ( tileTop + 0.5 ) * TILE_HEIGHT,
         centerLeft = ( tileLeft + 0.5 ) * TILE_WIDTH;
 
@@ -65,6 +65,26 @@ within("projetmedea.fr", function(publish, subscribe, get){
       circle.attr("r", CIRCLE_RADIUS);
       circle.attr("cx", centerLeft);
       circle.attr("cy", centerTop);
+      circle.attr("stroke", groupColor);
+      circle.attr("fill", groupColor);
+      circle.attr("class", "tile-circle");
+
+      if ( shape.ring ) {
+        circle.attr("fill-opacity", 0);
+      } else {
+        circle.attr("stroke-width", 0);
+      }
+
+      tile.attr("class", "tile");
+      tile.attr("data-group-name", groupName);
+      tile.attr("data-group-color", groupColor);
+      tile.attr("data-author-id", authors[ offset ] );
+      tileNode.onmouseover = function() {
+        publish( "over-tile", tileNode );
+      };
+      tileNode.onmouseout = function() {
+        publish( "out-of-tile", tileNode );
+      };
     });
   }
 

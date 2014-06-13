@@ -1,6 +1,5 @@
 within("projetmedea.fr", function(publish, subscribe){
   var
-    count = this.countData,
     no = this.no,
     forEach = this.forEach,
     max = this.max,
@@ -195,8 +194,8 @@ within("projetmedea.fr", function(publish, subscribe){
     publish("odd-circle-sequence", oddTileSequence);
   }
 
-  subscribe("authors", function(authors){
-    prepareTileSequences( count(authors) );
+  subscribe("total-authors", function( totalAuthors ){
+    prepareTileSequences( totalAuthors );
   });
 
 });
