@@ -1,2 +1,5 @@
+# ignore MAC OSX metadata
+.DS_Store
+
 # ignore OpenOffice/LibreOffice lock file
 .~lock*
